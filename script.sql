@@ -1,6 +1,6 @@
 USE [GroupBuying]
 GO
-/****** Object:  Table [dbo].[Carts]    Script Date: 2024/12/25 下午 10:46:12 ******/
+/****** Object:  Table [dbo].[Carts]    Script Date: 2024/12/25 下午 10:59:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18,7 +18,7 @@ CREATE TABLE [dbo].[Carts](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Categories]    Script Date: 2024/12/25 下午 10:46:12 ******/
+/****** Object:  Table [dbo].[Categories]    Script Date: 2024/12/25 下午 10:59:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35,7 +35,7 @@ CREATE TABLE [dbo].[Categories](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Departments]    Script Date: 2024/12/25 下午 10:46:12 ******/
+/****** Object:  Table [dbo].[Departments]    Script Date: 2024/12/25 下午 10:59:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -53,7 +53,7 @@ CREATE TABLE [dbo].[Departments](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Employees]    Script Date: 2024/12/25 下午 10:46:12 ******/
+/****** Object:  Table [dbo].[Employees]    Script Date: 2024/12/25 下午 10:59:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -62,7 +62,7 @@ CREATE TABLE [dbo].[Employees](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[DepartmentId] [int] NOT NULL,
 	[Account] [varchar](50) NOT NULL,
-	[EncryptedPassword] [nchar](10) NOT NULL,
+	[EncryptedPassword] [varchar](256) NOT NULL,
 	[Name] [nvarchar](5) NOT NULL,
 	[CreatedAt] [datetime] NOT NULL,
 	[UpdatedAt] [datetime] NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE [dbo].[Employees](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[GroupBuyings]    Script Date: 2024/12/25 下午 10:46:12 ******/
+/****** Object:  Table [dbo].[GroupBuyings]    Script Date: 2024/12/25 下午 10:59:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -83,6 +83,7 @@ CREATE TABLE [dbo].[GroupBuyings](
 	[ProductId] [int] NOT NULL,
 	[Price] [int] NOT NULL,
 	[MinimumGroupSize] [int] NOT NULL,
+	[Description] [nvarchar](1000) NULL,
 	[StartDate] [datetime] NOT NULL,
 	[EndDate] [datetime] NOT NULL,
 	[Status] [smallint] NOT NULL,
@@ -94,7 +95,7 @@ CREATE TABLE [dbo].[GroupBuyings](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Members]    Script Date: 2024/12/25 下午 10:46:12 ******/
+/****** Object:  Table [dbo].[Members]    Script Date: 2024/12/25 下午 10:59:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -102,7 +103,7 @@ GO
 CREATE TABLE [dbo].[Members](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Account] [varchar](50) NOT NULL,
-	[EncryptedPassword] [nchar](10) NOT NULL,
+	[EncryptedPassword] [varchar](256) NOT NULL,
 	[Name] [nvarchar](5) NOT NULL,
 	[Gender] [tinyint] NULL,
 	[Email] [varchar](50) NOT NULL,
@@ -117,7 +118,7 @@ CREATE TABLE [dbo].[Members](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Orders]    Script Date: 2024/12/25 下午 10:46:12 ******/
+/****** Object:  Table [dbo].[Orders]    Script Date: 2024/12/25 下午 10:59:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -128,6 +129,8 @@ CREATE TABLE [dbo].[Orders](
 	[GroupBuyingId] [int] NOT NULL,
 	[Price] [int] NOT NULL,
 	[Quantity] [int] NOT NULL,
+	[ShippingMethod] [smallint] NOT NULL,
+	[ShippingAddress] [nvarchar](150) NOT NULL,
 	[Status] [smallint] NOT NULL,
 	[PaymentStatus] [smallint] NOT NULL,
 	[DeliveryStatus] [smallint] NOT NULL,
@@ -139,7 +142,7 @@ CREATE TABLE [dbo].[Orders](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Products]    Script Date: 2024/12/25 下午 10:46:12 ******/
+/****** Object:  Table [dbo].[Products]    Script Date: 2024/12/25 下午 10:59:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -148,16 +151,19 @@ CREATE TABLE [dbo].[Products](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ShopId] [int] NOT NULL,
 	[CategoryId] [int] NOT NULL,
+	[Name] [nvarchar](200) NOT NULL,
 	[Price] [int] NOT NULL,
 	[MainImage] [nvarchar](500) NULL,
 	[Info] [nvarchar](3000) NULL,
+	[CreatedAt] [datetime] NOT NULL,
+	[UpdatedAt] [datetime] NOT NULL,
  CONSTRAINT [PK_Products] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Shops]    Script Date: 2024/12/25 下午 10:46:12 ******/
+/****** Object:  Table [dbo].[Shops]    Script Date: 2024/12/25 下午 10:59:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -166,7 +172,7 @@ CREATE TABLE [dbo].[Shops](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Account] [varchar](50) NOT NULL,
 	[EncryptedPassword] [varchar](256) NOT NULL,
-	[Name] [nvarchar](5) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
 	[IdentityCard] [char](10) NULL,
 	[Avatar] [nvarchar](500) NULL,
 	[Address] [nvarchar](150) NULL,
@@ -179,7 +185,7 @@ CREATE TABLE [dbo].[Shops](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Wishes]    Script Date: 2024/12/25 下午 10:46:12 ******/
+/****** Object:  Table [dbo].[Wishes]    Script Date: 2024/12/25 下午 10:59:41 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
