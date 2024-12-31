@@ -1,6 +1,6 @@
 USE [GroupBuying]
 GO
-/****** Object:  Table [dbo].[Carts]    Script Date: 2024/12/30 下午 09:46:39 ******/
+/****** Object:  Table [dbo].[Carts]    Script Date: 2024/12/31 上午 11:03:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18,7 +18,7 @@ CREATE TABLE [dbo].[Carts](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Categories]    Script Date: 2024/12/30 下午 09:46:39 ******/
+/****** Object:  Table [dbo].[Categories]    Script Date: 2024/12/31 上午 11:03:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36,25 +36,24 @@ CREATE TABLE [dbo].[Categories](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Departments]    Script Date: 2024/12/30 下午 09:46:39 ******/
+/****** Object:  Table [dbo].[Employee_Role_Rel]    Script Date: 2024/12/31 上午 11:03:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Departments](
+CREATE TABLE [dbo].[Employee_Role_Rel](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](50) NOT NULL,
-	[LeaderId] [int] NULL,
-	[ParentDeptId] [int] NULL,
+	[EmployeeId] [int] NOT NULL,
+	[RoleId] [int] NOT NULL,
 	[CreatedAt] [datetime] NOT NULL,
 	[UpdatedAt] [datetime] NOT NULL,
- CONSTRAINT [PK_Departments] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Employee_Role_Rel] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Employees]    Script Date: 2024/12/30 下午 09:46:39 ******/
+/****** Object:  Table [dbo].[Employees]    Script Date: 2024/12/31 上午 11:03:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -73,7 +72,23 @@ CREATE TABLE [dbo].[Employees](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[GroupBuyings]    Script Date: 2024/12/30 下午 09:46:39 ******/
+/****** Object:  Table [dbo].[Functions]    Script Date: 2024/12/31 上午 11:03:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Functions](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[CreatedAt] [datetime] NOT NULL,
+	[UpdatedAt] [datetime] NOT NULL,
+ CONSTRAINT [PK_Functions] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[GroupBuyings]    Script Date: 2024/12/31 上午 11:03:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -95,7 +110,7 @@ CREATE TABLE [dbo].[GroupBuyings](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Members]    Script Date: 2024/12/30 下午 09:46:39 ******/
+/****** Object:  Table [dbo].[Members]    Script Date: 2024/12/31 上午 11:03:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -120,7 +135,7 @@ CREATE TABLE [dbo].[Members](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Orders]    Script Date: 2024/12/30 下午 09:46:39 ******/
+/****** Object:  Table [dbo].[Orders]    Script Date: 2024/12/31 上午 11:03:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -144,24 +159,7 @@ CREATE TABLE [dbo].[Orders](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Positions]    Script Date: 2024/12/30 下午 09:46:39 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Positions](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[DepartmentId] [int] NOT NULL,
-	[Name] [nvarchar](10) NOT NULL,
-	[CreatedAt] [datetime] NOT NULL,
-	[UpdatedAt] [datetime] NOT NULL,
- CONSTRAINT [PK_Positions] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[ProductImages]    Script Date: 2024/12/30 下午 09:46:39 ******/
+/****** Object:  Table [dbo].[ProductImages]    Script Date: 2024/12/31 上午 11:03:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -178,7 +176,7 @@ CREATE TABLE [dbo].[ProductImages](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Products]    Script Date: 2024/12/30 下午 09:46:39 ******/
+/****** Object:  Table [dbo].[Products]    Script Date: 2024/12/31 上午 11:03:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -198,7 +196,40 @@ CREATE TABLE [dbo].[Products](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Shops]    Script Date: 2024/12/30 下午 09:46:39 ******/
+/****** Object:  Table [dbo].[Role_Function_Rel]    Script Date: 2024/12/31 上午 11:03:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Role_Function_Rel](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoleId] [int] NOT NULL,
+	[FunctionId] [int] NOT NULL,
+	[CreatedAt] [datetime] NOT NULL,
+	[UpdatedAt] [datetime] NOT NULL,
+ CONSTRAINT [PK_Role_Function_Rel] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Roles]    Script Date: 2024/12/31 上午 11:03:29 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Roles](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[CreatedAt] [datetime] NOT NULL,
+	[UpdatedAt] [datetime] NOT NULL,
+ CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Shops]    Script Date: 2024/12/31 上午 11:03:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -220,7 +251,7 @@ CREATE TABLE [dbo].[Shops](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Wishes]    Script Date: 2024/12/30 下午 09:46:39 ******/
+/****** Object:  Table [dbo].[Wishes]    Script Date: 2024/12/31 上午 11:03:29 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -247,10 +278,15 @@ REFERENCES [dbo].[Members] ([Id])
 GO
 ALTER TABLE [dbo].[Carts] CHECK CONSTRAINT [FK_Carts_Members]
 GO
-ALTER TABLE [dbo].[Employees]  WITH CHECK ADD  CONSTRAINT [FK_Employees_Positions] FOREIGN KEY([Id])
-REFERENCES [dbo].[Positions] ([Id])
+ALTER TABLE [dbo].[Employee_Role_Rel]  WITH CHECK ADD  CONSTRAINT [FK_Employee_Role_Rel_Employees] FOREIGN KEY([EmployeeId])
+REFERENCES [dbo].[Employees] ([Id])
 GO
-ALTER TABLE [dbo].[Employees] CHECK CONSTRAINT [FK_Employees_Positions]
+ALTER TABLE [dbo].[Employee_Role_Rel] CHECK CONSTRAINT [FK_Employee_Role_Rel_Employees]
+GO
+ALTER TABLE [dbo].[Employee_Role_Rel]  WITH CHECK ADD  CONSTRAINT [FK_Employee_Role_Rel_Roles] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[Roles] ([Id])
+GO
+ALTER TABLE [dbo].[Employee_Role_Rel] CHECK CONSTRAINT [FK_Employee_Role_Rel_Roles]
 GO
 ALTER TABLE [dbo].[GroupBuyings]  WITH CHECK ADD  CONSTRAINT [FK_GroupBuyings_Products] FOREIGN KEY([ProductId])
 REFERENCES [dbo].[Products] ([Id])
@@ -267,11 +303,6 @@ REFERENCES [dbo].[Members] ([Id])
 GO
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_Members]
 GO
-ALTER TABLE [dbo].[Positions]  WITH CHECK ADD  CONSTRAINT [FK_Positions_Departments] FOREIGN KEY([DepartmentId])
-REFERENCES [dbo].[Departments] ([Id])
-GO
-ALTER TABLE [dbo].[Positions] CHECK CONSTRAINT [FK_Positions_Departments]
-GO
 ALTER TABLE [dbo].[ProductImages]  WITH CHECK ADD  CONSTRAINT [FK_ProductImages_Products] FOREIGN KEY([ProductId])
 REFERENCES [dbo].[Products] ([Id])
 GO
@@ -286,6 +317,16 @@ ALTER TABLE [dbo].[Products]  WITH CHECK ADD  CONSTRAINT [FK_Products_Shops] FOR
 REFERENCES [dbo].[Shops] ([Id])
 GO
 ALTER TABLE [dbo].[Products] CHECK CONSTRAINT [FK_Products_Shops]
+GO
+ALTER TABLE [dbo].[Role_Function_Rel]  WITH CHECK ADD  CONSTRAINT [FK_Role_Function_Rel_Functions] FOREIGN KEY([FunctionId])
+REFERENCES [dbo].[Functions] ([Id])
+GO
+ALTER TABLE [dbo].[Role_Function_Rel] CHECK CONSTRAINT [FK_Role_Function_Rel_Functions]
+GO
+ALTER TABLE [dbo].[Role_Function_Rel]  WITH CHECK ADD  CONSTRAINT [FK_Role_Function_Rel_Roles] FOREIGN KEY([Id])
+REFERENCES [dbo].[Roles] ([Id])
+GO
+ALTER TABLE [dbo].[Role_Function_Rel] CHECK CONSTRAINT [FK_Role_Function_Rel_Roles]
 GO
 ALTER TABLE [dbo].[Wishes]  WITH CHECK ADD  CONSTRAINT [FK_Wishes_Members] FOREIGN KEY([MemberId])
 REFERENCES [dbo].[Members] ([Id])
@@ -304,8 +345,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'顯示順序' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Categories', @level2type=N'COLUMN',@level2name=N'DisplayOrder'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'是否啟用' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Categories', @level2type=N'COLUMN',@level2name=N'Enabled'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'部門名稱' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Departments', @level2type=N'COLUMN',@level2name=N'Name'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'帳號' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Employees', @level2type=N'COLUMN',@level2name=N'Account'
 GO
@@ -358,8 +397,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'付款狀態(0:未付款,1:已付款)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Orders', @level2type=N'COLUMN',@level2name=N'PaymentStatus'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'運送狀態(0:未出貨,1:已出貨,2:已送達)' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Orders', @level2type=N'COLUMN',@level2name=N'DeliveryStatus'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'職位名稱' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'Positions', @level2type=N'COLUMN',@level2name=N'Name'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'圖片路徑' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'ProductImages', @level2type=N'COLUMN',@level2name=N'Path'
 GO
