@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>後台 || 開團狀況</title>
+    <title>前台 || 開團進度查詢</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--#region 新增-->
@@ -72,16 +72,34 @@
         <div class="row">
           <div class="col-12">
             <div class="tb-login-form">
-              <h5 class="tb-title">目前開團狀況</h5>
+              <h5 class="tb-title">開團進度查詢</h5>
+              <div class="row">
+                <div class="col-4">
+                  <p>商品名稱</p>
+                  <input type="text" />
+                </div>
 
-              <table id="shopping-cart-table" class="data-table cart-table">
+                <div class="col-6">
+                  <p>商品單價</p>
+                  <p><input type="text" /> ~ <input type="text" /></p>
+                </div>
+                <div class="col-2 text-end">
+                  <p>請選擇查詢條件</p>
+                  <input class="button-primary" type="submit" value="查詢" />
+                </div>
+              </div>
+
+              <table
+                id="shopping-cart-table"
+                class="data-table cart-table mt-3"
+              >
                 <tr>
                   <th>商品預覽圖</th>
                   <th class="low2">商品名稱</th>
                   <th>商品單價</th>
-                  <th>參團數量</th>
+                  <th>已下單數量</th>
+                  <th>目前參團數量</th>
                   <th>成團數量</th>
-                  <th class="low5"></th>
                 </tr>
                 <tr>
                   <td class="sop-cart">
@@ -103,15 +121,13 @@
                     </div>
                   </td>
                   <td class="cen">
-                    <span class="wishlist-in-stock">11</span>
+                    <span class="wishlist-in-stock">22</span>
+                  </td>
+                  <td class="cen">
+                    <span class="wishlist-in-stock">33</span>
                   </td>
                   <td class="cen">
                     <span class="wishlist-in-stock">111</span>
-                  </td>
-                  <td class="sop-cart">
-                    <div class="last-cart l-mrgn wish">
-                      <a class="las4" href="#"> 開團</a>
-                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -134,15 +150,13 @@
                     </div>
                   </td>
                   <td class="cen">
-                    <span class="wishlist-in-stock">11</span>
+                    <span class="wishlist-in-stock">22</span>
+                  </td>
+                  <td class="cen">
+                    <span class="wishlist-in-stock">33</span>
                   </td>
                   <td class="cen">
                     <span class="wishlist-in-stock">111</span>
-                  </td>
-                  <td class="sop-cart">
-                    <div class="last-cart l-mrgn wish">
-                      <a class="las4" href="#"> 開團</a>
-                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -165,15 +179,13 @@
                     </div>
                   </td>
                   <td class="cen">
-                    <span class="wishlist-in-stock">11</span>
+                    <span class="wishlist-in-stock">22</span>
+                  </td>
+                  <td class="cen">
+                    <span class="wishlist-in-stock">33</span>
                   </td>
                   <td class="cen">
                     <span class="wishlist-in-stock">111</span>
-                  </td>
-                  <td class="sop-cart">
-                    <div class="last-cart l-mrgn wish">
-                      <a class="las4" href="#"> 開團</a>
-                    </div>
                   </td>
                 </tr>
               </table>
