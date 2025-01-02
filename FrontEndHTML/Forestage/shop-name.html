@@ -1,0 +1,859 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Tasnm || Shop</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- favicon
+		============================================ -->		
+        <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+		<!-- google fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css'>
+		<!-- all css here -->
+		<!-- bootstrap v3.3.6 css -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- animate css -->
+        <link rel="stylesheet" href="css/animate.css">
+		<!-- pe-icon-7-stroke -->
+		<link rel="stylesheet" href="css/pe-icon-7-stroke.min.css">
+		<!-- jquery-ui.min css -->
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <!-- Image Zoom CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/img-zoom/jquery.simpleLens.css">
+		<!-- meanmenu css -->
+        <link rel="stylesheet" href="css/meanmenu.min.css">
+		<!-- nivo slider CSS
+		============================================ -->
+		<link rel="stylesheet" href="lib/css/nivo-slider.css" type="text/css" />
+		<link rel="stylesheet" href="lib/css/preview.css" type="text/css" media="screen" />
+		<!-- owl.carousel css -->
+        <link rel="stylesheet" href="css/owl.carousel.css">
+		<!-- font-awesome css -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+		<!-- style css -->
+		<link rel="stylesheet" href="style.css">
+		<!-- responsive css -->
+        <link rel="stylesheet" href="css/responsive.css">
+		<!-- modernizr css -->
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- header section start -->
+		<header>
+			<div class="header-top">
+				<div class="container">
+					<div class="row">
+						<div class="right-header">
+							<ul class="d-flex justify-content-center">
+                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>購物車</a></li>
+								<li><a href="wishlist.html"><i class="fa fa-heart"></i>收藏</a></li>
+								<li><a href="checkout.html"><i class="fa fa-usd"></i>結帳</a></li>
+								<li><a href="my-account.html"><i class="fa fa-user"></i>會員</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="header-bottom header-bottom-one" id="sticky-menu">
+				<div class="container relative">
+					<div class="row">
+						<div class="col-2">
+							<div class="logo">
+								<a href="index.html"><img src="img/logo.png" alt="" /></a>
+							</div>
+						</div>
+						<div class="col-10 static">
+							<div class="all-manu-area">
+							    <div class="mainmenu clearfix d-none d-md-block">
+                                    <nav>
+                                        <ul>
+                                            <li><a href="index.html">首頁</a></li>
+                                            <li><a href="shop.html">分類</a>
+                                                <div class="magamenu ">
+                                                    <ul class="again">
+                                                        <li class="single-menu colmd4">
+                                                            <a href="#">電子產品</a>
+                                                            <a href="#">玩具</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li><a href="#">其他頁面</a>
+                                                <ul>
+                                                    <li><a href="checkout.html">我的訂單</a></li>
+                                                    <li><a href="my-account.html">會員中心</a></li>
+                                                    <li><a href="shopping-cart.html">我的購物車</a></li>
+                                                    <li><a href="wishlist.html">我的收藏</a></li>
+                                                    <li><a href="wishlist.html">結帳</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- mobile menu start -->
+                                <div class="mobile-menu-area d-lg-none d-md-none">
+                                    <div class="mobile-menu">
+                                        <nav id="dropdown">
+                                            <ul>
+                                                <li><a href="index.html">首頁</a>
+                                                </li>
+                                                <li><a href="shop.html">分類</a>
+                                                    <ul>
+                                                        <li class="single-menu colmd4">
+                                                            <a href="#">電子產品</a>
+                                                            <a href="#">玩具</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">其他頁面</a>
+                                                    <ul>
+                                                        <li><a href="checkout.html">我的訂單</a></li>
+                                                        <li><a href="my-account.html">會員中心</a></li>
+                                                        <li><a href="shopping-cart.html">我的購物車</a></li>
+                                                        <li><a href="wishlist.html">我的收藏</a></li>
+                                                        <li><a href="wishlist.html">結帳</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <!-- mobile menu end -->
+                                <div class="right-header re-right-header">
+                                    <ul>
+                                        <li class="re-icon tnm"><i class="fa fa-search" aria-hidden="true"></i>
+                                            <form method="get" id="searchform" action="#">
+                                                <input type="text" value="" name="s" id="ws" placeholder="收尋商品" />
+                                                <button type="submit"><i class="pe-7s-search"></i></button>
+                                            </form>
+                                        </li>
+                                        <li><a href="cart.html"><i class="fa fa-shopping-cart"></i><span class="color1">2</span></a>
+                                            <ul class="drop-cart">
+                                                <li>
+                                                    <a href="cart.html"><img src="img/cart/1.png" alt="" /></a>
+                                                    <div class="add-cart-text">
+                                                        <p><a href="#">White Shirt</a></p>
+                                                        <p>$50.00</p>
+                                                    </div>
+                                                    <div class="pro-close">
+                                                        <i class="pe-7s-close"></i>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a href="cart.html"><img src="img/cart/2.png" alt="" /></a>
+                                                    <div class="add-cart-text">
+                                                        <p><a href="#">White Shirt</a></p>
+                                                        <p>$50.00 x 2</p>
+                                                    </div>
+                                                    <div class="pro-close">
+                                                        <i class="pe-7s-close"></i>
+                                                    </div>
+                                                </li>
+                                                <li class="total-amount clearfix">
+                                                    <span class="floatleft">總金額</span>
+                                                    <span class="floatright"><strong>= $150.00</strong></span>
+                                                </li>
+                                                <li>
+                                                    <div class="goto text-center">
+                                                        <a href="cart.html"><strong>前往購物車 &nbsp;<i class="pe-7s-angle-right"></i></strong></a>
+                                                    </div>
+                                                </li>
+                                                <li class="checkout-btn text-center">
+                                                    <a href="checkout.html">結帳!</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+        <!-- header section end -->
+		<!-- shop-style content section start -->
+		<section class="pages products-page section-padding-top section-padding-bottom">
+			<div class="container">
+				<div class="row">
+                    <div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="shop-info">
+                                    <h3>商家資訊</h3>
+                                    <div class="shop-content">
+                                        <div class="shop-left col-sm-12 col-md-4">
+                                            <img src="/img/banner/2.jpg" alt="">
+                                        </div>
+                                        <div class="shop-right col-sm-12 col-md-8">
+                                            <h2>商家名稱</h2>
+                                            <p class="addr">地址 : 看不到之前本地同事，面向更大我只，夥伴。</p>
+                                            <p class="qty">總商品數量 : 25</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="container">
+                                        <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="features-tab">
+                                              <!-- Nav tabs -->
+                                                <div class="shop-all-tab">
+                                                    <div class="re-shop">
+                                                       <div class="sort-by">
+                                                            <div class="shop6">
+                                                                <label>排序依據 :</label>
+                                                                <select>
+                                                                    <option value="">預設排序</option>
+                                                                    <option value="">依價格排序 : 低到高</option>
+                                                                    <option value="">依價格排序 : 高到低</option>
+                                                                    <option value="">依時間排序 : 最新</option>
+                                                                    <option value="">依時間排序 : 最舊</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              <!-- Tab panes -->
+                                                <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane active" id="home">
+                                                        <div class="row">
+                                                            <!-- single-product start -->
+                                                            <div class="col-md-4 col-lg-4 col-sm-6">
+                                                                <div class="single-product s-top s-non">
+                                                                    <div class="product-img">
+                                                                        <div class="pro-type">
+                                                                            <span>new</span>
+                                                                        </div>
+                                                                        <a href="#">
+                                                                            <img src="img/products/1.jpg" alt="Product Title" />
+                                                                            <img class="secondary-image" alt="Product Title" src="img/products/2.jpg">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="product-dsc">
+                                                                        <h3><a href="#">Product Title</a></h3>
+                                                                        <div class="star-price">
+                                                                            <span class="price-left">$52.00</span>
+                                                                            <span class="star-right">
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star-half-o"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="actions-btn">
+                                                                        <a data-placement="top" data-toggle="tooltip" href="#" data-original-title="Add To Wishlist"><i class="fa fa-heart"></i></a>
+                                                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- single-product end -->				
+                                                            <!-- single-product start -->
+                                                            <div class="col-md-4 col-lg-4 col-sm-6">
+                                                                <div class="single-product s-top s-non">
+                                                                    <div class="product-img">
+                                                                        <div class="pro-type">
+                                                                            <span>sale</span>
+                                                                        </div>
+                                                                        <a href="#">
+                                                                            <img src="img/products/3.jpg" alt="Product Title" />
+                                                                            <img class="secondary-image" alt="Product Title" src="img/products/4.jpg">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="product-dsc">
+                                                                        <h3><a href="#">Product Title</a></h3>
+                                                                        <div class="star-price">
+                                                                            <span class="price-left">$52.00</span>
+                                                                            <span class="star-right">
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star-half-o"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="actions-btn">
+                                                                        <a data-placement="top" data-toggle="tooltip" href="#" data-original-title="Add To Wishlist"><i class="fa fa-heart"></i></a>
+                                                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- single-product end -->	
+                                                            <!-- single-product start -->
+                                                            <div class="col-md-4 col-lg-4 col-sm-6">
+                                                                <div class="single-product s-top s-non">
+                                                                    <div class="product-img">
+                                                                        <a href="#">
+                                                                            <img src="img/products/5.jpg" alt="Product Title" />
+                                                                            <img class="secondary-image" alt="Product Title" src="img/products/6.jpg">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="product-dsc">
+                                                                        <h3><a href="#">Product Title</a></h3>
+                                                                        <div class="star-price">
+                                                                            <span class="price-left">$52.00</span>
+                                                                            <span class="star-right">
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star-half-o"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="actions-btn">
+                                                                        <a data-placement="top" data-toggle="tooltip" href="#" data-original-title="Add To Wishlist"><i class="fa fa-heart"></i></a>
+                                                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- single-product end -->	
+                                                            <div class="col-md-4 col-lg-4 col-sm-6">
+                                                                <div class="single-product s-top s-non">
+                                                                    <div class="product-img">
+                                                                        <a href="#">
+                                                                            <img src="img/products/7.jpg" alt="Product Title" />
+                                                                            <img class="secondary-image" alt="Product Title" src="img/products/8.jpg">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="product-dsc">
+                                                                        <h3><a href="#">Product Title</a></h3>
+                                                                        <div class="star-price">
+                                                                            <span class="price-left">$52.00</span>
+                                                                            <span class="star-right">
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star-half-o"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="actions-btn">
+                                                                        <a data-placement="top" data-toggle="tooltip" href="#" data-original-title="Add To Wishlist"><i class="fa fa-heart"></i></a>
+                                                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- single-product end -->	
+                                                            <!-- single-product start -->
+                                                            <div class="col-md-4 col-lg-4 col-sm-6">
+                                                                <div class="single-product s-top s-non">
+                                                                    <div class="product-img">
+                                                                        <div class="pro-type">
+                                                                            <span>new</span>
+                                                                        </div>
+                                                                        <a href="#">
+                                                                            <img src="img/products/10.jpg" alt="Product Title" />
+                                                                            <img class="secondary-image" alt="Product Title" src="img/products/9.jpg">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="product-dsc">
+                                                                        <h3><a href="#">Product Title</a></h3>
+                                                                        <div class="star-price">
+                                                                            <span class="price-left">$52.00</span>
+                                                                            <span class="star-right">
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star-half-o"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="actions-btn">
+                                                                        <a data-placement="top" data-toggle="tooltip" href="#" data-original-title="Add To Wishlist"><i class="fa fa-heart"></i></a>
+                                                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-lg-4 col-sm-6">
+                                                                <div class="single-product s-top s-non">
+                                                                    <div class="product-img">
+                                                                        <a href="#">
+                                                                            <img src="img/products/11.jpg" alt="Product Title" />
+                                                                            <img class="secondary-image" alt="Product Title" src="img/products/12.jpg">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="product-dsc">
+                                                                        <h3><a href="#">Product Title</a></h3>
+                                                                        <div class="star-price">
+                                                                            <span class="price-left">$52.00</span>
+                                                                            <span class="star-right">
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star-half-o"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="actions-btn">
+                                                                        <a data-placement="top" data-toggle="tooltip" href="#" data-original-title="Add To Wishlist"><i class="fa fa-heart"></i></a>
+                                                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-lg-4 col-sm-6">
+                                                                <div class="single-product s-top s-non">
+                                                                    <div class="product-img">
+                                                                        <div class="pro-type">
+                                                                            <span>new</span>
+                                                                        </div>
+                                                                        <a href="#">
+                                                                            <img src="img/products/13.jpg" alt="Product Title" />
+                                                                            <img class="secondary-image" alt="Product Title" src="img/products/14.jpg">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="product-dsc">
+                                                                        <h3><a href="#">Product Title</a></h3>
+                                                                        <div class="star-price">
+                                                                            <span class="price-left">$52.00</span>
+                                                                            <span class="star-right">
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star-half-o"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="actions-btn">
+                                                                        <a data-placement="top" data-toggle="tooltip" href="#" data-original-title="Add To Wishlist"><i class="fa fa-heart"></i></a>
+                                                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- single-product end -->				
+                                                            <!-- single-product start -->
+                                                            <div class="col-md-4 col-lg-4 col-sm-6">
+                                                                <div class="single-product s-top s-non">
+                                                                    <div class="product-img">
+                                                                        <a href="#">
+                                                                            <img src="img/products/2.jpg" alt="Product Title" />
+                                                                            <img class="secondary-image" alt="Product Title" src="img/products/15.jpg">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="product-dsc">
+                                                                        <h3><a href="#">Product Title</a></h3>
+                                                                        <div class="star-price">
+                                                                            <span class="price-left">$52.00</span>
+                                                                            <span class="star-right">
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star-half-o"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="actions-btn">
+                                                                        <a data-placement="top" data-toggle="tooltip" href="#" data-original-title="Add To Wishlist"><i class="fa fa-heart"></i></a>
+                                                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- single-product end -->	
+                                                            <!-- single-product start -->
+                                                            <div class="col-md-4 col-lg-4 col-sm-6">
+                                                                <div class="single-product s-top s-non s-bottom ">
+                                                                    <div class="product-img">
+                                                                        <div class="pro-type">
+                                                                            <span>sale</span>
+                                                                        </div>
+                                                                        <a href="#">
+                                                                            <img src="img/products/4.jpg" alt="Product Title" />
+                                                                            <img class="secondary-image" alt="Product Title" src="img/products/6.jpg">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="product-dsc">
+                                                                        <h3><a href="#">Product Title</a></h3>
+                                                                        <div class="star-price">
+                                                                            <span class="price-left">$52.00</span>
+                                                                            <span class="star-right">
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star-half-o"></i>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="actions-btn">
+                                                                        <a data-placement="top" data-toggle="tooltip" href="#" data-original-title="Add To Wishlist"><i class="fa fa-heart"></i></a>
+                                                                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane" id="profile">
+                                                        <div class="row">
+                                                            <div class="li-item">
+                                                                <div class="col-md-4 col-sm-4">
+                                                                    <div class="tb-product-item-inner tb2 pct-last">
+                                                                        <div class="pro-type">
+                                                                            <span>new</span>
+                                                                        </div>
+                                                                        <div class="re-img">
+                                                                            <a href="#"><img alt="" src="img/products/1.jpg"></a>
+                                                                        </div>
+                                                                        <div class="actions-btn">
+                                                                            <a data-original-title="Quick View" data-toggle="modal" data-trigger="hover" data-target="#quick-view" data-placement="top" href="#">
+                                                                            <i class="fa fa-eye"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                    <div class="f-fix">
+                                                                        <div class="tb-beg">
+                                                                            <a href="#">Vintage Shoulder Bag</a>
+                                                                        </div>
+                                                                        <div class="tb-product-wrap-price-rating">
+                                                                            <div class="tb-product-price font-noraure-3">
+                                                                                <span class="amount2 ana">$79.00 - </span>
+                                                                                <span class="amount2 ana">$100.00</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <p class="desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo  </p>
+                                                                        <div class="last-cart l-mrgn ns">
+                                                                            <a class="las4" href="#">Add To Cart</a>
+                                                                        </div>
+                                                                        <div class="tb-product-btn">
+                                                                            <a href="#">
+                                                                                <i class="fa fa-eye"></i>
+                                                                            </a>
+                                                                            <a href="#">
+                                                                                <i class="fa fa-heart"></i>
+                                                                            </a>
+                                                                            <a href="#">
+                                                                                <i class="fa fa-retweet"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="li-item">
+                                                                <div class="col-md-4 col-sm-4">
+                                                                    <div class="tb-product-item-inner tb2 pct-last">
+                                                                        <div class="pro-type">
+                                                                            <span>sale</span>
+                                                                        </div>
+                                                                        <div class="re-img">
+                                                                            <a href="#"><img alt="" src="img/products/2.jpg"></a>
+                                                                        </div>
+                                                                        <div class="actions-btn">
+                                                                            <a data-original-title="Quick View" data-toggle="modal" data-trigger="hover" data-target="#quick-view" data-placement="top" href="#">
+                                                                            <i class="fa fa-eye"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                    <div class="f-fix">
+                                                                        <div class="tb-beg">
+                                                                            <a href="#">Vintage Shoulder Bag</a>
+                                                                        </div>
+                                                                        <div class="tb-product-wrap-price-rating">
+                                                                            <div class="tb-product-price font-noraure-3">
+                                                                                <span class="amount2 ana">$79.00 - </span>
+                                                                                <span class="amount2 ana">$100.00</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <p class="desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo  </p>
+                                                                        <div class="last-cart l-mrgn ns">
+                                                                            <a class="las4" href="#">Add To Cart</a>
+                                                                        </div>
+                                                                        <div class="tb-product-btn">
+                                                                            <a href="#">
+                                                                                <i class="fa fa-eye"></i>
+                                                                            </a>
+                                                                            <a href="#">
+                                                                                <i class="fa fa-heart"></i>
+                                                                            </a>
+                                                                            <a href="#">
+                                                                                <i class="fa fa-retweet"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="li-item">
+                                                                <div class="col-md-4 col-sm-4">
+                                                                    <div class="tb-product-item-inner tb2 pct-last">
+                                                                        <div class="pro-type">
+                                                                            <span>new</span>
+                                                                        </div>
+                                                                        <div class="re-img">
+                                                                            <a href="#"><img alt="" src="img/products/3.jpg"></a>
+                                                                        </div>
+                                                                        <div class="actions-btn">
+                                                                            <a data-original-title="Quick View" data-toggle="modal" data-trigger="hover" data-target="#quick-view" data-placement="top" href="#">
+                                                                            <i class="fa fa-eye"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                    <div class="f-fix">
+                                                                        <div class="tb-beg">
+                                                                            <a href="#">Vintage Shoulder Bag</a>
+                                                                        </div>
+                                                                        <div class="tb-product-wrap-price-rating">
+                                                                            <div class="tb-product-price font-noraure-3">
+                                                                                <span class="amount2 ana">$79.00 - </span>
+                                                                                <span class="amount2 ana">$100.00</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <p class="desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo  </p>
+                                                                        <div class="last-cart l-mrgn ns">
+                                                                            <a class="las4" href="#">Add To Cart</a>
+                                                                        </div>
+                                                                        <div class="tb-product-btn">
+                                                                            <a href="#">
+                                                                                <i class="fa fa-eye"></i>
+                                                                            </a>
+                                                                            <a href="#">
+                                                                                <i class="fa fa-heart"></i>
+                                                                            </a>
+                                                                            <a href="#">
+                                                                                <i class="fa fa-retweet"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="li-item">
+                                                                <div class="col-md-4 col-sm-4">
+                                                                    <div class="tb-product-item-inner tb2 pct-last">
+                                                                        <div class="pro-type">
+                                                                            <span>sale</span>
+                                                                        </div>
+                                                                        <div class="re-img">
+                                                                            <a href="#"><img alt="" src="img/products/4.jpg"></a>
+                                                                        </div>
+                                                                        <div class="actions-btn">
+                                                                            <a data-original-title="Quick View" data-toggle="modal" data-trigger="hover" data-target="#quick-view" data-placement="top" href="#">
+                                                                            <i class="fa fa-eye"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                    <div class="f-fix">
+                                                                        <div class="tb-beg">
+                                                                            <a href="#">Vintage Shoulder Bag</a>
+                                                                        </div>
+                                                                        <div class="tb-product-wrap-price-rating">
+                                                                            <div class="tb-product-price font-noraure-3">
+                                                                                <span class="amount2 ana">$79.00 - </span>
+                                                                                <span class="amount2 ana">$100.00</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <p class="desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo  </p>
+                                                                        <div class="last-cart l-mrgn ns">
+                                                                            <a class="las4" href="#">Add To Cart</a>
+                                                                        </div>
+                                                                        <div class="tb-product-btn">
+                                                                            <a href="#">
+                                                                                <i class="fa fa-eye"></i>
+                                                                            </a>
+                                                                            <a href="#">
+                                                                                <i class="fa fa-heart"></i>
+                                                                            </a>
+                                                                            <a href="#">
+                                                                                <i class="fa fa-retweet"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="li-item">
+                                                                <div class="col-md-4 col-sm-4">
+                                                                    <div class="tb-product-item-inner tb2 pct-last">
+                                                                        <div class="re-img">
+                                                                            <a href="#"><img alt="" src="img/products/5.jpg"></a>
+                                                                        </div>
+                                                                        <div class="actions-btn">
+                                                                            <a data-original-title="Quick View" data-toggle="modal" data-trigger="hover" data-target="#quick-view" data-placement="top" href="#">
+                                                                            <i class="fa fa-eye"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-8 col-sm-8">
+                                                                    <div class="f-fix">
+                                                                        <div class="tb-beg">
+                                                                            <a href="#">Vintage Shoulder Bag</a>
+                                                                        </div>
+                                                                        <div class="tb-product-wrap-price-rating">
+                                                                            <div class="tb-product-price font-noraure-3">
+                                                                                <span class="amount2 ana">$79.00 - </span>
+                                                                                <span class="amount2 ana">$100.00</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <p class="desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo  </p>
+                                                                        <div class="last-cart l-mrgn ns">
+                                                                            <a class="las4" href="#">Add To Cart</a>
+                                                                        </div>
+                                                                        <div class="tb-product-btn">
+                                                                            <a href="#">
+                                                                                <i class="fa fa-eye"></i>
+                                                                            </a>
+                                                                            <a href="#">
+                                                                                <i class="fa fa-heart"></i>
+                                                                            </a>
+                                                                            <a href="#">
+                                                                                <i class="fa fa-retweet"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>	
+                                                    </div>
+                                                </div>
+                                                <div class="shop-all-tab-cr shop-bottom">
+                                                    <div class="two-part">
+                                                        <div class="shop5 page">
+                                                            <ul>
+                                                                <li>
+                                                                    <a class="active" href="#">1</a>
+                                                                    <a href="#">2</a>
+                                                                    <a href="#">3</a>
+                                                                    <a href="#">4</a>
+                                                                    <a href="#">5</a>
+                                                                    <a href="#"><i class="fa fa-arrow-right"></i></a>
+                                                                </li>
+                                                            </ul>        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+                        </div>
+                        </div>
+                        
+                    </div>
+				</div>
+			</div>
+		</section>
+		<!-- shop-style  content section end -->
+        <!-- footer section start -->
+		<footer class="re-footer-section">
+			<!-- footer-top area start -->
+			<div class="footer-top">
+				<div class="footer-dsc">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="single-text res-text">
+									<div class="footer-title">
+										<h4>聯絡我們</h4>
+										<hr class="dubble-border"/>
+									</div>
+									<div class="footer-text">
+										<ul>
+											<li>
+												<i class="pe-7s-map-marker"></i>
+												<p>My Company, 45 Puffin Street 1245</p>
+												<p class="rs">Poffinville France.</p>
+											</li>
+											<li>
+												<i class="pe-7s-call"></i>
+												<p>+201 (987) 6641 053</p>
+												<p>+202 (987) 6641 056</p>
+											</li>
+											<li>
+												<i class="pe-7s-mail-open"></i>
+												<p>info@domainname.com</p>
+												<p>company@outlook.com</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="single-text res-text">
+									<div class="footer-title">
+										<h4>我的帳戶</h4>
+										<hr class="dubble-border"/>
+									</div>
+									<div class="footer-menu">
+										<ul>
+											<li><a href="login.html">我的帳戶</a></li>
+											<li><a href="wishlist.html">我的收藏</a></li>
+											<li><a href="order-complete">我的訂單</a></li>
+											<li><a href="#">我的個人資料</a></li>
+											<li class="nm"><a href="#">開團進度查詢</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr class="dubble-border"/>
+				</div>
+			</div>
+			<!-- footer-top area end -->
+			<!-- footer-bottom area start -->
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<p>&copy; 2025 第三組  All Rights Reserved.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- footer-bottom area end -->
+		</footer>
+        <!-- footer section end -->
+        
+		<!-- all js here -->
+		<!-- jquery latest version -->
+        <script src="js/vendor/jquery-1.12.0.min.js"></script>
+		<!-- bootstrap js -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- parallax js -->
+        <script src="js/parallax.min.js"></script>
+		<!-- owl.carousel js -->
+        <script src="js/owl.carousel.min.js"></script>
+        <!-- Img Zoom js -->
+		<script src="js/img-zoom/jquery.simpleLens.min.js"></script>
+		<!-- meanmenu js -->
+        <script src="js/jquery.meanmenu.js"></script>
+		<!-- jquery.countdown js -->
+        <script src="js/jquery.countdown.min.js"></script>
+		<!-- Nivo slider js
+		============================================ --> 		
+		<script src="lib/js/jquery.nivo.slider.js" type="text/javascript"></script>
+		<script src="lib/home.js" type="text/javascript"></script>
+		<!-- jquery-ui js -->
+        <script src="js/jquery-ui.min.js"></script>
+		<!-- sticky js -->
+        <script src="js/sticky.js"></script>
+		<!-- plugins js -->
+        <script src="js/plugins.js"></script>
+		<!-- main js -->
+        <script src="js/main.js"></script>
+    </body>
+</html>
