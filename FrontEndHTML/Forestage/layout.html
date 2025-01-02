@@ -1,0 +1,282 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Tasnm || Home Version One</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- favicon
+		============================================ -->		
+        <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+		<!-- google fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css'>
+		<!-- all css here -->
+		<!-- bootstrap v5.0.2 css 更換為BS5-->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- animate css -->
+        <link rel="stylesheet" href="css/animate.css">
+		<!-- pe-icon-7-stroke -->
+		<link rel="stylesheet" href="css/pe-icon-7-stroke.min.css">
+		<!-- jquery-ui.min css -->
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <!-- Image Zoom CSS
+		============================================ -->
+        <link rel="stylesheet" href="css/img-zoom/jquery.simpleLens.css">
+		<!-- meanmenu css -->
+        <link rel="stylesheet" href="css/meanmenu.min.css">
+		<!-- nivo slider CSS
+		============================================ -->
+		<link rel="stylesheet" href="lib/css/nivo-slider.css" type="text/css" />
+		<link rel="stylesheet" href="lib/css/preview.css" type="text/css" media="screen" />
+		<!-- owl.carousel css -->
+        <link rel="stylesheet" href="css/owl.carousel.css">
+		<!-- font-awesome css -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+		<!-- style css -->
+		<link rel="stylesheet" href="style.css">
+		<!-- responsive css -->
+        <link rel="stylesheet" href="css/responsive.css">
+		<!-- modernizr css -->
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- header section start -->
+		<header>
+			<div class="header-top">
+				<div class="container">
+					<div class="row">
+						<div class="right-header">
+							<ul class="d-flex justify-content-center">
+                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>購物車</a></li>
+								<li><a href="wishlist.html"><i class="fa fa-heart"></i>收藏</a></li>
+								<li><a href="checkout.html"><i class="fa fa-usd"></i>結帳</a></li>
+								<li><a href="my-account.html"><i class="fa fa-user"></i>會員</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="header-bottom header-bottom-one" id="sticky-menu">
+				<div class="container relative">
+					<div class="row">
+						<div class="col-2">
+							<div class="logo">
+								<a href="index.html"><img src="img/logo.png" alt="" /></a>
+							</div>
+						</div>
+						<div class="col-10 static">
+							<div class="all-manu-area">
+							    <div class="mainmenu clearfix d-none d-md-block">
+                                    <nav>
+                                        <ul>
+                                            <li><a href="index.html">首頁</a></li>
+                                            <li><a href="shop.html">分類</a>
+                                                <div class="magamenu ">
+                                                    <ul class="again">
+                                                        <li class="single-menu colmd4">
+                                                            <a href="#">電子產品</a>
+                                                            <a href="#">玩具</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li><a href="#">其他頁面</a>
+                                                <ul>
+                                                    <li><a href="checkout.html">我的訂單</a></li>
+                                                    <li><a href="my-account.html">會員中心</a></li>
+                                                    <li><a href="shopping-cart.html">我的購物車</a></li>
+                                                    <li><a href="wishlist.html">我的收藏</a></li>
+                                                    <li><a href="wishlist.html">結帳</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- mobile menu start -->
+                                <div class="mobile-menu-area d-lg-none d-md-none">
+                                    <div class="mobile-menu">
+                                        <nav id="dropdown">
+                                            <ul>
+                                                <li><a href="index.html">首頁</a>
+                                                </li>
+                                                <li><a href="shop.html">分類</a>
+                                                    <ul>
+                                                        <li class="single-menu colmd4">
+                                                            <a href="#">電子產品</a>
+                                                            <a href="#">玩具</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">其他頁面</a>
+                                                    <ul>
+                                                        <li><a href="checkout.html">我的訂單</a></li>
+                                                        <li><a href="my-account.html">會員中心</a></li>
+                                                        <li><a href="shopping-cart.html">我的購物車</a></li>
+                                                        <li><a href="wishlist.html">我的收藏</a></li>
+                                                        <li><a href="wishlist.html">結帳</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <!-- mobile menu end -->
+                                <div class="right-header re-right-header">
+                                    <ul>
+                                        <li class="re-icon tnm"><i class="fa fa-search" aria-hidden="true"></i>
+                                            <form method="get" id="searchform" action="#">
+                                                <input type="text" value="" name="s" id="ws" placeholder="收尋商品" />
+                                                <button type="submit"><i class="pe-7s-search"></i></button>
+                                            </form>
+                                        </li>
+                                        <li><a href="cart.html"><i class="fa fa-shopping-cart"></i><span class="color1">2</span></a>
+                                            <ul class="drop-cart">
+                                                <li>
+                                                    <a href="cart.html"><img src="img/cart/1.png" alt="" /></a>
+                                                    <div class="add-cart-text">
+                                                        <p><a href="#">White Shirt</a></p>
+                                                        <p>$50.00</p>
+                                                    </div>
+                                                    <div class="pro-close">
+                                                        <i class="pe-7s-close"></i>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a href="cart.html"><img src="img/cart/2.png" alt="" /></a>
+                                                    <div class="add-cart-text">
+                                                        <p><a href="#">White Shirt</a></p>
+                                                        <p>$50.00 x 2</p>
+                                                    </div>
+                                                    <div class="pro-close">
+                                                        <i class="pe-7s-close"></i>
+                                                    </div>
+                                                </li>
+                                                <li class="total-amount clearfix">
+                                                    <span class="floatleft">總金額</span>
+                                                    <span class="floatright"><strong>= $150.00</strong></span>
+                                                </li>
+                                                <li>
+                                                    <div class="goto text-center">
+                                                        <a href="cart.html"><strong>前往購物車 &nbsp;<i class="pe-7s-angle-right"></i></strong></a>
+                                                    </div>
+                                                </li>
+                                                <li class="checkout-btn text-center">
+                                                    <a href="checkout.html">結帳!</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+        <!-- header section end -->
+        <!-- footer section start -->
+		<footer class="re-footer-section">
+			<!-- footer-top area start -->
+			<div class="footer-top">
+				<div class="footer-dsc">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="single-text res-text">
+									<div class="footer-title">
+										<h4>聯絡我們</h4>
+										<hr class="dubble-border"/>
+									</div>
+									<div class="footer-text">
+										<ul>
+											<li>
+												<i class="pe-7s-map-marker"></i>
+												<p>My Company, 45 Puffin Street 1245</p>
+												<p class="rs">Poffinville France.</p>
+											</li>
+											<li>
+												<i class="pe-7s-call"></i>
+												<p>+201 (987) 6641 053</p>
+												<p>+202 (987) 6641 056</p>
+											</li>
+											<li>
+												<i class="pe-7s-mail-open"></i>
+												<p>info@domainname.com</p>
+												<p>company@outlook.com</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="single-text res-text">
+									<div class="footer-title">
+										<h4>我的帳戶</h4>
+										<hr class="dubble-border"/>
+									</div>
+									<div class="footer-menu">
+										<ul>
+											<li><a href="login.html">我的帳戶</a></li>
+											<li><a href="wishlist.html">我的收藏</a></li>
+											<li><a href="order-complete">我的訂單</a></li>
+											<li><a href="#">我的個人資料</a></li>
+											<li class="nm"><a href="#">開團進度查詢</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr class="dubble-border"/>
+				</div>
+			</div>
+			<!-- footer-top area end -->
+			<!-- footer-bottom area start -->
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<p>&copy; 2025 第三組  All Rights Reserved.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- footer-bottom area end -->
+		</footer>
+        <!-- footer section end -->
+        
+		<!-- all js here -->
+		<!-- jquery latest version -->
+        <script src="js/vendor/jquery-1.12.0.min.js"></script>
+		<!-- bootstrap js -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- parallax js -->
+        <script src="js/parallax.min.js"></script>
+		<!-- owl.carousel js -->
+        <script src="js/owl.carousel.min.js"></script>
+        <!-- Img Zoom js -->
+		<script src="js/img-zoom/jquery.simpleLens.min.js"></script>
+		<!-- meanmenu js -->
+        <script src="js/jquery.meanmenu.js"></script>
+		<!-- jquery.countdown js -->
+        <script src="js/jquery.countdown.min.js"></script>
+		<!-- Nivo slider js
+		============================================ --> 		
+		<script src="lib/js/jquery.nivo.slider.js" type="text/javascript"></script>
+		<script src="lib/home.js" type="text/javascript"></script>
+		<!-- jquery-ui js -->
+        <script src="js/jquery-ui.min.js"></script>
+		<!-- sticky js -->
+        <script src="js/sticky.js"></script>
+		<!-- plugins js -->
+        <script src="js/plugins.js"></script>
+		<!-- main js -->
+        <script src="js/main.js"></script>
+    </body>
+</html>
