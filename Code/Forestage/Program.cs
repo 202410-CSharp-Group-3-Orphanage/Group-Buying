@@ -1,3 +1,6 @@
+using Forestage.Models.EFModels;
+using Microsoft.EntityFrameworkCore;
+
 namespace Forestage
 {
     public class Program
@@ -8,6 +11,9 @@ namespace Forestage
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<AppDbContext>(
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 
