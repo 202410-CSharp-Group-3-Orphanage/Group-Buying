@@ -9,6 +9,7 @@ from BaseSQLc import (
     get_random_product,
 )
 
+
 def delete_all():
     # 從最後一個表開始刪除，以避免外鍵約束錯誤
     return """
@@ -22,6 +23,7 @@ DELETE FROM [GroupBuying].[dbo].[Shops];
 DELETE FROM [GroupBuying].[dbo].[Members];
 DELETE FROM [GroupBuying].[dbo].[Categories];
 """
+
 
 def categories():
     return """
@@ -63,14 +65,16 @@ def members():
     is_confirmed = random.choice(
         [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     )
-    comfirm_code = str(uuid.uuid4()).replace("-", "") if is_confirmed == 0 else "NULL"
+    comfirm_code = (
+        f"'{str(uuid.uuid4()).replace('-', '')}'" if is_confirmed == 0 else "NULL"
+    )
     created_at = myfaker.date_time_this_year()
     updated_at = created_at
     return f"""
 INSERT INTO [GroupBuying].[dbo].[Members] 
         ([Account], [EncryptedPassword], [Name], [Gender], [Email], [Phone], [Birthday], [Status], [IsConfirmed], [ConfirmCode], [CreatedAt], [UpdatedAt])
 VALUES 
-        ('{account}', '{encrypted_password}', N'{name}', {gender}, '{email}', '{phone}', '{birthday}', {status}, {is_confirmed}, '{comfirm_code}', '{created_at}', '{updated_at}');
+        ('{account}', '{encrypted_password}', N'{name}', {gender}, '{email}', '{phone}', '{birthday}', {status}, {is_confirmed}, {comfirm_code}, '{created_at}', '{updated_at}');
 """
 
 
@@ -216,7 +220,7 @@ def orders():
     group_buying_id, price = get_random_group_buying()
     quantity = random.randint(1, 100)  # 隨機生成數量
     shipping_method = 1
-    shipping_address = "無"
+    # shipping_address = "無"
     status = random.choice([0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
     payment_status = 0
     delivery_status = 0
@@ -227,7 +231,7 @@ def orders():
 INSERT INTO [GroupBuying].[dbo].[Orders] 
         ([MemberId], [GroupBuyingId], [Price], [Quantity], [ShippingMethod], [ShippingAddress], [Status], [PaymentStatus], [DeliveryStatus], [CreatedAt], [UpdatedAt])
 VALUES 
-        ({member_id}, {group_buying_id}, {price}, {quantity}, '{shipping_method}', N'{shipping_address}', '{status}', '{payment_status}', '{delivery_status}', '{created_at}', '{updated_at}');
+        ({member_id}, {group_buying_id}, {price}, {quantity}, '{shipping_method}', NULL, '{status}', '{payment_status}', '{delivery_status}', '{created_at}', '{updated_at}');
 """
 
 
