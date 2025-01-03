@@ -74,17 +74,26 @@
             <div class="tb-login-form">
               <h5 class="tb-title">開團進度查詢</h5>
               <div class="row">
-                <div class="col-4">
+                <div class="col-3">
                   <p>商品名稱</p>
                   <input type="text" />
                 </div>
 
-                <div class="col-6">
+                <div class="col-5">
                   <p>商品單價</p>
                   <p><input type="text" /> ~ <input type="text" /></p>
                 </div>
-                <div class="col-2 text-end">
-                  <p>請選擇查詢條件</p>
+                <div class="col-3">
+                  <p>截止時間</p>
+                  <input
+                    style="font-size: 16px"
+                    type="datetime-local"
+                    id="datepicker"
+                  />
+                </div>
+
+                <div class="col-1 text-end">
+                  <p>&ensp;</p>
                   <input class="button-primary" type="submit" value="查詢" />
                 </div>
               </div>
@@ -98,8 +107,9 @@
                   <th class="low2">商品名稱</th>
                   <th>商品單價</th>
                   <th>已下單數量</th>
-                  <th>目前參團數量</th>
-                  <th>成團數量</th>
+                  <th>總價</th>
+                  <th>目前開團數量</th>
+                  <th>截止時間</th>
                 </tr>
                 <tr>
                   <td class="sop-cart">
@@ -124,10 +134,15 @@
                     <span class="wishlist-in-stock">22</span>
                   </td>
                   <td class="cen">
-                    <span class="wishlist-in-stock">33</span>
+                    <span class="wishlist-in-stock">$3960.00</span>
                   </td>
                   <td class="cen">
-                    <span class="wishlist-in-stock">111</span>
+                    <span class="wishlist-in-stock">33/111</span>
+                  </td>
+                  <td class="cen">
+                    <span class="wishlist-in-stock"
+                      >1111年11月11日11點11分</span
+                    >
                   </td>
                 </tr>
                 <tr>
@@ -153,10 +168,15 @@
                     <span class="wishlist-in-stock">22</span>
                   </td>
                   <td class="cen">
-                    <span class="wishlist-in-stock">33</span>
+                    <span class="wishlist-in-stock">$1738.00</span>
                   </td>
                   <td class="cen">
-                    <span class="wishlist-in-stock">111</span>
+                    <span class="wishlist-in-stock">33/111</span>
+                  </td>
+                  <td class="cen">
+                    <span class="wishlist-in-stock"
+                      >1111年11月11日11點11分</span
+                    >
                   </td>
                 </tr>
                 <tr>
@@ -182,10 +202,15 @@
                     <span class="wishlist-in-stock">22</span>
                   </td>
                   <td class="cen">
-                    <span class="wishlist-in-stock">33</span>
+                    <span class="wishlist-in-stock">$2200.00</span>
                   </td>
                   <td class="cen">
-                    <span class="wishlist-in-stock">111</span>
+                    <span class="wishlist-in-stock">33/111</span>
+                  </td>
+                  <td class="cen">
+                    <span class="wishlist-in-stock"
+                      >1111年11月11日11點11分</span
+                    >
                   </td>
                 </tr>
               </table>
