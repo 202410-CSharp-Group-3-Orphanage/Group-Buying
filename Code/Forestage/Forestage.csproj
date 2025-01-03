@@ -19,4 +19,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="MT.Security">
+      <HintPath>bin\Debug\net8.0\MT.Security.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
