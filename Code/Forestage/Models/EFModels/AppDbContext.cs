@@ -192,7 +192,6 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Price).HasComment("成交價格");
             entity.Property(e => e.Quantity).HasComment("數量");
             entity.Property(e => e.ShippingAddress)
-                .IsRequired()
                 .HasMaxLength(150)
                 .HasComment("運送地址");
             entity.Property(e => e.ShippingMethod).HasComment("運送方式(1:超商,2:宅配)");
