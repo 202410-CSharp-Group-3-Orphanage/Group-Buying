@@ -1,0 +1,38 @@
+﻿@model Forestage.Models.ViewModels.ShopInfoVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="pages products-page section-padding-top section-padding-bottom">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="container">
+                    <div class="row">
+                        <div class="shop-info">
+                            <h3>商家資訊</h3>
+                            <div class="shop-content">
+                                <div class="shop-left col-sm-12 col-md-4">
+                                    <img src="@Html.DisplayFor(model => model.Avatar)" alt="">
+                                </div>
+                                <div class="shop-right col-sm-12 col-md-8">
+                                    <h2>
+                                        @Html.DisplayFor(model => model.Name)
+                                    </h2>
+                                    <p class="addr">地址 :
+                                        @Html.DisplayFor(model => model.Address)
+                                    </p>
+                                    <p class="qty">總商品數量 : 
+                                        @Html.DisplayFor(model => model.qty)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
