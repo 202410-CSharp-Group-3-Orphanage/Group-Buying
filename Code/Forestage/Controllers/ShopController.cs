@@ -1,6 +1,7 @@
 ﻿using Forestage.Models.EFModels;
 using Forestage.Models.Services;
 using Forestage.Models.ViewModels;
+using Forestage.Models.ViewModels.Shops;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forestage.Controllers
