@@ -10,7 +10,7 @@ namespace Forestage.Models.Dtos.Shops
 
         public string Address { get; set; }
 
-        public int qty { get; set; }
+        public int ProductCount { get; set; }
 
         public virtual ICollection<Product> Products { get; set; } = new List<Product>();
     }

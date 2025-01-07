@@ -14,16 +14,24 @@ namespace Forestage.Controllers
             _shopService = shopService;
         }
 
-        public IActionResult Index()
+        [Route("Shop/Index/{id}")]
+        public IActionResult Index(int id)
         {
-            var dto = _shopService.GetShopInfo(3);
+            var dto = _shopService.GetShopInfo(id);
+
+            if(dto == null)
+            {
+                return NotFound();
+            }
+
             var model = new ShopInfoVm
             {
                 Name = dto.Name,
                 Avatar = dto.Avatar,
                 Address = dto.Address,
-                qty = dto.qty
+                ProductCount = dto.ProductCount
             };
+
             return View(model);
         }
     }
