@@ -1,6 +1,7 @@
 using Forestage.Models.EFModels;
 using Forestage.Models.Repositories;
 using Forestage.Models.Services;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forestage
@@ -14,15 +15,20 @@ namespace Forestage
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // Entity Framework
             builder.Services.AddDbContext<AppDbContext>(
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            // Dapper
+            builder.Services.AddTransient<SqlConnection>(provider =>
+            {
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+                return new SqlConnection(connectionString);
+            });
 
             // Services
-            builder.Services.AddScoped<ShopService>();
-
-
+            builder.Services.AddScoped<ProductService>();
             // Repositories
-            builder.Services.AddScoped<ShopRepository>();
+            builder.Services.AddScoped<ProductRepository>();
 
             var app = builder.Build();
 

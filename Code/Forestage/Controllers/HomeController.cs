@@ -1,21 +1,44 @@
 using Forestage.Models;
+using Forestage.Models.EFModels;
+using Forestage.Models.Enums;
+using Forestage.Models.Services;
+using Forestage.Models.ViewModels.Homes;
+using Forestage.Models.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
+using MT.Utilities.Mapper;
+using Forestage.Models.Dtos.Products;
 
 namespace Forestage.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ProductService _productService;
+        private readonly AppDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ProductService productService)
         {
             _logger = logger;
+            _productService = productService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var bestProducts = _productService.GetBestProducts();
+            var newProducts = _productService.GetNewProducts();
+            var upcomingProducts = _productService.GetUpcomingProducts();
+
+            var indexVm = new IndexVm
+            {
+                BestProducts = ObjectMapper.MapCollection<ProductBlockDto, ProductBlockVm>(bestProducts).ToList(),
+                NewProducts = ObjectMapper.MapCollection<ProductBlockDto, ProductBlockVm>(newProducts).ToList(),
+                UpcomingProducts = ObjectMapper.MapCollection<ProductBlockDto, ProductBlockVm>(upcomingProducts).ToList(),
+            };
+
+            return View(indexVm);
         }
 
         public IActionResult Privacy()
