@@ -17,7 +17,7 @@ if __name__ == "__main__":
         execute_sql(mock.shops())
 
     # products
-    for _ in range(500):
+    for _ in range(200):
         execute_sql(mock.products())
 
     # product_images
@@ -29,7 +29,7 @@ if __name__ == "__main__":
         execute_sql(mock.wishes())
 
     # group_buyings
-    for _ in range(300):
+    for _ in range(1000):
         execute_sql(mock.group_buyings())
 
     # orders

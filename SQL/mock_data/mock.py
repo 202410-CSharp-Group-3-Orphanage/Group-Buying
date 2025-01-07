@@ -1,6 +1,6 @@
 import random
 import uuid
-from BaseFaker import get_phone, myfaker, remove_special_characters
+from BaseFaker import get_phone, get_random_image, myfaker, remove_special_characters
 from BaseHash import hash256_str
 from BaseSQLc import (
     get_random_group_buying,
@@ -59,12 +59,8 @@ def members():
     email = account + random.choice(["@gmail.com", "@icloud.com", "@hotmail.com"])
     phone = get_phone()
     birthday = myfaker.date_of_birth()
-    status = random.choice(
-        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    )
-    is_confirmed = random.choice(
-        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    )
+    status = random.choices([0, 1], weights=[1, 20], k=1)[0]
+    is_confirmed = random.choices([0, 1], weights=[1, 20], k=1)[0]
     comfirm_code = (
         f"'{str(uuid.uuid4()).replace('-', '')}'" if is_confirmed == 0 else "NULL"
     )
@@ -113,7 +109,7 @@ def shops():
             "Z",
         ]
     ) + "".join(random.choices("0123456789", k=9))  # 模擬 10 位數字身份證號碼
-    avatar = myfaker.image_url()
+    avatar = get_random_image()
     address = myfaker.address().replace("\n", " ")
     status = random.choice([0, 1])
     created_at = myfaker.date_time_this_year()
@@ -160,7 +156,7 @@ def product_images():
             "Product IDs are empty. Ensure the database contains data in the Products table."
         )
     product_id = random.choice(product_ids)
-    path = myfaker.image_url()
+    path = get_random_image()
     created_at = myfaker.date_time_this_year()
     updated_at = created_at
     return f"""
@@ -200,10 +196,8 @@ def group_buyings():
     minimum_group_size = random.randint(20, 100)
     description = myfaker.text(max_nb_chars=200)
     start_date = myfaker.date_this_year()
-    end_date = myfaker.date_between(start_date=start_date)
-    enabled = random.choice(
-        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    )  # 隨機啟用狀態
+    end_date = myfaker.date_between(start_date=start_date, end_date=15)
+    enabled = random.choices([0, 1], weights=[1, 20], k=1)[0]
     created_at = myfaker.date_time_this_year()
     updated_at = created_at
 
@@ -221,7 +215,9 @@ def orders():
     quantity = random.randint(1, 100)  # 隨機生成數量
     shipping_method = 1
     # shipping_address = "無"
-    status = random.choice([0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+    status = random.choices(
+        [0, 1, 2, 3, 4, 5, 6, 7], weights=[1, 5, 5, 5, 5, 5, 5, 5], k=1
+    )[0]
     payment_status = 0
     delivery_status = 0
     created_at = myfaker.date_time_this_year()

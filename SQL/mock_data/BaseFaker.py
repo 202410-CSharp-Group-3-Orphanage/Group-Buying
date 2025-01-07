@@ -1,3 +1,4 @@
+import random
 from faker import Faker
 import re
 
@@ -26,6 +27,12 @@ def remove_special_characters(text):
     # 使用正則表達式，保留字母、數字和中文，其它字符移除
     cleaned_text = re.sub(r"[^a-zA-Z0-9\u4e00-\u9fa5]", "", text)
     return cleaned_text
+
+
+def get_random_image():
+    height = random.randint(600, 1500)
+    width = random.randint(600, 1500)
+    return f"https://picsum.photos/{width}/{height}"
 
 
 if __name__ == "__main__":
