@@ -17,11 +17,16 @@ namespace Forestage.Controllers
         [Route("Shop/Index/{id}")]
         public IActionResult Index(int id)
         {
+            if(id <= 0)
+            {
+                return BadRequest("無效的商家 ID");
+            }
+
             var dto = _shopService.GetShopInfo(id);
 
             if(dto == null)
             {
-                return NotFound();
+                return NotFound("找不到該商家");
             }
 
             var model = new ShopInfoVm
