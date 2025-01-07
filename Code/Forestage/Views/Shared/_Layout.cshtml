@@ -20,36 +20,166 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Forestage</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+			<div class="header-bottom header-bottom-one" id="sticky-menu">
+				<div class="container relative">
+					<div class="row">
+						<div class="col-2">
+							<div class="logo">
+								<a asp-area="" asp-controller="Home" asp-action="Index"><img src="img/logo.png" alt="" /></a>
+							</div>
+						</div>
+						<div class="col-10 static">
+							<div class="all-manu-area">
+							    <div class="mainmenu clearfix d-none d-md-block">
+                                    <nav>
+                                        <ul>
+                                            <li><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
+                                            <li><a href="shop.html">分類</a>
+                                                <div class="magamenu ">
+                                                    <ul class="again">
+                                                        <li class="single-menu colmd4">
+                                                            <a href="#">電子產品</a>
+                                                            <a href="#">玩具</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li><a href="#">你好 , XXX</a>
+                                                <ul>
+                                                    <li><a href="my-account.html">會員中心</a></li>
+                                                    <li><a href="checkout.html">我的訂單</a></li>
+                                                    <li><a href="wishlist.html">我的收藏</a></li>
+                                                    <li><a href="wishlist.html">團購進度</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- mobile menu start -->
+                                <div class="mobile-menu-area d-lg-none d-md-none">
+                                    <div class="mobile-menu">
+                                        <nav id="dropdown">
+                                            <ul>
+                                                <li><a href="index.html">首頁</a>
+                                                </li>
+                                                <li><a href="shop.html">分類</a>
+                                                    <ul>
+                                                        <li class="single-menu colmd4">
+                                                            <a href="#">電子產品</a>
+                                                            <a href="#">玩具</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">你好 , XXX</a>
+                                                    <ul>
+                                                        <li><a href="my-account.html">會員中心</a></li>
+                                                        <li><a href="checkout.html">我的訂單</a></li>
+                                                        <li><a href="wishlist.html">我的收藏</a></li>
+                                                        <li><a href="wishlist.html">團購進度</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <!-- mobile menu end -->
+                                <div class="right-header re-right-header">
+                                    <ul>
+                                        <li class="re-icon tnm"><i class="fa fa-search" aria-hidden="true"></i>
+                                            <form method="get" id="searchform" action="#">
+                                                <input type="text" value="" name="s" id="ws" placeholder="收尋商品" />
+                                                <button type="submit"><i class="pe-7s-search"></i></button>
+                                            </form>
+                                        </li>
+                                        <li><a href="cart.html"><i class="fa fa-shopping-cart"></i><span class="color1">2</span></a>
+                                            <ul class="drop-cart">
+                                                <li>
+                                                    <a href="cart.html"><img src="img/cart/1.png" alt="" /></a>
+                                                    <div class="add-cart-text">
+                                                        <p><a href="#">White Shirt</a></p>
+                                                        <p>$50.00</p>
+                                                    </div>
+                                                    <div class="pro-close">
+                                                        <i class="pe-7s-close"></i>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a href="cart.html"><img src="img/cart/2.png" alt="" /></a>
+                                                    <div class="add-cart-text">
+                                                        <p><a href="#">White Shirt</a></p>
+                                                        <p>$50.00 x 2</p>
+                                                    </div>
+                                                    <div class="pro-close">
+                                                        <i class="pe-7s-close"></i>
+                                                    </div>
+                                                </li>
+                                                <li class="total-amount clearfix">
+                                                    <span class="floatleft">總金額</span>
+                                                    <span class="floatright"><strong>= $150.00</strong></span>
+                                                </li>
+                                                <li>
+                                                    <div class="goto text-center">
+                                                        <a href="cart.html"><strong>前往購物車 &nbsp;<i class="pe-7s-angle-right"></i></strong></a>
+                                                    </div>
+                                                </li>
+                                                <li class="checkout-btn text-center">
+                                                    <a href="checkout.html">結帳!</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Forestage - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="re-footer-section">
+        <!-- footer-top area start -->
+        <div class="footer-top">
+            <div class="footer-dsc">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="single-text res-text">
+                                <div class="footer-title">
+                                    <h4>聯絡我們</h4>
+                                    <hr class="dubble-border" />
+                                </div>
+                                <div class="footer-text">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-4 footer-content">
+                                            <h6 class="fw-bolder">地址</h6>
+                                            <p>My Company, 45 Puffin Street 1245</p>
+                                            <p class="rs">Poffinville France.</p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 footer-content">
+                                            <h6 class="fw-bolder">電話</h6>
+                                            <p>+201 (987) 6641 053</p>
+                                            <p>+202 (987) 6641 056</p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 footer-content">
+                                            <h6 class="fw-bolder">電子郵件</h6>
+                                            <p>info@domainname.com</p>
+                                            <p>company@outlook.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="dubble-border" />
+            </div>
         </div>
+        <!-- footer-top area end -->
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,4 +1,6 @@
 using Forestage.Models.EFModels;
+using Forestage.Models.Repositories;
+using Forestage.Models.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Forestage
@@ -14,6 +16,13 @@ namespace Forestage
 
             builder.Services.AddDbContext<AppDbContext>(
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // Services
+            builder.Services.AddScoped<ShopService>();
+
+
+            // Repositories
+            builder.Services.AddScoped<ShopRepository>();
 
             var app = builder.Build();
 
