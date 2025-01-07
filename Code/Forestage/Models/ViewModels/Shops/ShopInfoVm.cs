@@ -1,4 +1,4 @@
-﻿namespace Forestage.Models.ViewModels
+﻿namespace Forestage.Models.ViewModels.Shops
 {
     public class ShopInfoVm
     {
