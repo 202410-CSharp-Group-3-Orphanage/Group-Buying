@@ -18,22 +18,27 @@
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="MT.Extensions">
-      <HintPath>bin\Debug\net8.0\MT.Extensions.dll</HintPath>
+      <HintPath>bin\Debug\MT.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="MT.Security">
-      <HintPath>bin\Debug\net8.0\MT.Security.dll</HintPath>
+      <HintPath>bin\Debug\MT.Security.dll</HintPath>
     </Reference>
     <Reference Include="MT.SQL">
-      <HintPath>bin\Debug\net8.0\MT.SQL.dll</HintPath>
+      <HintPath>bin\Debug\MT.SQL.dll</HintPath>
     </Reference>
     <Reference Include="MT.Utilities">
-      <HintPath>bin\Debug\net8.0\MT.Utilities.dll</HintPath>
+      <HintPath>bin\Debug\MT.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
 

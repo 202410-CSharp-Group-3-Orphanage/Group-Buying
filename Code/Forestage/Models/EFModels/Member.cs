@@ -7,6 +7,7 @@ namespace Forestage.Models.EFModels;
 
 public partial class Member
 {
+
     public int Id { get; set; }
 
     /// <summary>

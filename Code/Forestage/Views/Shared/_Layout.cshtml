@@ -47,10 +47,25 @@
                                             </li>
                                             <li><a href="#">你好 , XXX</a>
                                                 <ul>
-                                                    <li><a href="my-account.html">會員中心</a></li>
-                                                    <li><a href="checkout.html">我的訂單</a></li>
-                                                    <li><a href="wishlist.html">我的收藏</a></li>
-                                                    <li><a href="wishlist.html">團購進度</a></li>
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <!-- Member Center Button - Only visible when logged in -->
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="@Url.Action("Index", "Member")">會員中心</a>
+                                                    </li>
+
+                                                    <!-- Logout Button - Visible when logged in -->
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="@Url.Action("Logout", "Member")">登出</a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <!-- Login Button - Visible when not logged in -->
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="@Url.Action("Login", "Member")">登入</a>
+                                                    </li>
+                                                }
                                                 </ul>
                                             </li>
                                         </ul>
@@ -73,10 +88,25 @@
                                                 </li>
                                                 <li><a href="#">你好 , XXX</a>
                                                     <ul>
-                                                        <li><a href="my-account.html">會員中心</a></li>
-                                                        <li><a href="checkout.html">我的訂單</a></li>
-                                                        <li><a href="wishlist.html">我的收藏</a></li>
-                                                        <li><a href="wishlist.html">團購進度</a></li>
+                                                    @if (User.Identity.IsAuthenticated)
+                                                    {
+                                                        <!-- Member Center Button - Only visible when logged in -->
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("Index", "Member")">會員中心</a>
+                                                        </li>
+
+                                                        <!-- Logout Button - Visible when logged in -->
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("Logout", "Member")">登出</a>                                                            
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <!-- Login Button - Visible when not logged in -->
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("Login", "Member")">登入</a>
+                                                        </li>
+                                                    }
                                                     </ul>
                                                 </li>
                                             </ul>
