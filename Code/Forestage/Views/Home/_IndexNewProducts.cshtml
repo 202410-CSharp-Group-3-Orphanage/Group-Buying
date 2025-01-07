@@ -1,0 +1,48 @@
+﻿@using Forestage.Models.ViewModels.Products;
+@model List<Forestage.Models.ViewModels.Products.ProductBlockVm>;
+
+<div id="NewProducts">
+    <div class="banner-area">
+        <div class="container">
+            <div class="section-padding1">
+                <div class="row">
+                    <div v-for="product in new_products" :key="product.id" class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <div class="banner-box banner-box-re">
+                            <a :href="'/Products/' + product.id">
+                                <img :src="product.imagePaths[0]" alt="">
+                                <div>
+                                    <h2>
+                                        {{ product.productName }}
+                                        <span>{{ product.categoryName }}</span>
+                                    </h2>
+                                    <p>{{ product.info }}</p>
+                                    <p>
+                                        Price: {{ product.productPrice }}
+                                        <span v-if="product.groupBuyingPrice">
+                                            (Group Buy: {{ product.groupBuyingPrice }})
+                                        </span>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    const new_products = ref(@Html.Raw(Json.Serialize(@Model))); // 將 C# 資料序列化為 JSON
+
+    const new_products_config = {
+        setup() {
+            return {
+                new_products,
+            };
+        },
+    };
+
+    createApp(new_products_config).mount("#NewProducts");
+</script>

@@ -1,26 +1,16 @@
 ﻿@using Forestage.Models.ViewModels.Products;
 @model List<Forestage.Models.ViewModels.Products.ProductBlockVm>;
 
-<style>
-    .carousel-inner img {
-        height: 600px;
-        /* 可根據需求調整高度 */
-        object-fit: cover;
-        /* 確保圖片不失真地填滿框架 */
-        width: 100%;
-        /* 確保圖片寬度填滿 */
-    }
-</style>
-<div id="app">
+<div id="BestProducts">
     <div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
-            <button v-for="(product, index) in products" :key="index" type="button"
+            <button v-for="(product, index) in best_products" :key="index" type="button"
                     :data-bs-target="'#carouselCaptions'" :data-bs-slide-to="index"
                     :class="{ active: index === 0 }" :aria-label="'Slide ' + (index + 1)"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item" v-for="(product, index) in products" :key="product.id" :class="{ active: index === 0 }">
-                <a :href="'/product/details/' + product.id">
+            <div class="carousel-item" v-for="(product, index) in best_products" :key="product.id" :class="{ active: index === 0 }">
+                <a :href="'/Products/' + product.id">
                     <img :src="product.imagePaths[0]" class="d-block w-100" :alt="product.productName">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>{{ product.productName }}</h5>
@@ -45,17 +35,15 @@
 </div>
 
 <script>
-    let { createApp, ref } = Vue;
+    const best_products = ref(@Html.Raw(Json.Serialize(@Model)));
 
-    const products = ref(@Html.Raw(Json.Serialize(@Model))); // 將 C# 資料序列化為 JSON
-
-    const config = {
-        setup() {
-            return {
-                products,
+    const best_products_config = {
+    setup() {
+        return {
+            best_products,
             };
         },
     };
 
-    createApp(config).mount("#app");
+    createApp(best_products_config).mount("#BestProducts");
 </script>

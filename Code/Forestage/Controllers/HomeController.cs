@@ -30,7 +30,6 @@ namespace Forestage.Controllers
             var bestProducts = _productService.GetBestProducts();
             var newProducts = _productService.GetNewProducts();
             var upcomingProducts = _productService.GetUpcomingProducts();
-
             var indexVm = new IndexVm
             {
                 BestProducts = ObjectMapper.MapCollection<ProductBlockDto, ProductBlockVm>(bestProducts).ToList(),
