@@ -15,7 +15,22 @@ namespace Forestage.Models.Services
 
         public ShopInfoDto GetShopInfo(int id)
         {
-            return _shopRepository.GetById(id);
+            var shop = _shopRepository.GetShopById(id);
+
+            if(shop == null)
+            {
+                return null;
+            }
+
+            var ProductCount = _shopRepository.GetProductCountByShopId(id);
+
+            return new ShopInfoDto
+            {
+                Name = shop.Name,
+                Avatar = shop.Avatar,
+                Address = shop.Address,
+                ProductCount = ProductCount
+            };
         }
     }
 }

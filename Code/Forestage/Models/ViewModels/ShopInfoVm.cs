@@ -8,7 +8,7 @@
 
         public string Address { get; set; }
 
-        public int qty { get; set; }
+        public int ProductCount { get; set; }
 
         //public PagedList <ProductVm> Products { get; set; }
     }

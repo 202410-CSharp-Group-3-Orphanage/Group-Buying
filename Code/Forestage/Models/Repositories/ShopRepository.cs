@@ -10,18 +10,13 @@ namespace Forestage.Models.Repositories
         {
             _context = context;
         }
-        public ShopInfoDto GetById(int id)
+        public Shop GetShopById(int id)
         {
-            var shop = _context.Shops.Find(id);
-            var shopDto = new ShopInfoDto
-            {
-                Name = shop.Name,
-                Avatar = shop.Avatar,
-                Address = shop.Address,
-                qty = _context.Products.Count(x => x.ShopId == shop.Id),
-                Products = shop.Products
-            };
-            return shopDto;
+            return _context.Shops.Find(id);
+        }
+        public int GetProductCountByShopId(int id)
+        {
+            return _context.Products.Count(x => x.ShopId == id);
         }
     }
 }
