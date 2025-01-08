@@ -42,9 +42,9 @@ namespace Forestage.Controllers
 		{
 			CoreFile mVC5File = new CoreFile(file);
 			UploadFileHelper uploadFileHelper = new UploadFileHelper();
-			var newFileName = uploadFileHelper.SaveAs("C:\\Group-Buying\\Code\\FileServer\\Files\\Products", mVC5File);
+			string relativePath = Path.Combine(_env.ContentRootPath, "..", "FileServer", "Files", "Products");
+			var newFileName = uploadFileHelper.SaveAs(relativePath, mVC5File);
 			Console.WriteLine(newFileName);
-			Console.WriteLine(_env.ContentRootPath);
 			return NoContent();
 		}
 	}
