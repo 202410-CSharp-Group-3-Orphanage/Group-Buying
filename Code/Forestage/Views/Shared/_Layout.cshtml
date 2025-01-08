@@ -1,83 +1,86 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"] - Forestage</title>
-	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/Forestage.styles.css" asp-append-version="true" />
-	<link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css' />
-	<link rel="stylesheet" href="~/css/animate.css" />
-	<link rel="stylesheet" href="~/css/pe-icon-7-stroke.min.css" />
-	<link rel="stylesheet" href="~/css/jquery-ui.min.css" />
-	<link rel="stylesheet" href="~/css/jquery.simpleLens.css" />
-	<link rel="stylesheet" href="~/css/meanmenu.min.css" />
-	@* 換成新版OwlCarousel2 *@
-	@* <link rel="stylesheet" href="~/css/owl.carousel.css" /> *@
-	<link rel="stylesheet" href="~/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="~/css/style.css" />
-	<link rel="stylesheet" href="~/css/responsive.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Forestage</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Forestage.styles.css" asp-append-version="true" />
+    <link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="~/css/animate.css" />
+    <link rel="stylesheet" href="~/css/pe-icon-7-stroke.min.css" />
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/css/jquery.simpleLens.css" />
+    <link rel="stylesheet" href="~/css/meanmenu.min.css" />
+    @* 換成新版OwlCarousel2 *@
+    @* <link rel="stylesheet" href="~/css/owl.carousel.css" /> *@
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/responsive.css" />
 
-	@* font-awesome *@
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
-	@* jquery *@
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	@* OwlCarousel2 *@
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    @* font-awesome *@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
+    @* jquery *@
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @* OwlCarousel2 *@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
-	@* 換成新版jquery *@
-	@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@ 
-	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="~/js/modernizr-2.8.3.min.js"></script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
-	<script src="~/js/parallax.min.js"></script>
-	<script src="~/js/jquery-ui.min.js"></script>
-	<script src="~/js/jquery.countdown.min.js"></script>
-	<script src="~/js/jquery.fancybox.js"></script>
-	<script src="~/js/jquery.meanmenu.js"></script>
-	<script src="~/js/main.js"></script>
-	@* 換成新版OwlCarousel2 *@
-	@* <script src="~/js/owl.carousel.min.js"></script> *@
-	<script src="~/js/plugins.js"></script>
-	<script src="~/js/sticky.js"></script>
-	<script src="~/js/wow.min.js"></script>
-	<script src="~/js/jquery.nivo.slider.js"></script>
-	<script src="~/js/home.js"></script>
+    @* 換成新版jquery *@
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/modernizr-2.8.3.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/parallax.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/jquery.fancybox.js"></script>
+    <script src="~/js/jquery.meanmenu.js"></script>
+    <script src="~/js/main.js"></script>
+    @* 換成新版OwlCarousel2 *@
+    @* <script src="~/js/owl.carousel.min.js"></script> *@
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/sticky.js"></script>
+    <script src="~/js/wow.min.js"></script>
+    <script src="~/js/jquery.nivo.slider.js"></script>
+    <script src="~/js/home.js"></script>
 
-	<script src="~/js/vue.global.js"></script>
+    @* vue *@
+    <script src="~/js/vue.global.js"></script>
 
 </head>
 <body>
     <header>
-			<div class="header-bottom header-bottom-one" id="sticky-menu">
-				<div class="container relative">
-					<div class="row">
-						<div class="col-2">
-							<div class="logo">
-								<a asp-area="" asp-controller="Home" asp-action="Index"><img src="img/logo.png" alt="" /></a>
-							</div>
-						</div>
-						<div class="col-10 static">
-							<div class="all-manu-area">
-							    <div class="mainmenu clearfix d-none d-md-block">
-                                    <nav>
-                                        <ul>
-                                            <li><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
-                                            <li><a href="shop.html">分類</a>
-                                                <div class="magamenu ">
-                                                    <ul class="again">
-                                                        <li class="single-menu colmd4">
-                                                            <a href="#">電子產品</a>
-                                                            <a href="#">玩具</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li><a href="#">你好 , XXX</a>
-                                                <ul>
+        <div class="header-bottom header-bottom-one" id="sticky-menu">
+            <div class="container relative">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="logo">
+                            <a asp-area="" asp-controller="Home" asp-action="Index"><img src="img/logo.png" alt="" /></a>
+                        </div>
+                    </div>
+                    <div class="col-10 static">
+                        <div class="all-manu-area">
+                            <div class="mainmenu clearfix d-none d-md-block">
+                                <nav>
+                                    <ul>
+                                        <li><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
+                                        <li>
+                                            <a href="shop.html">分類</a>
+                                            <div class="magamenu ">
+                                                <ul class="again">
+                                                    <li class="single-menu colmd4">
+                                                        <a href="#">電子產品</a>
+                                                        <a href="#">玩具</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a href="#">你好 , XXX</a>
+                                            <ul>
                                                 @if (User.Identity.IsAuthenticated)
                                                 {                                                    
                                                     <li class="nav-item">
@@ -98,28 +101,31 @@
                                                         <a class="nav-link" href="@Url.Action("Login", "Members")">登入</a>
                                                     </li>
                                                 }
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- mobile menu start -->
+                            <div class="mobile-menu-area d-lg-none d-md-none">
+                                <div class="mobile-menu">
+                                    <nav id="dropdown">
+                                        <ul>
+                                            <li>
+                                                <a href="index.html">首頁</a>
+                                            </li>
+                                            <li>
+                                                <a href="shop.html">分類</a>
+                                                <ul>
+                                                    <li class="single-menu colmd4">
+                                                        <a href="#">電子產品</a>
+                                                        <a href="#">玩具</a>
+                                                    </li>
                                                 </ul>
                                             </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                                <!-- mobile menu start -->
-                                <div class="mobile-menu-area d-lg-none d-md-none">
-                                    <div class="mobile-menu">
-                                        <nav id="dropdown">
-                                            <ul>
-                                                <li><a href="index.html">首頁</a>
-                                                </li>
-                                                <li><a href="shop.html">分類</a>
-                                                    <ul>
-                                                        <li class="single-menu colmd4">
-                                                            <a href="#">電子產品</a>
-                                                            <a href="#">玩具</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">你好 , XXX</a>
-                                                    <ul>
+                                            <li>
+                                                <a href="#">你好 , XXX</a>
+                                                <ul>
                                                     @if (User.Identity.IsAuthenticated)
                                                     {
                                                         <!-- Member Center Button - Only visible when logged in -->
@@ -139,112 +145,114 @@
                                                             <a class="nav-link" href="@Url.Action("Login", "Member")">登入</a>
                                                         </li>
                                                     }
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
                                 </div>
-                                <!-- mobile menu end -->
-                                <div class="right-header re-right-header">
-                                    <ul>
-                                        <li class="re-icon tnm"><i class="fa fa-search" aria-hidden="true"></i>
-                                            <form method="get" id="searchform" action="#">
-                                                <input type="text" value="" name="s" id="ws" placeholder="收尋商品" />
-                                                <button type="submit"><i class="pe-7s-search"></i></button>
-                                            </form>
-                                        </li>
-                                        <li><a href="cart.html"><i class="fa fa-shopping-cart"></i><span class="color1">2</span></a>
-                                            <ul class="drop-cart">
-                                                <li>
-                                                    <a href="cart.html"><img src="img/cart/1.png" alt="" /></a>
-                                                    <div class="add-cart-text">
-                                                        <p><a href="#">White Shirt</a></p>
-                                                        <p>$50.00</p>
-                                                    </div>
-                                                    <div class="pro-close">
-                                                        <i class="pe-7s-close"></i>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <a href="cart.html"><img src="img/cart/2.png" alt="" /></a>
-                                                    <div class="add-cart-text">
-                                                        <p><a href="#">White Shirt</a></p>
-                                                        <p>$50.00 x 2</p>
-                                                    </div>
-                                                    <div class="pro-close">
-                                                        <i class="pe-7s-close"></i>
-                                                    </div>
-                                                </li>
-                                                <li class="total-amount clearfix">
-                                                    <span class="floatleft">總金額</span>
-                                                    <span class="floatright"><strong>= $150.00</strong></span>
-                                                </li>
-                                                <li>
-                                                    <div class="goto text-center">
-                                                        <a href="cart.html"><strong>前往購物車 &nbsp;<i class="pe-7s-angle-right"></i></strong></a>
-                                                    </div>
-                                                </li>
-                                                <li class="checkout-btn text-center">
-                                                    <a href="checkout.html">結帳!</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</header>
+                            </div>
+                            <!-- mobile menu end -->
+                            <div class="right-header re-right-header">
+                                <ul>
+                                    <li class="re-icon tnm">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                        <form method="get" id="searchform" action="#">
+                                            <input type="text" value="" name="s" id="ws" placeholder="收尋商品" />
+                                            <button type="submit"><i class="pe-7s-search"></i></button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <a href="cart.html"><i class="fa fa-shopping-cart"></i><span class="color1">2</span></a>
+                                        <ul class="drop-cart">
+                                            <li>
+                                                <a href="cart.html"><img src="img/cart/1.png" alt="" /></a>
+                                                <div class="add-cart-text">
+                                                    <p><a href="#">White Shirt</a></p>
+                                                    <p>$50.00</p>
+                                                </div>
+                                                <div class="pro-close">
+                                                    <i class="pe-7s-close"></i>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <a href="cart.html"><img src="img/cart/2.png" alt="" /></a>
+                                                <div class="add-cart-text">
+                                                    <p><a href="#">White Shirt</a></p>
+                                                    <p>$50.00 x 2</p>
+                                                </div>
+                                                <div class="pro-close">
+                                                    <i class="pe-7s-close"></i>
+                                                </div>
+                                            </li>
+                                            <li class="total-amount clearfix">
+                                                <span class="floatleft">總金額</span>
+                                                <span class="floatright"><strong>= $150.00</strong></span>
+                                            </li>
+                                            <li>
+                                                <div class="goto text-center">
+                                                    <a href="cart.html"><strong>前往購物車 &nbsp;<i class="pe-7s-angle-right"></i></strong></a>
+                                                </div>
+                                            </li>
+                                            <li class="checkout-btn text-center">
+                                                <a href="checkout.html">結帳!</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-	<footer class="re-footer-section">
-		<!-- footer-top area start -->
-		<div class="footer-top">
-			<div class="footer-dsc">
-				<div class="container">
-					<div class="row">
-						<div class="col-12">
-							<div class="single-text res-text">
-								<div class="footer-title">
-									<h4>聯絡我們</h4>
-									<hr class="dubble-border" />
-								</div>
-								<div class="footer-text">
-									<div class="row">
-										<div class="col-sm-12 col-md-4 footer-content">
-											<h6 class="fw-bolder">地址</h6>
-											<p>My Company, 45 Puffin Street 1245</p>
-											<p class="rs">Poffinville France.</p>
-										</div>
-										<div class="col-sm-12 col-md-4 footer-content">
-											<h6 class="fw-bolder">電話</h6>
-											<p>+201 (987) 6641 053</p>
-											<p>+202 (987) 6641 056</p>
-										</div>
-										<div class="col-sm-12 col-md-4 footer-content">
-											<h6 class="fw-bolder">電子郵件</h6>
-											<p>info@domainname.com</p>
-											<p>company@outlook.com</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<hr class="dubble-border" />
-			</div>
-		</div>
-		<!-- footer-top area end -->
-	</footer>
+    <footer class="re-footer-section">
+        <!-- footer-top area start -->
+        <div class="footer-top">
+            <div class="footer-dsc">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="single-text res-text">
+                                <div class="footer-title">
+                                    <h4>聯絡我們</h4>
+                                    <hr class="dubble-border" />
+                                </div>
+                                <div class="footer-text">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-4 footer-content">
+                                            <h6 class="fw-bolder">地址</h6>
+                                            <p>My Company, 45 Puffin Street 1245</p>
+                                            <p class="rs">Poffinville France.</p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 footer-content">
+                                            <h6 class="fw-bolder">電話</h6>
+                                            <p>+201 (987) 6641 053</p>
+                                            <p>+202 (987) 6641 056</p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-4 footer-content">
+                                            <h6 class="fw-bolder">電子郵件</h6>
+                                            <p>info@domainname.com</p>
+                                            <p>company@outlook.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="dubble-border" />
+            </div>
+        </div>
+        <!-- footer-top area end -->
+    </footer>
 
-	@await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,10 +1,13 @@
 ﻿using Dapper;
+using Forestage.Models.Dtos.GroupBuyings;
+using Forestage.Models.Dtos.Orders;
 using Forestage.Models.Dtos.Products;
 using Forestage.Models.EFModels;
 using Forestage.Models.Enums;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MT.SQL;
+using MT.Utilities.Mapper;
 using System.Data.Common;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
@@ -25,6 +28,51 @@ namespace Forestage.Models.Repositories
         public IEnumerable<Product> GetProducts()
         {
             return _context.Products;
+        }
+
+        public ProductInfoDto Get(int id)
+        {
+            var product = _context.Products
+                .AsNoTracking()
+                .Include(p => p.Category)
+                .Include(p => p.ProductImages)
+                .Include(p => p.GroupBuyings)
+                .ThenInclude(g => g.Orders)
+                .FirstOrDefault(p => p.Id == id);
+            if (product == null)
+            {
+                throw new ArgumentException("找不到商品");
+            }
+            var productInfoDto = ObjectMapper.Map<Product, ProductInfoDto>(product);
+            return productInfoDto;
+
+            //ProductInfoDto productInfoDto = new ProductInfoDto
+            //{
+            //    Id = product.Id,
+            //    Name = product.Name,
+            //    Price = product.Price,
+            //    Info = product.Info
+            //};
+
+            //product.GroupBuyings = product.GroupBuyings.Where(gb => gb.Enabled).ToList();
+            //if (product.GroupBuyings.SingleOrDefault(g => g.Enabled) != null)
+            //{
+            //    var groupBuying = product.GroupBuyings.SingleOrDefault(g => g.Enabled);
+            //    productInfoDto.GroupBuyings = new GroupBuyingInfoDto
+            //    {
+
+            //        //Price = product.GroupBuyings.First(gb => gb.Enabled)?.Price ?? null,
+            //        //MinimumGroupSize = product.GroupBuyings.SingleOrDefault(gb => gb.Enabled)?.MinimumGroupSize ?? null
+            //        Price = groupBuying.Price,
+            //        MinimumGroupSize = groupBuying.MinimumGroupSize,
+            //        Description = groupBuying.Description,
+            //        StartDate = groupBuying.StartDate,
+            //        EndDate = groupBuying.EndDate,
+            //        Orders = groupBuying.Orders.Select(o => new OrderInfoDto { Quantity = o.Quantity }).ToList()
+            //    };
+            //}
+
+            //return productInfoDto;
         }
 
         public IEnumerable<ProductBlockDto> GetBestProducts()
