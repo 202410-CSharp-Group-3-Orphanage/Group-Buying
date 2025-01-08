@@ -5,8 +5,8 @@ import pyodbc
 try:
     # 宣告一個含有MS SQL Server連線參數的連線
     sqlconn = pymssql.connect(
-        # server=r"localhost\sql2022",
-        server="localhost",
+        server=r"localhost\sql2022",
+        # server="localhost",
         user="sa5",
         password="sa5",
         database="GroupBuying",
@@ -16,8 +16,8 @@ except:  # noqa: E722
     # 設定連線字串
     connection_string = (
         "DRIVER={ODBC Driver 17 for SQL Server};"  # 確保已安裝對應的 ODBC 驅動程式
-        # "SERVER=localhost\\sql2022;"  # 伺服器名稱，若埠號非預設，需指定為 localhost,1433
-        "SERVER=localhost;"  # 伺服器名稱，若埠號非預設，需指定為 localhost,1433
+        "SERVER=localhost\\sql2022;"  # 伺服器名稱，若埠號非預設，需指定為 localhost,1433
+        # "SERVER=localhost;"  # 伺服器名稱，若埠號非預設，需指定為 localhost,1433
         "DATABASE=GroupBuying;"  # 資料庫名稱
         "UID=sa5;"  # 使用者名稱
         "PWD=sa5;"  # 密碼
