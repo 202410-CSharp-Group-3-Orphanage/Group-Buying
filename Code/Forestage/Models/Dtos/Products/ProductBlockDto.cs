@@ -1,4 +1,7 @@
-﻿namespace Forestage.Models.Dtos.Products
+﻿using Forestage.Models.Dtos.GroupBuyings;
+using System.Text.RegularExpressions;
+
+namespace Forestage.Models.Dtos.Products
 {
     public class ProductBlockDto
     {

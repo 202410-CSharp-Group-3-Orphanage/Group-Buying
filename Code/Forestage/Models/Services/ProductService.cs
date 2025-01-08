@@ -1,4 +1,5 @@
 ﻿using Forestage.Models.Dtos.Products;
+using Forestage.Models.Enums;
 using Forestage.Models.Repositories;
 using MT.Extensions;
 
@@ -57,6 +58,35 @@ namespace Forestage.Models.Services
                 });
             productIndexDtos = productIndexDtos.Take(limit);
             return productIndexDtos;
+        }
+        public ProductInfoDto Get(int id)
+        {
+            try
+            {
+                ProductInfoDto productInfoDto = _productRepo.Get(id);
+
+                productInfoDto.ImagePaths = productInfoDto.ProductImages.Select(x => x.Path).ToList();
+
+
+                // 先取得有效的團購
+                var groupBuyings = productInfoDto.GroupBuyings.LastOrDefault(g => g.Enabled);
+                if (groupBuyings != null)
+                {
+                    productInfoDto.Participants = groupBuyings.Orders
+                        .Where(o => o.Status == (int)OrderStatus.Participating)
+                        .Sum(o => o.Quantity);
+                    productInfoDto.MinimumGroupSize = groupBuyings.MinimumGroupSize;
+                    productInfoDto.EndDate = groupBuyings.EndDate;
+                    productInfoDto.GroupBuyingPrice = groupBuyings.Price;
+                    productInfoDto.Description = groupBuyings.Description;
+                }
+
+                return productInfoDto;
+            }
+            catch (ArgumentException ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
         }
     }
 }
