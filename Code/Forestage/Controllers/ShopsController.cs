@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Forestage.Controllers
 {
-    public class ShopController : Controller
+    public class ShopsController : Controller
     {
         private readonly ShopService _shopService;
 
-        public ShopController(ShopService shopService)
+        public ShopsController(ShopService shopService)
         {
             _shopService = shopService;
         }
 
-        [Route("Shop/Index/{id}")]
+        [Route("Shops/{id}")]
         public IActionResult Index(int id)
         {
             if(id <= 0)
