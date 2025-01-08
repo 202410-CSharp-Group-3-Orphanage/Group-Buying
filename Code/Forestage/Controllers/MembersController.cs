@@ -13,11 +13,11 @@ using Forestage.Models.Services;
 
 namespace Forestage.Controllers
 {
-    public class MemberController : Controller
+    public class MembersController : Controller
     {
         private readonly MemberService _service;
 
-        public MemberController(MemberService service)
+        public MembersController(MemberService service)
         {
             _service = service;
         }
@@ -110,7 +110,7 @@ namespace Forestage.Controllers
             try
             {
                 VaildateRegister(model);
-                return RedirectToAction("Login", "Member");
+                return RedirectToAction("Login", "Members");
             }
             catch (Exception ex)
             {
@@ -147,7 +147,7 @@ namespace Forestage.Controllers
             {
                 VaildateEmailAndSendConfirmMail(model);                
 
-                return RedirectToAction("Login", "Member");
+                return RedirectToAction("Login", "Members");
             }
             catch (Exception ex)
             {
@@ -173,7 +173,7 @@ namespace Forestage.Controllers
             {
                 VaildateEmailAndConfirmCode(email,confirmCode);
                 ResetPasswordFromEmail(model);
-                return RedirectToAction("Login", "Member");
+                return RedirectToAction("Login", "Members");
             }
             catch (Exception ex)
             {
@@ -217,7 +217,7 @@ namespace Forestage.Controllers
             try
             {
                 VaildateChangePassword(model);
-                return RedirectToAction("Index", "Member");
+                return RedirectToAction("Index", "Members");
             }
             catch (Exception ex)
             {
@@ -255,7 +255,7 @@ namespace Forestage.Controllers
             try
             {
                 VaildateModifyPersonalInformation(model);
-                return RedirectToAction("Index", "Member");
+                return RedirectToAction("Index", "Members");
             }
             catch (Exception ex)
             {
