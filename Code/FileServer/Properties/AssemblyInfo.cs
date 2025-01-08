@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 組件一般資訊會透過下列
 // 控制。變更這些屬性值可修改與組件關聯的
 // 資訊。
-[assembly: AssemblyTitle("ImageServer")]
+[assembly: AssemblyTitle("FileServer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ImageServer")]
+[assembly: AssemblyProduct("FileServer")]
 [assembly: AssemblyCopyright("Copyright (C)  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 下列 GUID 為專案公開 (Expose) 至 COM 時所要使用的 typelib ID
-[assembly: Guid("d38f7d29-40da-4ba8-ad71-b11a453943e1")]
+[assembly: Guid("784a542d-241c-4064-9780-df0f9b5d32b2")]
 
 // 組件的版本資訊是由下列四項值構成:
 //
