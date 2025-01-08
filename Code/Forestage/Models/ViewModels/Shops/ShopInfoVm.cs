@@ -1,4 +1,9 @@
-﻿namespace Forestage.Models.ViewModels.Shops
+﻿using Forestage.Models.EFModels;
+using Forestage.Models.Services;
+using Forestage.Models.ViewModels.Paging;
+using Forestage.Models.ViewModels.Products;
+
+namespace Forestage.Models.ViewModels.Shops
 {
     public class ShopInfoVm
     {
@@ -10,6 +15,8 @@
 
         public int ProductCount { get; set; }
 
-        //public PagedList <ProductVm> Products { get; set; }
+        public PagedList<ProductBlockVm> Products { get; set; }
+
+        public SortInfo SortInfo { get; set; }
     }
 }

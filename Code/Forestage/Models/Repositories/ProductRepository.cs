@@ -15,7 +15,11 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Forestage.Models.Repositories
 {
-    public class ProductRepository
+    public interface IProductRepository
+    {
+        IQueryable<Product> GetProductsByShopId(int shopId);
+    }
+    public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
         private readonly SqlConnection _sqlConnection;
@@ -225,6 +229,11 @@ JOIN
             });
 
             return result;
+        }
+
+        public IQueryable<Product> GetProductsByShopId(int shopId)
+        {
+            return _context.Products.Where(p => p.ShopId == shopId);
         }
     }
 }

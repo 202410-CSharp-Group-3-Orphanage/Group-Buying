@@ -9,5 +9,7 @@
         public int ProductPrice { get; set; }
         public int? GroupBuyingPrice { get; set; }
         public List<string> ImagePaths { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }

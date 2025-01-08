@@ -18,5 +18,6 @@ namespace Forestage.Models.Repositories
         {
             return _context.Products.Count(x => x.ShopId == id);
         }
+
     }
 }
