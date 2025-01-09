@@ -19,12 +19,12 @@
 					<div class="item" v-for="product in upcoming_products" :key="product.id">
 						<div class="single-product">
 							<div class="product-img">
-								<a :href="'/Products/' + product.id">
+								<a :href="'/Products/Details/' + product.id">
 									<img :src="product.imagePaths[0]" :alt="product.productName" />
 								</a>
 							</div>
 							<div class="product-dsc">
-								<h3><a :href="'/Products/' + product.id">{{ product.productName }}</a></h3>
+								<h3><a :href="'/Products/Details/' + product.id">{{ product.productName }}</a></h3>
 								<div class="star-price">
 									<span class="price-left">$ {{ product.productPrice }}</span>
 									<span v-if="product.groupBuyingPrice" class="price-left group-price">

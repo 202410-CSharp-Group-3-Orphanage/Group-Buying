@@ -35,6 +35,7 @@ namespace Forestage.Models.Repositories
             var product = _context.Products
                 .AsNoTracking()
                 .Include(p => p.Category)
+                .Include(p => p.Shop)
                 .Include(p => p.ProductImages)
                 .Include(p => p.GroupBuyings)
                 .ThenInclude(g => g.Orders)

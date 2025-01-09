@@ -1,4 +1,5 @@
-﻿using Forestage.Models.Dtos.Products;
+﻿using Forestage.Common;
+using Forestage.Models.Dtos.Products;
 using Forestage.Models.Enums;
 using Forestage.Models.Repositories;
 using MT.Extensions;
@@ -8,10 +9,12 @@ namespace Forestage.Models.Services
     public class ProductService
     {
         private readonly ProductRepository _productRepo;
+        private readonly FilePathHelper _filePathHelper;
 
-        public ProductService(ProductRepository productRepository)
+        public ProductService(ProductRepository productRepository, FilePathHelper filePathHelper)
         {
             _productRepo = productRepository;
+            _filePathHelper = filePathHelper;
         }
         public IEnumerable<ProductBlockDto> GetBestProducts()
         {
@@ -65,7 +68,15 @@ namespace Forestage.Models.Services
             {
                 ProductInfoDto productInfoDto = _productRepo.Get(id);
 
-                productInfoDto.ImagePaths = productInfoDto.ProductImages.Select(x => x.Path).ToList();
+                // 商品資訊
+                productInfoDto.ImagePaths = productInfoDto.ProductImages
+                    .Select(x => _filePathHelper.GetReadPath("Products", x.Path))
+                    .ToList();
+
+                // 商家資訊
+                productInfoDto.ShopName = productInfoDto.Shop.Name;
+                productInfoDto.ShopAvatar = _filePathHelper.GetReadPath("Shops", productInfoDto.Shop.Avatar);
+                productInfoDto.ShopLink = $"/Shops/Details/{productInfoDto.Shop.Id}";
 
 
                 // 先取得有效的團購
