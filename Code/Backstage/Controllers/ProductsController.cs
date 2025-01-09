@@ -1,4 +1,5 @@
-﻿using Backstage.Models.Dtos;
+﻿using Backstage.Common;
+using Backstage.Models.Dtos;
 using Backstage.Models.EFModels;
 using Backstage.Models.Services;
 using Backstage.Models.ViewModels;
@@ -16,6 +17,8 @@ namespace Backstage.Controllers
 {
     public class ProductsController : Controller
     {
+        FilePathHelper _filePathHelper = new FilePathHelper();
+        UploadFileHelper _uploadFileHelper = new UploadFileHelper();
         private readonly ProductService _service;
 
         public ProductsController(ProductService service)
@@ -49,30 +52,16 @@ namespace Backstage.Controllers
             var ticket = FormsAuthentication.Decrypt(authCookie.Value);
             string account = ticket.Name;
 
-            // 保存圖片到伺服器
+            
             var imagePaths = new List<string>();
-            UploadFileHelper uploadFileHelper = new UploadFileHelper();
+            
             foreach (var image in model.Images)
             {
-                // TODO: 要改相對路徑
-                var filename = uploadFileHelper.SaveAs("C:\\Group-Buying\\Code\\FileServer\\Files\\Products", image);
-                imagePaths.Add(filename);
-            }
+                string relativePath = _filePathHelper.GetWritePath("Products");
+                var newFileName = _uploadFileHelper.SaveAs(relativePath, image);
                 
-            //if (model.Images != null && model.Images.Count > 0)
-            //{
-            //    foreach (var image in model.Images)
-            //    {
-            //        if (image != null)
-            //        {
-            //            var fileName = Path.GetFileName(image.FileName);
-            //            var filePath = Path.Combine(Server.MapPath("~/ProductImages"), fileName);
-            //            image.SaveAs(filePath);
-            //            imagePaths.Add($"/ProductImages/{fileName}");
-            //        }
-            //    }
-            //}
-
+                imagePaths.Add(newFileName);
+            }
 
             var productDto = new CreateProductDTO
             {
