@@ -15,8 +15,11 @@
 
         public string GetReadPath(string folderName, string fileName)
         {
+            if (fileName.StartsWith("http")) return fileName;
+
             string? serverUrl = _configuration["FileServer:Url"];
             if (string.IsNullOrEmpty(serverUrl)) throw new Exception("請配置FileServerUrl");
+
             return $"{serverUrl}/Files/{folderName}/{fileName}";
         }
     }
