@@ -1,6 +1,7 @@
 ﻿using Backstage.Models.Dtos;
 using Backstage.Models.EFModels;
 using Backstage.Models.Repositories;
+using Backstage.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,12 @@ namespace Backstage.Models.Services
         public SelectList ShowCategories()
         {
             return _productRepo.ShowCategories();
+        }
+
+        public List<ShopProductListVm> ShowShopProductList(string currentMerchant)
+        {
+            var products = _productRepo.ShowShopProductList(currentMerchant);
+            return products;
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Backstage.Models.Dtos;
+﻿using Backstage.Common;
+using Backstage.Models.Dtos;
 using Backstage.Models.EFModels;
 using Backstage.Models.Services;
 using Backstage.Models.ViewModels;
+using MT.Utilities.UploadFile;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,11 +11,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Services.Description;
 
 namespace Backstage.Controllers
 {
     public class ProductsController : Controller
     {
+        FilePathHelper _filePathHelper = new FilePathHelper();
+        UploadFileHelper _uploadFileHelper = new UploadFileHelper();
         private readonly ProductService _service;
 
         public ProductsController(ProductService service)
@@ -26,8 +31,9 @@ namespace Backstage.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Create()
-        {            
+        {
             ViewBag.Categories = ShowCategories();
             return View(new CreateProductVm());
         }
@@ -46,20 +52,15 @@ namespace Backstage.Controllers
             var ticket = FormsAuthentication.Decrypt(authCookie.Value);
             string account = ticket.Name;
 
-            // 保存圖片到伺服器
+            
             var imagePaths = new List<string>();
-            if (model.Images != null && model.Images.Count > 0)
+            
+            foreach (var image in model.Images)
             {
-                foreach (var image in model.Images)
-                {
-                    if (image != null)
-                    {
-                        var fileName = Path.GetFileName(image.FileName);
-                        var filePath = Path.Combine(Server.MapPath("~/ProductImages"), fileName);
-                        image.SaveAs(filePath);
-                        imagePaths.Add($"/ProductImages/{fileName}");
-                    }
-                }
+                string relativePath = _filePathHelper.GetWritePath("Products");
+                var newFileName = _uploadFileHelper.SaveAs(relativePath, image);
+                
+                imagePaths.Add(newFileName);
             }
 
             var productDto = new CreateProductDTO
@@ -82,9 +83,14 @@ namespace Backstage.Controllers
             return _service.ShowCategories();            
         }
 
+        [Authorize]
         public ActionResult ShopProductList()
-        {
-            return View();
+        {            
+            string currentMerchant = User.Identity.Name;
+
+            var products = _service.ShowShopProductList(currentMerchant);
+                        
+            return View(products); 
         }
     }
 }
