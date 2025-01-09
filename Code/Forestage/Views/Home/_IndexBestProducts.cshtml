@@ -10,7 +10,7 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item" v-for="(product, index) in best_products" :key="product.id" :class="{ active: index === 0 }">
-                <a :href="'/Products/' + product.id">
+                <a :href="'/Products/Details/' + product.id">
                     <img :src="product.imagePaths[0]" class="d-block w-100" :alt="product.productName">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>{{ product.productName }}</h5>

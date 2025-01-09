@@ -1,4 +1,4 @@
-﻿namespace Forestage.Models.Dtos
+﻿namespace Forestage.Models.Dtos.Products
 {
     public class ProductImageInfoDto
     {

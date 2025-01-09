@@ -12,6 +12,9 @@
         public int Participants { get; set; }
         public int MinimumGroupSize { get; set; }
         public DateTime EndDate { get; set; }
+        public string ShopName { get; set; }
+        public string ShopLink { get; set; }
+        public string ShopAvatar { get; set; }
         public int GroupBuyingPrice { get; set; }
         public string Description { get; set; }
     }

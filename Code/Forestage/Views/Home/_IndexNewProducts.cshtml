@@ -8,7 +8,7 @@
                 <div class="row">
                     <div v-for="product in new_products" :key="product.id" class="col-lg-4 col-md-6 col-sm-12 mb-2">
                         <div class="banner-box banner-box-re">
-                            <a :href="'/Products/' + product.id">
+                            <a :href="'/Products/Details/' + product.id">
                                 <img :src="product.imagePaths[0]" alt="">
                                 <div>
                                     <h2>
