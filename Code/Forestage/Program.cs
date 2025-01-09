@@ -4,98 +4,102 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Forestage.Models.Services;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Forestage.Common;
 
 namespace Forestage
 {
-	public class Program
-	{
-		public static void Main(string[] args)
-		{
-			var builder = WebApplication.CreateBuilder(args);
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-			// Add services to the container.
-			builder.Services.AddControllersWithViews();
-
-
-			// �Ĥ@�B : �K�[�������ҪA��
-			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-				.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-				{
-					options.LoginPath = "/Member/Login";
-					options.LogoutPath = "/Member/Logout"; // �n�X����
-
-					// todo ��L�t�m
-					options.Cookie.Name = "GroupBuying03.Cookie";
-					options.Cookie.HttpOnly = true; // �L�k�ϥ�JavaScriptŪ��
-				});
-
-			builder.Services.AddScoped<MemberService>();
-			builder.Services.AddScoped<MemberEFRepository>();
-			builder.Services.AddScoped<EmailService>();
+            // Add services to the container.
+            builder.Services.AddControllersWithViews();
 
 
-			// Entity Framework
-			builder.Services.AddDbContext<AppDbContext>(
-				options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-			// Dapper
-			builder.Services.AddTransient<SqlConnection>(provider =>
-			{
-				var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-				return new SqlConnection(connectionString);
-			});
+            // �Ĥ@�B : �K�[�������ҪA��
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                    options.LoginPath = "/Member/Login";
+                    options.LogoutPath = "/Member/Logout"; // �n�X����
 
-			// Services
-			builder.Services.AddScoped<ProductService>();
-			builder.Services.AddScoped<ShopService>();
-			// Repositories
-			builder.Services.AddScoped<ProductRepository>();
-			builder.Services.AddScoped<ShopRepository>();
+                    // todo ��L�t�m
+                    options.Cookie.Name = "GroupBuying03.Cookie";
+                    options.Cookie.HttpOnly = true; // �L�k�ϥ�JavaScriptŪ��
+                });
 
-			//CORS
-			builder.Services.AddCors(
-				options =>
-				{
-					options.AddPolicy("CorsPolicy",
-						builder =>
-						{
-							builder
-							.AllowAnyOrigin()
-							.AllowAnyMethod()
-							.AllowAnyHeader();
-						});
-				});
+            builder.Services.AddScoped<MemberService>();
+            builder.Services.AddScoped<MemberEFRepository>();
+            builder.Services.AddScoped<EmailService>();
 
 
-			builder.Services.AddControllersWithViews();
+            // Entity Framework
+            builder.Services.AddDbContext<AppDbContext>(
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            // Dapper
+            builder.Services.AddTransient<SqlConnection>(provider =>
+            {
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+                return new SqlConnection(connectionString);
+            });
 
-			var app = builder.Build();
+            // Services
+            builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<ShopService>();
+            // Repositories
+            builder.Services.AddScoped<ProductRepository>();
+            builder.Services.AddScoped<ShopRepository>();
 
-			//CORS
-			app.UseCors("CorsPolicy");
+            // Common
+            builder.Services.AddSingleton<FilePathHelper>();
 
-			// Configure the HTTP request pipeline.
-			if (!app.Environment.IsDevelopment())
-			{
-				app.UseExceptionHandler("/Home/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
-			}
+            //CORS
+            builder.Services.AddCors(
+                options =>
+                {
+                    options.AddPolicy("CorsPolicy",
+                        builder =>
+                        {
+                            builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                        });
+                });
 
-			app.UseHttpsRedirection();
-			app.UseStaticFiles();
 
-			app.UseRouting();
+            builder.Services.AddControllersWithViews();
 
-			// �ĤG�B : �ϥΨ������ҪA��, ���ǫܭ��n, �����bUseAuthorization���e
-			//app.UseAuthentication();
+            var app = builder.Build();
 
-			app.UseAuthorization();
+            //CORS
+            app.UseCors("CorsPolicy");
 
-			app.MapControllerRoute(
-				name: "default",
-				pattern: "{controller=Home}/{action=Index}/{id?}");
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
-			app.Run();
-		}
-	}
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            // �ĤG�B : �ϥΨ������ҪA��, ���ǫܭ��n, �����bUseAuthorization���e
+            //app.UseAuthentication();
+
+            app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.Run();
+        }
+    }
 }
