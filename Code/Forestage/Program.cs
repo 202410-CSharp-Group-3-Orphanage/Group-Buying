@@ -47,9 +47,9 @@ namespace Forestage
 
             // Services
             builder.Services.AddScoped<ProductService>();
-            builder.Services.AddScoped<IShopService, ShopService>();
+            builder.Services.AddScoped<ShopService>();
             // Repositories
-            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ProductRepository>();
             builder.Services.AddScoped<ShopRepository>();
 
             // Common

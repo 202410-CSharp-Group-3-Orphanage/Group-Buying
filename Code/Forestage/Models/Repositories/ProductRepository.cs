@@ -15,11 +15,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Forestage.Models.Repositories
 {
-    public interface IProductRepository
-    {
-        IQueryable<Product> GetProductsByShopId(int shopId);
-    }
-    public class ProductRepository : IProductRepository
+    public class ProductRepository
     {
         private readonly AppDbContext _context;
         private readonly SqlConnection _sqlConnection;
@@ -232,9 +228,18 @@ JOIN
             return result;
         }
 
-        public IQueryable<Product> GetProductsByShopId(int shopId)
+        public IEnumerable<ProductBlockDto> GetProductsByShopId(int shopId)
         {
-            return _context.Products.Where(p => p.ShopId == shopId);
+            var query = _context.Products.AsNoTracking().Where(p => p.ShopId == shopId).ToList();
+            var result = query.Select(x => new ProductBlockDto
+            {
+                Id = x.Id,
+                ProductName = x.Name,
+                ProductPrice = x.Price,
+                CreatedAt = x.CreatedAt
+            });
+
+            return result;
         }
     }
 }

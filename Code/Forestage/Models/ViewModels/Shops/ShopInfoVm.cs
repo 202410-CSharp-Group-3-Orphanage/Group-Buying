@@ -2,6 +2,7 @@
 using Forestage.Models.Services;
 using Forestage.Models.ViewModels.Paging;
 using Forestage.Models.ViewModels.Products;
+using Forestage.Models.ViewModels.Sort;
 
 namespace Forestage.Models.ViewModels.Shops
 {
@@ -15,8 +16,6 @@ namespace Forestage.Models.ViewModels.Shops
 
         public int ProductCount { get; set; }
 
-        public PagedList<ProductBlockVm> Products { get; set; }
-
-        public SortInfo SortInfo { get; set; }
+        public PagedList<ProductBlockVm, SortInfo<Product>> Products { get; set; }
     }
 }
