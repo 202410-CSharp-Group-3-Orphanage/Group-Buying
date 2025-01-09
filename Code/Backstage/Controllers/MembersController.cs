@@ -32,12 +32,8 @@ namespace Backstage.Controllers
         }
 
         public ActionResult Login()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            return View(new LoginVm());
+        {            
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -97,20 +93,12 @@ namespace Backstage.Controllers
             _service.Login(dto);
         }
 
-        // 登出
-        [Authorize]
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut(); // 登出並清除 cookie
-            return RedirectToAction("Index", "Home");
-        }
-
+        
         public ActionResult Register()
-        {
-            
-            return RedirectToAction("Index", "Home");
+        {            
+            return View();
         }
-
+                
         [HttpPost]
         [ValidateAntiForgeryToken]
 
@@ -151,6 +139,14 @@ namespace Backstage.Controllers
             };
 
             _service.Register(dto);
+        }
+
+        // 登出
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut(); // 登出並清除 cookie
+            return RedirectToAction("Index", "Home");
         }
     }
 }

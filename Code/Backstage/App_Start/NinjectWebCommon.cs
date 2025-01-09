@@ -46,6 +46,7 @@ namespace Backstage.App_Start
         {
             // 在這裡註冊依賴項
             kernel.Bind<ProductService>().ToSelf().WithConstructorArgument("connectionString", "Data Source=.\\sql2022;Initial Catalog=GroupBuying;User ID=sa5;Password=sa5;Trust Server Certificate=True");
+            
         }
     }
 }
