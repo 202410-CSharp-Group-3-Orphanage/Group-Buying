@@ -1,9 +1,11 @@
 ﻿using Backstage.Models.Dtos;
 using Backstage.Models.EFModels;
+using Backstage.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -49,6 +51,27 @@ namespace Backstage.Models.Repositories
             };
             _context.Products.Add(product);
             _context.SaveChanges();
+        }
+
+        public List<ShopProductListVm> ShowShopProductList(string currentMerchant)
+        {
+            var CurrentUserShopId = _context.Shops.Where(m => m.Account == currentMerchant).FirstOrDefault().Id;
+            
+                var products = _context.Products
+                .Where(p => p.ShopId == CurrentUserShopId) 
+                .Select(p => new ShopProductListVm
+                {
+                    Id = p.Id,
+                    Category = p.Category.Name, 
+                    ImageUrl = p.ProductImages.FirstOrDefault().Path,
+                    Name = p.Name,
+                    Description = p.Info,
+                    OriginalPrice = p.Price,
+                    
+                    IsGroupOpen = !(p.GroupBuyings.Where(m => m.Enabled == true).FirstOrDefault().Enabled.Equals(null)),
+                })
+                .ToList();
+            return products;
         }
     }
 }

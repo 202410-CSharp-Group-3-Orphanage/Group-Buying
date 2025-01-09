@@ -2,6 +2,7 @@
 using Backstage.Models.EFModels;
 using Backstage.Models.Services;
 using Backstage.Models.ViewModels;
+using MT.Utilities.UploadFile;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Services.Description;
 
 namespace Backstage.Controllers
 {
@@ -26,8 +28,9 @@ namespace Backstage.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Create()
-        {            
+        {
             ViewBag.Categories = ShowCategories();
             return View(new CreateProductVm());
         }
@@ -48,19 +51,28 @@ namespace Backstage.Controllers
 
             // 保存圖片到伺服器
             var imagePaths = new List<string>();
-            if (model.Images != null && model.Images.Count > 0)
+            UploadFileHelper uploadFileHelper = new UploadFileHelper();
+            foreach (var image in model.Images)
             {
-                foreach (var image in model.Images)
-                {
-                    if (image != null)
-                    {
-                        var fileName = Path.GetFileName(image.FileName);
-                        var filePath = Path.Combine(Server.MapPath("~/ProductImages"), fileName);
-                        image.SaveAs(filePath);
-                        imagePaths.Add($"/ProductImages/{fileName}");
-                    }
-                }
+                // TODO: 要改相對路徑
+                var filename = uploadFileHelper.SaveAs("C:\\Group-Buying\\Code\\FileServer\\Files\\Products", image);
+                imagePaths.Add(filename);
             }
+                
+            //if (model.Images != null && model.Images.Count > 0)
+            //{
+            //    foreach (var image in model.Images)
+            //    {
+            //        if (image != null)
+            //        {
+            //            var fileName = Path.GetFileName(image.FileName);
+            //            var filePath = Path.Combine(Server.MapPath("~/ProductImages"), fileName);
+            //            image.SaveAs(filePath);
+            //            imagePaths.Add($"/ProductImages/{fileName}");
+            //        }
+            //    }
+            //}
+
 
             var productDto = new CreateProductDTO
             {
@@ -82,9 +94,14 @@ namespace Backstage.Controllers
             return _service.ShowCategories();            
         }
 
+        [Authorize]
         public ActionResult ShopProductList()
-        {
-            return View();
+        {            
+            string currentMerchant = User.Identity.Name;
+
+            var products = _service.ShowShopProductList(currentMerchant);
+                        
+            return View(products); 
         }
     }
 }

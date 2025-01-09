@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
-            @Html.ActionLink("應用程式名稱", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("團購後台", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="切換導覽" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -19,9 +19,22 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("首頁", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("關於", "Register", "Products", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("連絡人", "Logout", "Products", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("建立商品", "Create", "Products", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("建立商品", "Create", "Products", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("商品列表", "ShopProductList", "Products", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                </ul>
+                <ul class="navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("登出", "Logout", "Members", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("登入", "Login", "Members", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("註冊", "Register", "Members", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -33,7 +46,6 @@
             <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
