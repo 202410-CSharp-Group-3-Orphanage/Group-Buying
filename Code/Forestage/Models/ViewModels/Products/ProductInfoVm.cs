@@ -1,6 +1,4 @@
-﻿using Forestage.Models.ViewModels.GroupBuyings;
-
-namespace Forestage.Models.ViewModels.Products
+﻿namespace Forestage.Models.ViewModels.Products
 {
     public class ProductInfoVm
     {
