@@ -28,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FileServer\FileServer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="MT.Extensions">
       <HintPath>bin\Debug\MT.Extensions.dll</HintPath>
     </Reference>
