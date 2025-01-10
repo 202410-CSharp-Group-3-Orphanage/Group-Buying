@@ -117,5 +117,14 @@ namespace Backstage.Models.Services
             _productRepo.CreateGroupBuying(groupBuyingDto);
         }
 
+        public List<GroupBuyingStatusViewModel> GetShopGroupBuyingStatus(int id)
+        {
+            return _productRepo.GetShopGroupBuyingStatus(id);
+        }
+
+        public int GetIdByAccount(string loggedInUserAccount)
+        {
+            return _productRepo.GetIdByAccount(loggedInUserAccount);
+        }
     }
 }

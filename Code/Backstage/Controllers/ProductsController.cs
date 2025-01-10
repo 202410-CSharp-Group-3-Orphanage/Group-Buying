@@ -165,5 +165,15 @@ namespace Backstage.Controllers
             return View(model); // 如果驗證失敗，返回頁面並顯示錯誤
         }
 
+        [Authorize]
+        public ActionResult GroupBuyingStatus()
+        {
+            string loggedInUserAccount = User.Identity.Name;
+            int id = _service.GetIdByAccount(loggedInUserAccount);
+
+            var groupBuyingList = _service.GetShopGroupBuyingStatus(id);
+
+            return View(groupBuyingList);
+        }
     }
 }
