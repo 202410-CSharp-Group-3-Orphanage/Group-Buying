@@ -16,7 +16,7 @@ namespace Forestage.Models.Services
         }
         public void Login(LoginDTO dto)
         {
-            if (!_repo.VaildateAccountExist(dto.Account)) throw new Exception("帳號或密碼錯誤1");
+            if (!_repo.VaildateAccountExist(dto.Account)) throw new Exception("帳號或密碼錯誤");
             if (!_repo.VaildateLoginPassword(dto.Account, dto.Password)) throw new Exception("帳號或密碼錯誤");
             if (!_repo.VaildateLoginIsConfirm(dto.Account, dto.Password)) throw new Exception("帳號尚未開通");
         }

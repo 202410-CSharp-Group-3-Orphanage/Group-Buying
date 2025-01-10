@@ -47,12 +47,16 @@
 
                         <div class="form-group mb-3">
                             <label asp-for="Birthday" class="form-label">請輸入生日</label>
-                            <input asp-for="Birthday" type="date" class="form-control" />
+                            <input asp-for="Birthday" type="date" class="form-control" value="" />
                             <span asp-validation-for="Birthday" class="text-danger"></span>
                         </div>
 
                         <div class="form-group mb-3">
                             <label asp-for="Gender" class="form-label">請勾選性別</label>
+                            <div class="form-check">
+                                <input asp-for="Gender" class="form-check-input" type="radio" value="" id="genderNone" checked />
+                                <label class="form-check-label" for="genderNone">不指定</label>
+                            </div>
                             <div class="form-check">
                                 <input asp-for="Gender" class="form-check-input" type="radio" value="1" id="genderMale" />
                                 <label class="form-check-label" for="genderMale">男</label>
@@ -63,7 +67,9 @@
                             </div>
                             <span asp-validation-for="Gender" class="text-danger"></span>
                         </div>
-
+                        <div class="mb-3">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary w-100">註冊</button>
                         </div>
@@ -78,4 +84,11 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        $(document).ready(function () {
+            // 移除生日和性別的必填驗證
+            $("#Birthday").rules("remove", "required");
+            $("input[name='Gender']").rules("remove", "required");
+        });
+    </script>
 }
