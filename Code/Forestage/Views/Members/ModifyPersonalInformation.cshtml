@@ -25,14 +25,15 @@
                         </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label asp-for="Birthday" class="form-label col-sm-2">生日</label>
-                        <div class="col-sm-10">
-                            <input asp-for="Birthday" type="date" class="form-control" />
-                            <span asp-validation-for="Birthday" class="text-danger"></span>
-                        </div>
+                        <label asp-for="Birthday" class="form-label">請輸入生日</label>
+                        <input asp-for="Birthday" type="date" class="form-control" value="" />
+                        <span asp-validation-for="Birthday" class="text-danger"></span>
                     </div>
                 </div>
             </fieldset>
+            <div class="mb-3">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </div>
             <div class="d-flex justify-content-end">
                 <input type="submit" value="修改" class="btn btn-primary me-2" />                
             </div>
@@ -43,5 +44,11 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script>
+            $(document).ready(function () {
+                // 移除生日和性別的必填驗證
+                $("#Birthday").rules("remove", "required");                
+            });
+        </script>
     }
 }

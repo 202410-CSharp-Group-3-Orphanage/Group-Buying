@@ -179,6 +179,8 @@
     <Compile Include="Models\Dtos\Products\CreateProductDTO.cs" />
     <Compile Include="Models\Dtos\Members\LoginDTO.cs" />
     <Compile Include="Models\Dtos\Members\RegisterDTO.cs" />
+    <Compile Include="Models\Dtos\Products\StartGroupBuyingDTO.cs" />
+    <Compile Include="Models\Dtos\Products\UpdateProductDTO.cs" />
     <Compile Include="Models\EFModels\Cart.cs" />
     <Compile Include="Models\EFModels\Category.cs" />
     <Compile Include="Models\EFModels\Employee.cs" />
@@ -201,7 +203,10 @@
     <Compile Include="Models\ViewModels\Members\RegisterVm.cs" />
     <Compile Include="Models\ViewModels\Products\CreateProductVm.cs" />
     <Compile Include="Models\ViewModels\Members\LoginVm.cs" />
+    <Compile Include="Models\ViewModels\Products\EditProductVm.cs" />
+    <Compile Include="Models\ViewModels\Products\GroupBuyingStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\Products\ShopProductListVm.cs" />
+    <Compile Include="Models\ViewModels\Products\StartGroupBuyingVm.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -358,6 +363,9 @@
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Members\Register.cshtml" />
     <Content Include="Views\Products\ShopProductList.cshtml" />
+    <Content Include="Views\Products\EditProduct.cshtml" />
+    <Content Include="Views\Products\StartGroupBuying.cshtml" />
+    <Content Include="Views\Products\GroupBuyingStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,6 +37,7 @@ namespace Forestage.Controllers
         {
             if (!ModelState.IsValid) { return View(model); }
 
+
             try
             {
                 VaildateLogin(model);
