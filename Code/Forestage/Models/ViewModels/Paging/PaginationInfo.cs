@@ -25,6 +25,12 @@
                 return startNumber < 1 ? 1 : startNumber;
             }
         }
+        public IEnumerable<T> GetPagedData<T>(IEnumerable<T> query)
+        {
+            int recordStartIndex = (PageNumber - 1) * PageSize;
+
+            return query.Skip(recordStartIndex).Take(PageSize);
+        }
 
         public int PageBarItemCount => PageBarStartNumber + PageItemCount > Pages
             ? Pages - PageBarStartNumber + 1

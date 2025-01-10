@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using Forestage.Common;
 using Forestage.Models.Dtos.Products;
 using Forestage.Models.Dtos.Shops;
 using Forestage.Models.EFModels;
@@ -16,32 +17,44 @@ namespace Forestage.Models.Services
     {
         private readonly ShopRepository _shopRepository;
         private readonly ProductRepository _productRepository;
+        private readonly FilePathHelper _filePathHelper;
 
-        public ShopService(ShopRepository shopRepository, ProductRepository productRepository)
+        public ShopService(ShopRepository shopRepository, ProductRepository productRepository, FilePathHelper filePathHelper)
         {
             _shopRepository = shopRepository;
             _productRepository = productRepository;
+            _filePathHelper = filePathHelper;
         }
 
         public ShopInfoDto GetShopInfoWithProducts(int id, int pageNumber, SortInfo<ProductBlockDto> sortInfo)
         {
             int pageSize = 9;
-            var products = _productRepository.GetProductsByShopId(id);
-            int totalCount = products.Count();
+            var productBlockDto = _productRepository.GetProductsByShopId(id).ToList();
+            int totalCount = productBlockDto.Count();
 
-            products = sortInfo.ApplySort(products.AsQueryable());
+            productBlockDto = sortInfo.ApplySort(productBlockDto.AsQueryable()).ToList();
+
+            foreach (var product in productBlockDto)
+            {
+                product.ImagePaths = product.ImagePaths
+                    .Select(x => _filePathHelper.GetReadPath("Products", x))
+                    .ToList();
+                product.ProductLink = $"/Products/Details/{product.Id}";
+                Console.WriteLine($"Product ID: {product.Id}, ProductLink: {product.ProductLink}");
+        }
 
             var paginationInfo = new PaginationInfo(totalCount, pageSize, pageNumber);
 
-            //var pagedProductQuery = productQuery.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var pagedProducts = paginationInfo.GetPagedData(productBlockDto);
 
-            var productList = products.ToList();
+            var productList = pagedProducts.ToList();
 
-            PagedList<ProductBlockDto, SortInfo<ProductBlockDto>> pagedList = 
+            PagedList<ProductBlockDto, SortInfo<ProductBlockDto>> pagedList =
                 new PagedList<ProductBlockDto, SortInfo<ProductBlockDto>>(productList, pageNumber, pageSize,
                 totalCount, sortInfo);
 
             var shop = _shopRepository.GetShopById(id);
+            shop.Avatar = _filePathHelper.GetReadPath("Shops", shop.Avatar);
 
             return new ShopInfoDto
             {
@@ -49,7 +62,7 @@ namespace Forestage.Models.Services
                 Address = shop.Address,
                 Avatar = shop.Avatar,
                 ProductCount = totalCount,
-                //Products = pagedList
+                Products = pagedList
             };
         }
     }

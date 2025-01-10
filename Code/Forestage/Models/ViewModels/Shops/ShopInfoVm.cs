@@ -1,4 +1,5 @@
-﻿using Forestage.Models.EFModels;
+﻿using Forestage.Models.Dtos.Products;
+using Forestage.Models.EFModels;
 using Forestage.Models.Services;
 using Forestage.Models.ViewModels.Paging;
 using Forestage.Models.ViewModels.Products;
@@ -16,6 +17,10 @@ namespace Forestage.Models.ViewModels.Shops
 
         public int ProductCount { get; set; }
 
-        public PagedList<ProductBlockVm, SortInfo<Product>> Products { get; set; }
+        public PagedList<ProductBlockVm, SortInfo<ProductBlockDto>> Products { get; set; }
+        public int PageNumber { get; set; }
+        public int TotalPages { get; set; }
+
+        public SortInfo<ProductBlockDto> SortInfo { get; set; }
     }
 }

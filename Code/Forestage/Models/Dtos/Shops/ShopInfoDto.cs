@@ -18,6 +18,6 @@ namespace Forestage.Models.Dtos.Shops
 
         public int ProductCount { get; set; }
 
-        public PagedList<ProductBlockDto, SortInfo<Product>> Products { get; set; }
+        public PagedList<ProductBlockDto, SortInfo<ProductBlockDto>> Products { get; set; }
     }
 }

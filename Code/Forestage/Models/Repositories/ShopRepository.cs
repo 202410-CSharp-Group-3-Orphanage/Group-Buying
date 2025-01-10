@@ -14,10 +14,5 @@ namespace Forestage.Models.Repositories
         {
             return _context.Shops.Find(id);
         }
-        public int GetProductCountByShopId(int id)
-        {
-            return _context.Products.Count(x => x.ShopId == id);
-        }
-
     }
 }
