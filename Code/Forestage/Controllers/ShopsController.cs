@@ -1,7 +1,12 @@
-﻿using Forestage.Models.EFModels;
+﻿using System.Drawing.Printing;
+using Forestage.Models.Dtos.Products;
+using Forestage.Models.EFModels;
 using Forestage.Models.Services;
 using Forestage.Models.ViewModels;
+using Forestage.Models.ViewModels.Paging;
+using Forestage.Models.ViewModels.Products;
 using Forestage.Models.ViewModels.Shops;
+using Forestage.Models.ViewModels.Sort;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forestage.Controllers
@@ -15,27 +20,61 @@ namespace Forestage.Controllers
             _shopService = shopService;
         }
 
-        [Route("Shops/{id}")]
-        public IActionResult Index(int id)
+        public IActionResult Index()
         {
-            if(id <= 0)
+            return View();
+        }
+
+        public IActionResult Details(int id, int pageNumber = 1, string SortOption = "")
+        {
+            if (id <= 0)
             {
                 return BadRequest("無效的商家 ID");
             }
 
-            var dto = _shopService.GetShopInfo(id);
+            string columnName = "CreatedAt"; 
+            string direction = "Desc";      
 
-            if(dto == null)
+            if (!string.IsNullOrEmpty(SortOption))
+            {
+                string[] parts = SortOption.Split('-');
+                if (parts.Length == 2)
+                {
+                    columnName = parts[0];
+                    direction = parts[1];
+                }
+            }
+
+            ViewBag.SortOption = SortOption;
+
+            var sortInfo = new SortInfo<ProductBlockDto>(columnName, direction);
+
+            var shopInfoDto = _shopService.GetShopInfoWithProducts(id, pageNumber, sortInfo);
+
+            if(shopInfoDto == null)
             {
                 return NotFound("找不到該商家");
             }
 
+            var productVms = shopInfoDto.Products.Items.Select(p => new ProductBlockVm 
+            {
+                Id = p.Id,
+                ProductName = p.ProductName,
+                ProductPrice = p.ProductPrice,
+                ImagePaths = p.ImagePaths,
+                ProductLink = p.ProductLink,
+                CreatedAt = p.CreatedAt
+            }).ToList();
+
             var model = new ShopInfoVm
             {
-                Name = dto.Name,
-                Avatar = dto.Avatar,
-                Address = dto.Address,
-                ProductCount = dto.ProductCount
+                Name = shopInfoDto.Name,
+                Avatar = shopInfoDto.Avatar,
+                Address = shopInfoDto.Address,
+                ProductCount = shopInfoDto.ProductCount,
+                Products = new PagedList<ProductBlockVm, SortInfo<ProductBlockDto>>(productVms, pageNumber, shopInfoDto.Products.PageSize, shopInfoDto.Products.TotalCount, sortInfo),
+                PageNumber = pageNumber,
+                TotalPages = shopInfoDto.Products.TotalPages,
             };
 
             return View(model);

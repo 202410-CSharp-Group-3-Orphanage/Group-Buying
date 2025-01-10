@@ -55,22 +55,22 @@ namespace Forestage
             // Common
             builder.Services.AddSingleton<FilePathHelper>();
 
-            //CORS
-            builder.Services.AddCors(
-                options =>
-                {
-                    options.AddPolicy("CorsPolicy",
-                        builder =>
-                        {
-                            builder
-                            .AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader();
-                        });
-                });
+			//CORS
+			builder.Services.AddCors(
+				options =>
+				{
+					options.AddPolicy("CorsPolicy",
+						builder =>
+						{
+							builder
+							.AllowAnyOrigin()
+							.AllowAnyMethod()
+							.AllowAnyHeader();
+						});
+				});
 
 
-            builder.Services.AddControllersWithViews();
+			builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
