@@ -12,7 +12,8 @@ using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using System.Data.Entity; 
+using System.Data.Entity;
+using Backstage.Models.ViewModels.Products;
 
 
 namespace Backstage.Models.Repositories
@@ -180,6 +181,43 @@ namespace Backstage.Models.Repositories
             Console.WriteLine($"Inserting GroupBuying with ProductId: {groupBuyingDto.ProductId}");
             _context.GroupBuyings.Add(groupBuying);
             _context.SaveChanges();
+        }
+
+        public List<GroupBuyingStatusViewModel> GetShopGroupBuyingStatus(int id)
+        {
+            var products = _context.GroupBuyings
+        .Include(gb => gb.Product) 
+        .Where(gb => gb.EndDate > DateTime.Now && gb.Enabled).Where(gb => gb.Product.ShopId == id)
+        .Select(gb => new 
+        {            
+            ProductImage = gb.Product.ProductImages.FirstOrDefault().Path ,
+            ProductName = gb.Product.Name,
+            ProductPrice = gb.Price,
+            CurrentGroupSize = gb.Orders.Where(m=>m.GroupBuyingId == gb.Id).Sum(o => (int?)o.Quantity) ?? 0, 
+            MinimumGroupSize = gb.MinimumGroupSize,
+            EndDate = gb.EndDate
+        }).OrderBy(gb => gb.EndDate).ToList();
+            
+            var productLists =products.Select(p=> new GroupBuyingStatusViewModel
+            {
+                ProductImage = p.ProductImage != null ? _filePathHelper.GetReadPath("Products", p.ProductImage) : null,
+                ProductName = p.ProductName,
+                ProductPrice = p.ProductPrice,
+                CurrentGroupSize = p.CurrentGroupSize,
+                MinimumGroupSize = p.MinimumGroupSize,
+                EndDate = p.EndDate
+            }).ToList();
+
+            return productLists;
+        }
+
+        public int GetIdByAccount(string loggedInUserAccount)
+        {
+            var account_id = _context.Shops
+                .Where(m => m.Account == loggedInUserAccount)
+                .Select(m => m.Id)
+                .FirstOrDefault();
+            return account_id;
         }
     }
 }

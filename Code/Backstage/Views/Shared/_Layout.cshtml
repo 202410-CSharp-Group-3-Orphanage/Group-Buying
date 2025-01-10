@@ -22,7 +22,8 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("建立商品", "Create", "Products", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("商品列表", "ShopProductList", "Products", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("商品列表/修改/開團", "ShopProductList", "Products", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("目前開團狀況", "GroupBuyingStatus", "Products", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                 </ul>
                 <ul class="navbar-nav">

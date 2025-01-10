@@ -1,0 +1,102 @@
+﻿@model List<Backstage.Models.ViewModels.Products.GroupBuyingStatusViewModel>
+@using Backstage.Common
+<style>
+    .cart-table {
+        width: 100%; /* 滿版寬度 */
+        border-collapse: collapse; /* 消除單元格間距 */
+        margin: 20px 0; /* 上下留白 */
+        font-size: 16px;
+        text-align: left;
+    }
+
+        .cart-table th, .cart-table td {
+            border: 1px solid #ddd; /* 邊框顏色 */
+            padding: 8px; /* 單元格內留白 */
+        }
+
+        .cart-table th {
+            background-color: #f4f4f4; /* 標題背景色 */
+            font-weight: bold; /* 加粗文字 */
+        }
+
+        .cart-table tr:nth-child(even) {
+            background-color: #f9f9f9; /* 偶數行背景色 */
+        }
+
+        .cart-table tr:hover {
+            background-color: #f1f1f1; /* 滑鼠懸停行背景色 */
+        }
+
+    .wishlist-in-stock {
+        font-weight: bold;
+        color: #27ae60; /* 綠色字體顏色 */
+    }
+    .primary-image {
+        width: 100px; /* 固定寬度 */
+        height: 100px; /* 固定高度 */
+        object-fit: cover; /* 圖片內容適應框架 */
+        border-radius: 8px; /* 可選，讓圖片有圓角 */
+    }
+</style>
+
+
+<div class="login-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="tb-login-form">
+                    <h5 class="tb-title">目前開團狀況</h5>
+                    <table id="shopping-cart-table" class="data-table cart-table">
+                        <thead>
+                            <tr>
+                                <th>商品預覽圖</th>
+                                <th>商品名稱</th>
+                                <th>商品團購價</th>
+                                <th>目前開團數量</th>
+                                <th>團購截止時間</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                string path = item.ProductImage == null
+                                    ? "無圖片"
+                                    : new FilePathHelper().GetReadPath("Products", item.ProductImage);
+
+                                <tr>
+                                    <td class="sop-cart">
+                                        <a href="#">
+                                            <img class="primary-image"
+                                                 alt="@item.ProductName"
+                                                 src="@path" />
+                                        </a>
+                                    </td>
+                                    <td class="sop-cart an-sh">
+                                        <div class="tb-beg">
+                                            <a href="#">@item.ProductName</a>
+                                        </div>
+                                    </td>
+                                    <td class="sop-cart">
+                                        <div class="tb-product-price font-noraure-3">
+                                            <span class="amount">$@item.ProductPrice</span>
+                                        </div>
+                                    </td>
+                                    <td class="cen">
+                                        <span class="wishlist-in-stock">
+                                            @item.CurrentGroupSize / @item.MinimumGroupSize
+                                        </span>
+                                    </td>
+                                    <td class="cen">
+                                        <span class="wishlist-in-stock">
+                                            @item.EndDate.ToString("yyyy年MM月dd日 HH點mm分")
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

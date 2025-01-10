@@ -204,6 +204,7 @@
     <Compile Include="Models\ViewModels\Products\CreateProductVm.cs" />
     <Compile Include="Models\ViewModels\Members\LoginVm.cs" />
     <Compile Include="Models\ViewModels\Products\EditProductVm.cs" />
+    <Compile Include="Models\ViewModels\Products\GroupBuyingStatusViewModel.cs" />
     <Compile Include="Models\ViewModels\Products\ShopProductListVm.cs" />
     <Compile Include="Models\ViewModels\Products\StartGroupBuyingVm.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
@@ -364,6 +365,7 @@
     <Content Include="Views\Products\ShopProductList.cshtml" />
     <Content Include="Views\Products\EditProduct.cshtml" />
     <Content Include="Views\Products\StartGroupBuying.cshtml" />
+    <Content Include="Views\Products\GroupBuyingStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
