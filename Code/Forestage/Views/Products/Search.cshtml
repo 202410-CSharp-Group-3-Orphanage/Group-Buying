@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Forestage.Models.ViewModels.Products.ProductSearchVm>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CaregoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MinPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SearchKeyword)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaregoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SearchKeyword)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
