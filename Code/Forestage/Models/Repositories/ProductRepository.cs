@@ -246,5 +246,24 @@ JOIN
 
             return result;
         }
+        public IEnumerable<ProductBlockDto> GetSearchProducts()
+        {
+            var query = _context.Products
+                .AsNoTracking()
+                .Include(p => p.ProductImages)
+                .Include(p => p.Category).ToList();
+
+            var result = query.Select(x => new ProductBlockDto
+            {
+                Id = x.Id,
+                ProductName = x.Name,
+                CategoryName = x.Category.Name,
+                ProductPrice = x.Price,
+                ImagePaths = x.ProductImages.Select(i => i.Path).ToList(),
+                CreatedAt = x.CreatedAt
+            });
+
+            return result;
+        }
     }
 }

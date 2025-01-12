@@ -83,5 +83,10 @@ namespace Forestage.Controllers
 
             return NoContent();
         }
+
+        public IActionResult Search()
+        {
+            return View();
+        }
     }
 }

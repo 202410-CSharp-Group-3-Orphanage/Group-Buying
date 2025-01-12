@@ -1,12 +1,11 @@
 ﻿using System.Drawing.Printing;
 using Forestage.Models.Dtos.Products;
 using Forestage.Models.EFModels;
+using Forestage.Models.Infra;
 using Forestage.Models.Services;
 using Forestage.Models.ViewModels;
-using Forestage.Models.ViewModels.Paging;
 using Forestage.Models.ViewModels.Products;
 using Forestage.Models.ViewModels.Shops;
-using Forestage.Models.ViewModels.Sort;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forestage.Controllers
