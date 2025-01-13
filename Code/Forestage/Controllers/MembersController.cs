@@ -27,15 +27,18 @@ namespace Forestage.Controllers
             return View();
         }
 
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = "/")
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginVm model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginVm model, string returnUrl = "/")
         {
+            // 如果 Login 錯誤，returnUrl 會被放回去
+            ViewBag.ReturnUrl = returnUrl;
             if (!ModelState.IsValid) { return View(model); }
 
 
@@ -44,6 +47,7 @@ namespace Forestage.Controllers
                 VaildateLogin(model);
 
                 await ProcessLogin(model.Account);
+
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 {
                     return Redirect(returnUrl);
@@ -53,7 +57,7 @@ namespace Forestage.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return View(model); 
+                return View(model);
             }
         }
 
@@ -84,7 +88,7 @@ namespace Forestage.Controllers
         private void VaildateLogin(LoginVm model)
         {
             LoginDTO dto = new LoginDTO
-            {                
+            {
                 Account = model.Account,
                 Password = model.Password,
             };
@@ -94,7 +98,7 @@ namespace Forestage.Controllers
         {
             // 登出並清除 Cookie
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return View(); 
+            return View();
         }
 
         public IActionResult Register()
@@ -147,7 +151,7 @@ namespace Forestage.Controllers
             if (!ModelState.IsValid) { return View(model); }
             try
             {
-                VaildateEmailAndSendConfirmMail(model);                
+                VaildateEmailAndSendConfirmMail(model);
 
                 return RedirectToAction("Login", "Members");
             }
@@ -158,22 +162,22 @@ namespace Forestage.Controllers
             }
         }
 
-        
+
 
         private void VaildateEmailAndSendConfirmMail(ForgetPasswordVm model)
         {
             ForgetPasswordDTO dto = new ForgetPasswordDTO
-            {                
+            {
                 Email = model.Email,
             };
             _service.ForgetPassword(dto);
         }
 
-        public IActionResult ResetPassword(string email, string confirmCode,ResetPasswordVm model)  // TODO email confirm
+        public IActionResult ResetPassword(string email, string confirmCode, ResetPasswordVm model)  // TODO email confirm
         {
             try
             {
-                VaildateEmailAndConfirmCode(email,confirmCode);
+                VaildateEmailAndConfirmCode(email, confirmCode);
                 ResetPasswordFromEmail(model);
                 return RedirectToAction("Login", "Members");
             }
@@ -272,7 +276,7 @@ namespace Forestage.Controllers
             ModifyPersonalInformationDTO dto = new ModifyPersonalInformationDTO
             {
                 Account = account,
-                Name = model.Name,                
+                Name = model.Name,
                 Phone = model.Phone,
                 Birthday = model.Birthday
             };

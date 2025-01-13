@@ -1,0 +1,185 @@
+﻿@model IEnumerable<Forestage.Models.ViewModels.Carts.CartInfoVm>
+
+<div id="app">
+    <div class="container" style="margin-top: 80px">
+        <div class="row">
+            <div class="col-12">
+                <div class="tb-login-form">
+                    <h5 class="tb-title">購物車</h5>
+                    <table id="shopping-cart-table" class="data-table cart-table">
+                        <tr>
+                            <th class="low1">操作</th>
+                            <th>商品預覽圖</th>
+                            <th class="low2">商品名稱</th>
+                            <th>商品單價</th>
+                            <th>數量</th>
+                            <th>小計</th>
+                        </tr>
+                        <tr v-for="item in cartItems" :key="item.id">
+                            <td class="sop-icon1">
+                                <a href="#" v-on:click.prevent="updateItem(item.id, 0)">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </td>
+                            <td class="sop-cart">
+                                <a :href="item.productLink">
+                                    <img style="height: 100px;width:100px;" class="primary-image" :alt="item.productName" :src="item.productImagePath" />
+                                </a>
+                            </td>
+                            <td class="sop-cart an-sh">
+                                <div class="tb-beg">
+                                    <a :href="item.productLink">{{ item.productName }}</a>
+                                </div>
+                            </td>
+                            <td class="sop-cart">
+                                <div class="tb-product-price font-noraure-3">
+                                    <span class="amount">${{ item.groupBuyingPrice }}</span>
+                                </div>
+                            </td>
+                            <td class="sop-cart">
+                                <input type="number"
+                                       v-model.number="item.quantity"
+                                       v-on:change="updateItem(item.id, item.quantity)"
+                                       min="0"
+                                       style="width: 60px">
+                            </td>
+                            <td class="sop-cart">
+                                <span class="amount">${{ item.subTotal }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="second-all-class">
+                <div class="col-md-5 col-sm-12 col-xs-12 ms-auto mt-2">
+                    <div class="sub-total">
+                        <table>
+                            <tbody>
+                                <tr class="order-total">
+                                    <th>Total:</th>
+                                    <td>
+                                        <strong>
+                                            <span class="amount">${{ calculateTotal }}</span>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="wc-proceed-to-checkout">
+                        <p class="return-to-shop">
+                            <a class="button wc-backward" v-on:click="continueShopping">繼續購物</a>
+                        </p>
+                        <a class="wc-forward" v-on:click="submitOrder">送出訂單</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+<script>
+    const { createApp, ref, onMounted, computed } = Vue;
+
+    const cart_config = {
+        setup() {
+            // const cartItems = ref(@Html.Raw(Json.Serialize(Model)));
+            const cartItems = ref([]);
+
+            // Calculate total amount
+            const calculateTotal = computed(() => {
+                return cartItems.value.reduce((total, item) => total + item.subTotal, 0);
+            });
+
+            const updateItem = async (cartId, newQty) => {
+                try {
+                    const response = await fetch(`/Cart/UpdateItem?cartId=${cartId}&newQty=${newQty}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (!response.ok) throw new Error('Failed to update cart');
+
+                    const updatedCart = await response.json();
+                    cartItems.value = updatedCart;
+                } catch (error) {
+                    console.error('Error updating cart:', error);
+                }
+            };
+
+            const continueShopping = () => {
+                window.location.href = '/Home/Index';
+            };
+
+            const submitOrder = async () => {
+                try {
+                    const result = await Swal.fire({
+                        title: '確認送出訂單',
+                        text: '是否確定要送出訂單？',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: '確定',
+                        cancelButtonText: '取消'
+                    });
+
+                    if (result.isConfirmed) {
+                        const response = await fetch('api/CartApi/CheckOut', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        console.log(response.ok);
+                        if (response.ok === false) throw new Error('訂單送出失敗');
+
+                        await Swal.fire({
+                            title: '成功',
+                            text: '訂單已成功送出！',
+                            icon: 'success'
+                        });
+
+                        // Refresh cart data
+                        const cartResponse = await fetch('/Cart/GetCartInfo');
+                        if (!cartResponse.ok) throw new Error('Failed to fetch cart data');
+                        cartItems.value = await cartResponse.json();
+
+                    }
+                } catch (error) {
+                    console.error('Error submitting order:', error);
+                    await Swal.fire({
+                        title: '錯誤',
+                        text: '訂單送出失敗，請稍後再試',
+                        icon: 'error'
+                    });
+                }
+            };
+
+            onMounted(async () => {
+                try {
+                    const response = await fetch('/Cart/GetCartInfo');
+                    if (!response.ok) throw new Error('Failed to fetch cart data');
+                    cartItems.value = await response.json();
+                } catch (error) {
+                    console.error('Error fetching cart data:', error);
+                }
+            });
+
+            return {
+                cartItems,
+                calculateTotal,
+                updateItem,
+                continueShopping,
+                submitOrder
+            };
+        }
+    };
+
+    createApp(cart_config).mount("#app");
+</script>

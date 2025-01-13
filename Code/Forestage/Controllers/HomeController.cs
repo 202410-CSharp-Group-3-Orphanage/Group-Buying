@@ -21,7 +21,6 @@ namespace Forestage.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ProductService _productService;
-        private readonly AppDbContext _context;
 
         public HomeController(ILogger<HomeController> logger, ProductService productService)
         {
@@ -54,9 +53,5 @@ namespace Forestage.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        
-
-        
     }
 }
