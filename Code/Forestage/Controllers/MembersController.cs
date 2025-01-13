@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Text;
 using Forestage.Models.Dtos.Members;
 using Forestage.Models.Services;
+using Forestage.Models.ViewModels.Members;
 
 
 
@@ -280,6 +281,94 @@ namespace Forestage.Controllers
                 Birthday = model.Birthday
             };
             _service.ModifyPersonalInformation(dto);
+        }
+
+        public class GroupbuyingSearchParams
+        {
+            public string? ProductName { get; set; }
+            public decimal? GroupBuyingPriceMin { get; set; }
+            public decimal? GroupBuyingPriceMax { get; set; }
+            public DateTime? EndDate { get; set; }
+            public int? Status { get; set; }
+        }
+
+        [Authorize]
+        public IActionResult SearchGroupbuyingProgress(
+        string? productName,
+        decimal? groupBuyingPriceMin,
+        decimal? groupBuyingPriceMax,
+        DateTime? endDate)
+        {
+            var account = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+            if (string.IsNullOrEmpty(account)) return RedirectToAction("Login");
+
+            int id = _service.GetIdByAccount(account);
+            var searchParams = new GroupbuyingSearchParams
+            {
+                ProductName = productName,
+                GroupBuyingPriceMin = groupBuyingPriceMin,
+                GroupBuyingPriceMax = groupBuyingPriceMax,
+                EndDate = endDate
+            };
+
+            var vm = _service.GetGroupbuyingProgress(id, searchParams);
+            return View(vm);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult CancelGroupbuyingOrder(int groupBuyingId)
+        {
+
+            try
+            {
+                var account = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+                if (string.IsNullOrEmpty(account)) return RedirectToAction("Login");
+
+                int memberId = _service.GetIdByAccount(account);
+                Console.WriteLine($"groupBuyingId: {groupBuyingId}");
+                Console.WriteLine($"memberId: {memberId}");
+                _service.CancelGroupbuyingOrder(groupBuyingId, memberId);
+
+                // 保持當前的查詢參數
+                return RedirectToAction("SearchGroupbuyingProgress",
+                    new
+                    {
+                        productName = Request.Query["productName"],
+                        groupBuyingPriceMin = Request.Query["groupBuyingPriceMin"],
+                        groupBuyingPriceMax = Request.Query["groupBuyingPriceMax"],
+                        endDate = Request.Query["endDate"],
+                    });
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "取消參團失敗：" + ex.Message;
+                return RedirectToAction("SearchGroupbuyingProgress");
+            }
+        }
+
+        [Authorize]
+        public IActionResult SearchGroupbuyingOrder(
+        string? productName,
+        decimal? groupBuyingPriceMin,
+        decimal? groupBuyingPriceMax,
+        int? status
+        )
+        {
+            var account = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+            if (string.IsNullOrEmpty(account)) return RedirectToAction("Login");
+
+            int id = _service.GetIdByAccount(account);
+            var searchParams = new GroupbuyingSearchParams
+            {
+                ProductName = productName,
+                GroupBuyingPriceMin = groupBuyingPriceMin,
+                GroupBuyingPriceMax = groupBuyingPriceMax,
+                Status = status
+            };
+
+            var vm = _service.GetGroupbuyingOrders(id, searchParams);
+            return View(vm);
         }
     }
 }
