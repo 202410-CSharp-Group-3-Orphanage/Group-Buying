@@ -1,8 +1,11 @@
-﻿using Backstage.Models.Dtos;
+﻿using Backstage.Common;
+using Backstage.Models.Dtos;
 using Backstage.Models.Dtos.Members;
 using Backstage.Models.Services;
 using Backstage.Models.ViewModels;
 using Backstage.Models.ViewModels.Members;
+using MT.Utilities.UploadFile;
+using MT.Utilities.UploadFile.Implementations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +35,7 @@ namespace Backstage.Controllers
         }
 
         public ActionResult Login()
-        {            
+        {
             return View();
         }
         [HttpPost]
@@ -93,12 +96,12 @@ namespace Backstage.Controllers
             _service.Login(dto);
         }
 
-        
+
         public ActionResult Register()
-        {            
+        {
             return View();
         }
-                
+
         [HttpPost]
         [ValidateAntiForgeryToken]
 
@@ -120,18 +123,10 @@ namespace Backstage.Controllers
 
         private void VaildateRegister(RegisterVm model)
         {
-            string imagePath = null;
-            if (model.Image != null)
-            {
-                var fileName = Path.GetFileName(model.Image.FileName);
-                var filePath = Path.Combine(Server.MapPath("~/ShopImages"), fileName);
-                model.Image.SaveAs(filePath);
-                imagePath = $"/ShopImages/{fileName}";
-            }
             RegisterDTO dto = new RegisterDTO
             {
                 Account = model.Account,
-                Password = model.Password,                
+                Password = model.Password,
                 Name = model.Name,
                 IdentityCard = model.IdentityCard,
                 Address = model.Address,

@@ -5,6 +5,8 @@ using Backstage.Models.Services;
 using Backstage.Models.ViewModels;
 using Backstage.Models.ViewModels.Products;
 using MT.Utilities.UploadFile;
+using MT.Utilities.UploadFile.Implementations;
+using MT.Utilities.UploadFile.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -54,14 +56,15 @@ namespace Backstage.Controllers
             var ticket = FormsAuthentication.Decrypt(authCookie.Value);
             string account = ticket.Name;
 
-            
+
             var imagePaths = new List<string>();
-            
+
             foreach (var image in model.Images)
             {
                 string relativePath = _filePathHelper.GetWritePath("Products");
-                var newFileName = _uploadFileHelper.SaveAs(relativePath, (MT.Utilities.UploadFile.Interfaces.IMyFile)image);
-                
+                MVC5File mVC5File = new MVC5File(image);
+                var newFileName = _uploadFileHelper.SaveAs(relativePath, mVC5File);
+
                 imagePaths.Add(newFileName);
             }
 
@@ -82,17 +85,17 @@ namespace Backstage.Controllers
 
         private SelectList ShowCategories()
         {
-            return _service.ShowCategories();            
+            return _service.ShowCategories();
         }
 
         [Authorize]
         public ActionResult ShopProductList()
-        {            
+        {
             string currentMerchant = User.Identity.Name;
 
             var products = _service.ShowShopProductList(currentMerchant);
-                        
-            return View(products); 
+
+            return View(products);
         }
 
         [Authorize]
@@ -132,28 +135,30 @@ namespace Backstage.Controllers
         public ActionResult StartGroupBuying(int id)
         {
             string loggedInUserAccount = User.Identity.Name;
-            try {
+            try
+            {
                 var product = _service.GetProductByIdForGroupBuying(id, loggedInUserAccount);
 
-            if (product == null)
-            {
-                return HttpNotFound();
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(product); // 將商品資訊傳遞到開團頁面
+
             }
-
-            return View(product); // 將商品資訊傳遞到開團頁面
-
-            } catch (Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
                 return View();
             }
-            
+
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult StartGroupBuying(int id,StartGroupBuyingVm model)
+        public ActionResult StartGroupBuying(int id, StartGroupBuyingVm model)
         {
             if (ModelState.IsValid)
             {

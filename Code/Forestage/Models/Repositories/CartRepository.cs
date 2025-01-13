@@ -16,7 +16,7 @@ namespace Forestage.Models.Repositories
         }
         public IEnumerable<CartInfoDto> GetCartInfo(int memberId)
         {
-            var cartInfoDto = _context.Carts
+            var cartInfoDtos = _context.Carts
                 .Include(c => c.GroupBuying)
                 .ThenInclude(g => g.Product)
                 .ThenInclude(p => p.ProductImages)
@@ -24,6 +24,7 @@ namespace Forestage.Models.Repositories
                 .Select(c => new CartInfoDto
                 {
                     Id = c.Id,
+                    ProductId = c.GroupBuying.ProductId,
                     ProductName = c.GroupBuying.Product.Name,
                     ProductImagePath = c.GroupBuying.Product.ProductImages.First().Path,
                     ProductLink = $"/Products/Details/{c.GroupBuying.Product.Id}",
@@ -31,9 +32,9 @@ namespace Forestage.Models.Repositories
                     GroupBuyingPrice = c.GroupBuying.Price,
                 })
                 .ToList();
-            if (cartInfoDto == null) return null;
+            if (cartInfoDtos == null) return null;
 
-            return cartInfoDto;
+            return cartInfoDtos;
 
         }
 
@@ -51,6 +52,39 @@ namespace Forestage.Models.Repositories
             }
 
             _context.SaveChanges();
+        }
+
+        public void AddToCart(int memberId, int groupBuyingId, int qty)
+        {
+            var cart = _context.Carts.SingleOrDefault(c => c.MemberId == memberId && c.GroupBuyingId == groupBuyingId);
+
+            if (cart == null)
+            {
+                _context.Carts.Add(new Cart
+                {
+                    MemberId = memberId,
+                    GroupBuyingId = groupBuyingId,
+                    Quantity = qty,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now
+                });
+            }
+            else
+            {
+                cart.Quantity += qty;
+            }
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteItem(int id)
+        {
+            var cart = _context.Carts.Find(id);
+            if (cart != null)
+            {
+                _context.Carts.Remove(cart);
+                _context.SaveChanges();
+            }
         }
     }
 }

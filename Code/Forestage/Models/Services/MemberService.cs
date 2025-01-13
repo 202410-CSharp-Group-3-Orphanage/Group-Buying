@@ -2,7 +2,10 @@
 using Forestage.Models.EFModels;
 using Forestage.Models.Repositories;
 using Forestage.Models.ViewModels;
+using Forestage.Models.ViewModels.Members;
 using MT.Security.Hashing;
+using NuGet.Protocol.Core.Types;
+using static Forestage.Controllers.MembersController;
 
 namespace Forestage.Models.Services
 {
@@ -77,5 +80,26 @@ namespace Forestage.Models.Services
         {
             _repo.UpdatePasswordFromEmail(dto);
         }
+
+        public List<GroupbuyingProgressVm> GetGroupbuyingProgress(int memberId, GroupbuyingSearchParams searchParams)
+        {
+            return _repo.GetGroupbuyingProgressById(memberId, searchParams);
+        }
+
+        public int GetIdByAccount(string loggedInUserAccount)
+        {
+            return _repo.GetIdByAccount(loggedInUserAccount);
+        }
+
+        public void CancelGroupbuyingOrder(int groupBuyingId, int memberId)
+        {
+            _repo.CancelGroupbuyingOrder(groupBuyingId, memberId);
+        }
+
+        public List<PersonalGroupBuyingOrdersVm> GetGroupbuyingOrders(int memberId, GroupbuyingSearchParams searchParams)
+        {
+            return _repo.GetGroupbuyingOrderById(memberId, searchParams);
+        }
+
     }
 }

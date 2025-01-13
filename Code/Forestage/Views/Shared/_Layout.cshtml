@@ -30,6 +30,9 @@
     @*SweetAlert2*@
     <link rel="stylesheet" href="~/css/sweetalert2.min.css" />
     <script src="~/js/sweetalert2.all.min.js"></script>
+    @* CartAndWishes.js *@
+    <script type="module" src="~/js/cartAndWishes.js"></script>
+
 
 
     @* 換成新版jquery *@
@@ -83,14 +86,14 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <a href="#">你好 , XXX</a>
+                                            <a href="#">會員</a>
                                             <ul>
                                                 @if (User.Identity.IsAuthenticated)
-                                                {                                                    
+                                                {
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="@Url.Action("Index", "Members")">會員中心</a>
                                                     </li>
-                                                                                                        
+
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="@Url.Action("Logout", "Members")">登出</a>
                                                     </li>
@@ -100,7 +103,7 @@
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="@Url.Action("Register", "Members")">註冊</a>
                                                     </li>
-                                                    
+
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="@Url.Action("Login", "Members")">登入</a>
                                                     </li>
@@ -128,7 +131,7 @@
                                                 </ul>
                                             </li>
                                             <li>
-                                                <a href="#">你好 , XXX</a>
+                                                <a href="#">會員</a>
                                                 <ul>
                                                     @if (User.Identity.IsAuthenticated)
                                                     {
@@ -139,7 +142,7 @@
 
                                                         <!-- Logout Button - Visible when logged in -->
                                                         <li class="nav-item">
-                                                            <a class="nav-link" href="@Url.Action("Logout", "Members")">登出</a>                                                            
+                                                            <a class="nav-link" href="@Url.Action("Logout", "Members")">登出</a>
                                                         </li>
                                                     }
                                                     else
@@ -166,10 +169,10 @@
                                         </form>
                                     </li>
                                     <li>
-                                        <a href="cart.html"><i class="fa fa-shopping-cart"></i><span class="color1">2</span></a>
+                                        <a href="@Url.Action("Index", "Cart")"><i class="fa fa-shopping-cart"></i><span class="color1">2</span></a>
                                         <ul class="drop-cart">
                                             <li>
-                                                <a href="cart.html"><img src="img/cart/1.png" alt="" /></a>
+                                                <a href="@Url.Action("Index", "Cart")"><img src="img/cart/1.png" alt="" /></a>
                                                 <div class="add-cart-text">
                                                     <p><a href="#">White Shirt</a></p>
                                                     <p>$50.00</p>
@@ -179,7 +182,7 @@
                                                 </div>
                                             </li>
                                             <li>
-                                                <a href="cart.html"><img src="img/cart/2.png" alt="" /></a>
+                                                <a href="@Url.Action("Index", "Cart")"><img src="img/cart/2.png" alt="" /></a>
                                                 <div class="add-cart-text">
                                                     <p><a href="#">White Shirt</a></p>
                                                     <p>$50.00 x 2</p>
@@ -194,7 +197,7 @@
                                             </li>
                                             <li>
                                                 <div class="goto text-center">
-                                                    <a href="cart.html"><strong>前往購物車 &nbsp;<i class="pe-7s-angle-right"></i></strong></a>
+                                                    <a href="@Url.Action("Index", "Cart")"><strong>前往購物車 &nbsp;<i class="pe-7s-angle-right"></i></strong></a>
                                                 </div>
                                             </li>
                                             <li class="checkout-btn text-center">

@@ -25,7 +25,12 @@ namespace Forestage.Models.Services
             productIndexDtos = productIndexDtos
                 .Select(x =>
                 {
-                    x.ImagePaths = x.ImagePaths.Take(imgLimit).ToList();
+                    x.ImagePaths = x.ImagePaths
+                    .Take(imgLimit)
+                    .Select(
+                        ip => _filePathHelper.GetReadPath("Products", ip)
+                        )
+                    .ToList();
                     x.Info = x.Info.Truncate(20, true);
                     return x;
                 });
@@ -41,7 +46,11 @@ namespace Forestage.Models.Services
             productIndexDtos = productIndexDtos
                 .Select(x =>
                 {
-                    x.ImagePaths = x.ImagePaths.Take(imgLimit).ToList();
+                    x.ImagePaths = x.ImagePaths.Take(imgLimit)
+                    .Select(
+                        ip => _filePathHelper.GetReadPath("Products", ip)
+                        )
+                    .ToList();
                     x.Info = x.Info.Truncate(20, true);
                     return x;
                 });
@@ -56,7 +65,12 @@ namespace Forestage.Models.Services
             productIndexDtos = productIndexDtos
                 .Select(x =>
                 {
-                    x.ImagePaths = x.ImagePaths.Take(imgLimit).ToList();
+                    x.ImagePaths = x.ImagePaths
+                    .Take(imgLimit)
+                    .Select(
+                        ip => _filePathHelper.GetReadPath("Products", ip)
+                        )
+                    .ToList();
                     x.Info = x.Info.Truncate(20, true);
                     return x;
                 });
