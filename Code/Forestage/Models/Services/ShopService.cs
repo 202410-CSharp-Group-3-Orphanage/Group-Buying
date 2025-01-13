@@ -3,11 +3,10 @@ using Forestage.Common;
 using Forestage.Models.Dtos.Products;
 using Forestage.Models.Dtos.Shops;
 using Forestage.Models.EFModels;
+using Forestage.Models.Infra;
 using Forestage.Models.Repositories;
-using Forestage.Models.ViewModels.Paging;
 using Forestage.Models.ViewModels.Products;
 using Forestage.Models.ViewModels.Shops;
-using Forestage.Models.ViewModels.Sort;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,8 +39,7 @@ namespace Forestage.Models.Services
                     .Select(x => _filePathHelper.GetReadPath("Products", x))
                     .ToList();
                 product.ProductLink = $"/Products/Details/{product.Id}";
-                Console.WriteLine($"Product ID: {product.Id}, ProductLink: {product.ProductLink}");
-        }
+            }
 
             var paginationInfo = new PaginationInfo(totalCount, pageSize, pageNumber);
 

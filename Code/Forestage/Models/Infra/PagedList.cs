@@ -1,7 +1,6 @@
 ﻿using Forestage.Models.Services;
-using Forestage.Models.ViewModels.Sort;
 
-namespace Forestage.Models.ViewModels.Paging
+namespace Forestage.Models.Infra
 {
     public class PagedList<T, TSortInfo>
     {
