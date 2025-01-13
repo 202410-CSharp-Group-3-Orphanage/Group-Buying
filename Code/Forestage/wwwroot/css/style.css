@@ -2698,14 +2698,14 @@ a.clear-all {
     margin-top: 20px;
 }
 
-#amount > input.first_price[type="text"],
-#amount > input.last_price[type="text"] {
+.first-price,.last-price {
     border: 1px solid #cccccc;
     border-radius: 30px;
     color: #585858;
     height: 30px;
     line-height: 30px;
-    margin-right: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
     text-align: center;
     width: 85px;
 }
@@ -2717,6 +2717,7 @@ a.clear-all {
     height: 30px;
     line-height: 30px;
     margin-right: 25px;
+    margin-bottom: 20px;
     margin-top: 20px;
     text-align: start;
     padding-left: 10px;

@@ -1,6 +1,7 @@
 ﻿using Forestage.Common;
 using Forestage.Models.Dtos.Products;
 using Forestage.Models.Enums;
+using Forestage.Models.Infra;
 using Forestage.Models.Repositories;
 using MT.Extensions;
 
@@ -98,6 +99,49 @@ namespace Forestage.Models.Services
             {
                 throw new ArgumentException(ex.Message);
             }
+        }
+        public ProductSearchDto GetSearchProducts(int pageNumber, SortInfo<ProductBlockDto> sortInfo, Criteria criteria)
+        {
+            int pageSize = 9;
+            var productBlockDto = _productRepo.GetSearchProducts().ToList();
+
+            var categoriesDto = _productRepo.GetCategories().ToList();
+
+            productBlockDto = criteria.ApplyCriteria(productBlockDto.AsQueryable()).ToList();
+
+            int totalCount = productBlockDto.Count();
+
+            productBlockDto = sortInfo.ApplySort(productBlockDto.AsQueryable()).ToList();
+
+            foreach (var product in productBlockDto)
+            {
+                product.ImagePaths = product.ImagePaths
+                    .Select(x => _filePathHelper.GetReadPath("Products", x))
+                    .ToList();
+                product.ProductLink = $"/Products/Details/{product.Id}";
+            }
+
+            var paginationInfo = new PaginationInfo(totalCount, pageSize, pageNumber);
+
+            var pagedProducts = paginationInfo.GetPagedData(productBlockDto);
+
+            var productList = pagedProducts.ToList();
+
+            PagedList<ProductBlockDto, SortInfo<ProductBlockDto>> pagedList =
+                new PagedList<ProductBlockDto, SortInfo<ProductBlockDto>>(productList, pageNumber, pageSize,
+                totalCount, sortInfo);
+
+            return new ProductSearchDto
+            {
+                CategoryId = criteria.CategoryId,
+                ProductCount = totalCount,
+                MinPrice = criteria.MinPrice,
+                MaxPrice = criteria.MaxPrice,
+                SearchKeyword = criteria.SearchKeyword,
+                categories = categoriesDto,
+                SearchProducts = pagedList
+            };
+
         }
     }
 }

@@ -257,6 +257,7 @@ JOIN
             {
                 Id = x.Id,
                 ProductName = x.Name,
+                CategoryId = x.CategoryId,
                 CategoryName = x.Category.Name,
                 ProductPrice = x.Price,
                 ImagePaths = x.ProductImages.Select(i => i.Path).ToList(),
@@ -264,6 +265,31 @@ JOIN
             });
 
             return result;
+        }
+        public IEnumerable<CategoryDto> GetCategories()
+        {
+            var query = _context.Products
+                .Join( 
+                    _context.Categories,
+                    p => p.CategoryId,
+                    c => c.Id, 
+                    (p, c) => new { p.CategoryId, c.Name } 
+                )
+                .GroupBy(pc => new { pc.CategoryId, pc.Name }) 
+                .Select(g => new 
+                {
+                    g.Key.CategoryId,
+                    CategoryName = g.Key.Name,
+                    ProductCount = g.Count()
+                })
+                .ToList();
+
+            return query.Select(x => new CategoryDto
+            {
+                CategoryId = x.CategoryId,
+                CategoryName = x.CategoryName,
+                ProductCount = x.ProductCount
+            });
         }
     }
 }
