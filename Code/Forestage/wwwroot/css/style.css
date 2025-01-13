@@ -4426,6 +4426,7 @@ p.checkout-coupon.full input[type="submit"] {
 
 .wc-proceed-to-checkout a.wc-backward,
 .wc-proceed-to-checkout a.wc-forward {
+    cursor: pointer;
     background-color: transparent;
     border: 1px solid #c5c5c5;
     color: #747474;
@@ -5685,7 +5686,7 @@ input.cart-plus-minus-box {
     font-size: 14px;
     height: 35px;
     line-height: 14px;
-    margin-bottom: 10px;
+/*    margin-bottom: 10px;*/
     padding: 8px;
     transition: all 0.3s ease 0s;
 }

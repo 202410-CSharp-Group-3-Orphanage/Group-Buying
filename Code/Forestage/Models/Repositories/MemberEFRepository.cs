@@ -17,19 +17,19 @@ namespace Forestage.Models.Repositories
             _context = context;
         }
 
-        
-        
+
+
 
         public bool VaildateAccountExist(string account)
         {
             var member = _context.Members.FirstOrDefault(m => m.Account == account);
-            
+
             if (member == null) return false;
             return true;
         }
         public bool VaildateLoginPassword(string account, string password)
         {
-            
+
             //var member = _context.Members.FirstOrDefault(m => m.Account == account);
             //if (password == member.EncryptedPassword) return true;
             //return false;
@@ -41,80 +41,80 @@ namespace Forestage.Models.Repositories
         }
         public bool VaildateLoginIsConfirm(string account, string password)
         {
-            
-                var member = _context.Members.FirstOrDefault(m => m.Account == account);
-                if (member.IsConfirmed == false) return false;
-                return true;
-            
+
+            var member = _context.Members.FirstOrDefault(m => m.Account == account);
+            if (member.IsConfirmed == false) return false;
+            return true;
+
         }
 
         public bool VaildateRegisterAccount(RegisterDTO dto)
         {
-            
-                var member = _context.Members.FirstOrDefault(m => m.Account == dto.Account);
-                if (member == null) return false;
-                return true;
-            
+
+            var member = _context.Members.FirstOrDefault(m => m.Account == dto.Account);
+            if (member == null) return false;
+            return true;
+
         }
 
         public bool VaildateRegisterEmail(RegisterDTO dto)
         {
-            
-                var member = _context.Members.FirstOrDefault(m => m.Email == dto.Email);
-                if (member == null) return false;
-                return true;
-            
+
+            var member = _context.Members.FirstOrDefault(m => m.Email == dto.Email);
+            if (member == null) return false;
+            return true;
+
         }
 
         public bool VaildateRegisterPhone(RegisterDTO dto)
         {
-            
-                var member = _context.Members.FirstOrDefault(m => m.Phone == dto.Phone);
-                if (member == null) return false;
-                return true;
-            
+
+            var member = _context.Members.FirstOrDefault(m => m.Phone == dto.Phone);
+            if (member == null) return false;
+            return true;
+
         }
         public void CreateMember(RegisterDTO dto) // TODO
         {
-            
-                var member = new Member
-                {
-                    Account = dto.Account,
-                    EncryptedPassword = Sha256Hasher.ComputeHash(dto.Password, Sha256Hasher.GetSalt()),
-                    Name = dto.Name,
-                    Email = dto.Email,
-                    Phone = dto.Phone,
-                    Birthday = dto.Birthday,
-                    Gender = dto.Gender,
-                    IsConfirmed = false,
-                    // todo Email驗證
-                    ConfirmCode = Guid.NewGuid().ToString("N"),
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now
-                };
+
+            var member = new Member
+            {
+                Account = dto.Account,
+                EncryptedPassword = Sha256Hasher.ComputeHash(dto.Password, Sha256Hasher.GetSalt()),
+                Name = dto.Name,
+                Email = dto.Email,
+                Phone = dto.Phone,
+                Birthday = dto.Birthday,
+                Gender = dto.Gender,
+                IsConfirmed = false,
+                // todo Email驗證
+                ConfirmCode = Guid.NewGuid().ToString("N"),
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
             _context.Members.Add(member);
             _context.SaveChanges();
-            
+
         }
 
         public bool VaildateOldPasswordWithNewPassword(string account, string newPassword)
         {
-            
-                var member = _context.Members.FirstOrDefault(m => m.Account == account);
-                if (!Sha256Hasher.Verify(newPassword, member.EncryptedPassword)) return false;
-                return true;
-            
+
+            var member = _context.Members.FirstOrDefault(m => m.Account == account);
+            if (!Sha256Hasher.Verify(newPassword, member.EncryptedPassword)) return false;
+            return true;
+
         }
 
         public void UpdateMemberPassword(ChangePasswordDTO dto)
         {
             var member = _context.Members.FirstOrDefault(m => m.Account == dto.Account);
             member.EncryptedPassword = Sha256Hasher.ComputeHash(dto.NewPassword, Sha256Hasher.GetSalt());
-            _context.SaveChanges();            
+            _context.SaveChanges();
         }
 
         public bool VaildateEmailExist(string email)
-        {            
+        {
             var member = _context.Members.FirstOrDefault(m => m.Email == email);
             if (member == null) return false;
             return true;
@@ -126,7 +126,7 @@ namespace Forestage.Models.Repositories
 
             // 生成驗證碼
             var confirmCode = Guid.NewGuid().ToString("N");
-            member.ConfirmCode = confirmCode;            
+            member.ConfirmCode = confirmCode;
             _context.SaveChanges();
 
             // 生成驗證信 URL
@@ -141,11 +141,11 @@ namespace Forestage.Models.Repositories
             _emailService.SendEmail(email, subject, body);
         }
 
-        
-        
+
+
 
         public bool VaildatePhoneExist(string phone)
-        {            
+        {
             var member = _context.Members.FirstOrDefault(m => m.Phone == phone);
             if (member == null) return false;
             return true;
@@ -154,10 +154,10 @@ namespace Forestage.Models.Repositories
         public void UpdatePersonalInformation(ModifyPersonalInformationDTO dto)
         {
             var member = _context.Members.FirstOrDefault(m => m.Account == dto.Account);
-            member.Name = dto.Name;            
+            member.Name = dto.Name;
             member.Phone = dto.Phone;
             member.Birthday = dto.Birthday;
-            _context.SaveChanges();            
+            _context.SaveChanges();
         }
         public bool ValidatePhoneExistExceptSelf(string currentAccount, string phone)
         {
@@ -186,5 +186,18 @@ namespace Forestage.Models.Repositories
             member.EncryptedPassword = Sha256Hasher.ComputeHash(dto.Password, Sha256Hasher.GetSalt());
             _context.SaveChanges();
         }
+
+        public int GetMemberId(string account)
+        {
+            if (string.IsNullOrWhiteSpace(account))
+                throw new ArgumentException("Account cannot be null or empty.", nameof(account));
+
+            var member = _context.Members.SingleOrDefault(m => m.Account == account);
+            if (member == null)
+                throw new Exception($"Member with account '{account}' not found.");
+
+            return member.Id;
+        }
+
     }
 }

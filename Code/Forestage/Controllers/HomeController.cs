@@ -21,7 +21,6 @@ namespace Forestage.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ProductService _productService;
-        private readonly AppDbContext _context;
 
         public HomeController(ILogger<HomeController> logger, ProductService productService)
         {

@@ -22,8 +22,8 @@ namespace Forestage
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                 {
-                    options.LoginPath = "/Member/Login";
-                    options.LogoutPath = "/Member/Logout"; // �n�X����
+                    options.LoginPath = "/Members/Login";
+                    options.LogoutPath = "/Members/Logout"; // �n�X����
 
                     // todo ��L�t�m
                     options.Cookie.Name = "GroupBuying03.Cookie";
@@ -48,9 +48,11 @@ namespace Forestage
             // Services
             builder.Services.AddScoped<ProductService>();
             builder.Services.AddScoped<ShopService>();
+            builder.Services.AddScoped<CartService>();
             // Repositories
             builder.Services.AddScoped<ProductRepository>();
             builder.Services.AddScoped<ShopRepository>();
+            builder.Services.AddScoped<CartRepository>();
 
             // Common
             builder.Services.AddSingleton<FilePathHelper>();
@@ -91,7 +93,7 @@ namespace Forestage
             app.UseRouting();
 
             // �ĤG�B : �ϥΨ������ҪA��, ���ǫܭ��n, �����bUseAuthorization���e
-            //app.UseAuthentication();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
