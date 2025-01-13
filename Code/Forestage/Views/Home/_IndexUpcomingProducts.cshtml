@@ -2,77 +2,91 @@
 @model List<Forestage.Models.ViewModels.Products.ProductBlockVm>;
 
 <section class="new-products single-products">
-	<div id="UpcomingProducts">
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="section-title">
-						<h3>即將成團</h3>
-						<div class="section-icon">
-							<i class="fa-regular fa-circle"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="owl-carousel owl-theme" id="new-products">
-					<div class="item" v-for="product in upcoming_products" :key="product.id">
-						<div class="single-product">
-							<div class="product-img">
-								<a :href="'/Products/Details/' + product.id">
-									<img :src="product.imagePaths[0]" :alt="product.productName" />
-								</a>
-							</div>
-							<div class="product-dsc">
-								<h3><a :href="'/Products/Details/' + product.id">{{ product.productName }}</a></h3>
-								<div class="star-price">
-									<span class="price-left">$ {{ product.productPrice }}</span>
-									<span v-if="product.groupBuyingPrice" class="price-left group-price">
-										<br>
-										Group Buy: $ {{ product.groupBuyingPrice }}
-									</span>
-								</div>
-							</div>
-							<div class="actions-btn">
-								<a data-placement="top" data-toggle="tooltip" href="#"
-								   data-original-title="Add To Wishlist"><i class="fa fa-heart"></i></a>
-								<a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart">
-									<i class="fa fa-shopping-cart"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div id="UpcomingProducts">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="section-title">
+                        <h3>即將成團</h3>
+                        <div class="section-icon">
+                            <i class="fa-regular fa-circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="owl-carousel owl-theme" id="new-products">
+                    <div class="item" v-for="product in upcoming_products" :key="product.id">
+                        <div class="single-product">
+                            <div class="product-img">
+                                <a :href="'/Products/Details/' + product.id">
+                                    <img :src="product.imagePaths[0]" :alt="product.productName" style="height: 300px;" />
+                                </a>
+                            </div>
+                            <div class="product-dsc">
+                                <h3><a :href="'/Products/Details/' + product.id">{{ product.productName }} <br /> ${{product.productPrice}}</a></h3>
+                                <!--<div class="star-price">
+                                    <span class="price-left">$ {{ product.productPrice }}</span>
+                                    <span v-if="product.groupBuyingPrice" class="price-left group-price">
+                                        <p>
+                                            Group Buy: $ {{ product.groupBuyingPrice }}
+                                        </p>
+                                    </span>
+                                </div>-->
+                            </div>
+                            <div class="actions-btn">
+                                <a href="#"
+                                   data-placement="top"
+                                   data-toggle="tooltip"
+                                   data-original-title="Add To Wishlist"
+                                   v-on:click.prevent="handleAddToWishes(product.id)">
+                                    <i class="fa fa-heart"></i>
+                                </a>
+                                <a href="#"
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   title="Add To Cart"
+                                   v-on:click.prevent="handleAddToCart(product.id)">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <script>
+    const upcoming_products = ref(@Html.Raw(Json.Serialize(@Model))); // 將 C# 資料序列化為 JSON
 
-	const upcoming_products = ref(@Html.Raw(Json.Serialize(@Model))); // 將 C# 資料序列化為 JSON
+    const upcoming_products_config = {
+        setup() {
+            // 引用外部函數
+            const handleAddToCart = (productId) => window.handleAddToCart(productId, 1);
+            const handleAddToWishes = (productId) => window.handleAddToWishes(productId);
+            onMounted(() => {
+                setTimeout(() => {
+                    $("#new-products").owlCarousel({
+                        items: 3, // 一次顯示三個商品
+                        loop: false, // 啟用無限輪播
+                        margin: 15, // 每個商品間距
+                        nav: true, // 顯示左右切換按鈕
+                        navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
+                        dots: true, // 顯示分頁點
+                        autoplay: true, // 啟用自動播放
+                        autoplayTimeout: 5000, // 自動播放間隔
+                    });
+                }, 0); // 確保 DOM 更新完成後初始化
+            });
 
-	const upcoming_products_config = {
-		setup() {
-			onMounted(() => {
-				setTimeout(() => {
-					$("#new-products").owlCarousel({
-						items: 3, // 一次顯示三個商品
-						loop: false, // 啟用無限輪播
-						margin: 15, // 每個商品間距
-						nav: true, // 顯示左右切換按鈕
-						navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
-						dots: true, // 顯示分頁點
-						autoplay: true, // 啟用自動播放
-						autoplayTimeout: 5000, // 自動播放間隔
-					});
-				}, 0); // 確保 DOM 更新完成後初始化
-			});
+            return {
+                upcoming_products,
+                handleAddToCart,
+                handleAddToWishes,
+            };
+        },
+    };
 
-			return {
-				upcoming_products,
-			};
-		},
-	};
-
-	createApp(upcoming_products_config).mount("#UpcomingProducts");
+    createApp(upcoming_products_config).mount("#UpcomingProducts");
 </script>

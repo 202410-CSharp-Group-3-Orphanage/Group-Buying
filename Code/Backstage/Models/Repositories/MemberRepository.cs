@@ -1,10 +1,14 @@
 ﻿using Backstage.Models.Dtos.Members;
 using Backstage.Models.EFModels;
 using MT.Security.Hashing;
+using MT.Utilities.UploadFile.Implementations;
+using MT.Utilities.UploadFile;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using Backstage.Common;
 
 namespace Backstage.Models.Repositories
 {
@@ -25,7 +29,7 @@ namespace Backstage.Models.Repositories
         }
         public bool VaildateLoginPassword(string account, string password)
         {
-            var member = _context.Members.FirstOrDefault(m => m.Account == account);
+            var member = _context.Shops.FirstOrDefault(m => m.Account == account);
             if (!Sha256Hasher.Verify(password, member.EncryptedPassword)) return false;
             return true;
         }
@@ -46,6 +50,13 @@ namespace Backstage.Models.Repositories
 
         public void CreateMember(RegisterDTO dto)
         {
+            MVC5File mVC5File = new MVC5File(dto.Image);
+            UploadFileHelper uploadFileHelper = new UploadFileHelper();
+
+            var filePathHelper = new FilePathHelper();
+            var relativePath = filePathHelper.GetWritePath("Shops");
+            var newFileName = uploadFileHelper.SaveAs(relativePath, mVC5File);
+
             var shop = new Shop
             {
                 Account = dto.Account,
@@ -53,7 +64,7 @@ namespace Backstage.Models.Repositories
                 Name = dto.Name,
                 IdentityCard = dto.IdentityCard,
                 Address = dto.Address,
-                Avatar = dto.Image.FileName,
+                Avatar = newFileName,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };

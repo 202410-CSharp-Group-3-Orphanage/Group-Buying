@@ -49,30 +49,33 @@ namespace Forestage
             builder.Services.AddScoped<ProductService>();
             builder.Services.AddScoped<ShopService>();
             builder.Services.AddScoped<CartService>();
+            builder.Services.AddScoped<GroupBuyingService>();
             // Repositories
             builder.Services.AddScoped<ProductRepository>();
             builder.Services.AddScoped<ShopRepository>();
             builder.Services.AddScoped<CartRepository>();
+            builder.Services.AddScoped<GroupBuyingRepository>();
+            builder.Services.AddScoped<OrderRepository>();
 
             // Common
             builder.Services.AddSingleton<FilePathHelper>();
 
-			//CORS
-			builder.Services.AddCors(
-				options =>
-				{
-					options.AddPolicy("CorsPolicy",
-						builder =>
-						{
-							builder
-							.AllowAnyOrigin()
-							.AllowAnyMethod()
-							.AllowAnyHeader();
-						});
-				});
+            //CORS
+            builder.Services.AddCors(
+                options =>
+                {
+                    options.AddPolicy("CorsPolicy",
+                        builder =>
+                        {
+                            builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                        });
+                });
 
 
-			builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 

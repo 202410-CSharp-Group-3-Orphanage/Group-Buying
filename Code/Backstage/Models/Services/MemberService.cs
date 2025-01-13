@@ -18,16 +18,16 @@ namespace Backstage.Models.Services
         }
 
         public void Login(LoginDTO dto)
-        {            
+        {
             if (!_memberRepo.VaildateAccountExist(dto.Account)) throw new Exception("帳號錯誤");
-            if (!_memberRepo.VaildateLoginPassword(dto.Account, dto.Password)) throw new Exception("密碼錯誤");            
+            if (!_memberRepo.VaildateLoginPassword(dto.Account, dto.Password)) throw new Exception("密碼錯誤");
         }
 
         public void Register(RegisterDTO dto)
         {
-            if (!_memberRepo.VaildateAccountExist(dto.Account)) throw new Exception("帳號已存在");
-            if (!_memberRepo.VaildateNameExist(dto.Name)) throw new Exception("店家名稱已存在");
-            if (!_memberRepo.VaildateIdentityCardExist(dto.IdentityCard)) throw new Exception("身分證字號已存在");
+            if (_memberRepo.VaildateAccountExist(dto.Account)) throw new Exception("帳號已存在");
+            if (_memberRepo.VaildateNameExist(dto.Name)) throw new Exception("店家名稱已存在");
+            if (_memberRepo.VaildateIdentityCardExist(dto.IdentityCard)) throw new Exception("身分證字號已存在");
 
             _memberRepo.CreateMember(dto);
         }

@@ -10,13 +10,31 @@ export const handleAddToCart = async (productId, quantity) => {
 
     if (userConfirmed.isConfirmed) {
         try {
-            const response = await fetch(`/Cart/AddItem/${productId}`, {
+            const response = await fetch(`/api/CartApi/AddItem`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ quantity: quantity }),
+                body: JSON.stringify({ productId: productId, quantity: quantity }),
+                redirect: 'manual', // 禁止自動重定向，手動處理 302 重定向
             });
+
+            if (response.type === "opaqueredirect") {
+                // 檢查是否為 302 重定向，並跳轉至登入頁面
+                const currentUrl = encodeURIComponent(window.location.pathname + window.location.search); // 編碼目前頁面網址
+                const loginUrl = `/Members/Login?ReturnUrl=${currentUrl}`; // 建立帶有 returnUrl 的登入網址
+
+                await Swal.fire({
+                    title: '錯誤',
+                    text: '請先登入會員！',
+                    icon: 'error',
+                    confirmButtonText: '好的',
+                }).then(() => {
+                    // 彈窗關閉後進行頁面跳轉
+                    window.location.href = loginUrl;
+                });
+                return; // 不再繼續執行後續程式碼
+            }
 
             if (response.ok) {
                 await Swal.fire({
@@ -28,16 +46,6 @@ export const handleAddToCart = async (productId, quantity) => {
             } else {
                 throw new Error('Failed to add item to cart.');
             }
-            if (response.status === 401) {
-                await Swal.fire({
-                    title: '錯誤',
-                    text: '請先登入會員！',
-                    icon: 'error',
-                    confirmButtonText: '好的',
-                });
-                // 跳轉至登入頁面
-                window.location.href = '/Login?redirectUrl=' + window.location.pathname;
-            }
         } catch (error) {
             await Swal.fire({
                 title: '錯誤',
@@ -48,6 +56,7 @@ export const handleAddToCart = async (productId, quantity) => {
         }
     }
 };
+
 
 export const handleAddToWishes = async (productId) => {
     const userConfirmed = await Swal.fire({
