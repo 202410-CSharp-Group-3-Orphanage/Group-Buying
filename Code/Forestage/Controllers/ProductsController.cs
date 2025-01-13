@@ -1,7 +1,10 @@
 ﻿using Forestage.Common;
 using Forestage.Models.Dtos.Products;
+using Forestage.Models.Dtos.Shops;
+using Forestage.Models.Infra;
 using Forestage.Models.Services;
 using Forestage.Models.ViewModels.Products;
+using Forestage.Models.ViewModels.Shops;
 using Microsoft.AspNetCore.Mvc;
 using MT.Utilities.Mapper;
 using MT.Utilities.UploadFile;
@@ -82,6 +85,50 @@ namespace Forestage.Controllers
             Console.WriteLine(url);
 
             return NoContent();
+        }
+
+        public IActionResult Search(ProductSearchVm SearchModel, string SortOption = "", int pageNumber = 1)
+        {
+            string columnName = "CreatedAt";
+            string direction = "Desc";
+
+            if (!string.IsNullOrEmpty(SortOption))
+            {
+                string[] parts = SortOption.Split('-');
+                if (parts.Length == 2)
+                {
+                    columnName = parts[0];
+                    direction = parts[1];
+                }
+            }
+
+            ViewBag.SortOption = SortOption;
+            ViewBag.SearchModel = SearchModel;
+
+            var criteria = new Criteria(SearchModel.CategoryId, SearchModel.MinPrice, SearchModel.MaxPrice, SearchModel.SearchKeyword);
+
+            var sortInfo = new SortInfo<ProductBlockDto>(columnName, direction);
+
+            var productSearchDto = _productService.GetSearchProducts(pageNumber, sortInfo, criteria);
+
+            var productVms = productSearchDto.SearchProducts.Items.Select(p => new ProductBlockVm
+            {
+                Id = p.Id,
+                ProductName = p.ProductName,
+                ProductPrice = p.ProductPrice,
+                ImagePaths = p.ImagePaths,
+                ProductLink = p.ProductLink,
+                CreatedAt = p.CreatedAt
+            }).ToList();
+
+            var model = new ProductResultVm
+            {
+                SearchVm = SearchModel,
+                categories = productSearchDto.categories,
+                SearchProducts = new PagedList<ProductBlockVm, SortInfo<ProductBlockDto>>(productVms, pageNumber, productSearchDto.SearchProducts.PageSize, productSearchDto.SearchProducts.TotalCount, sortInfo)
+            };
+
+            return View(model);
         }
     }
 }

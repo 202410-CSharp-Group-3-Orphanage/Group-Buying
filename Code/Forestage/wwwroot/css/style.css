@@ -146,10 +146,6 @@ hr.line {
     padding: 90px 0;
 }
 
-.section-padding-top {
-    padding-top: 200px;
-}
-
 /*修改與導覽列間隔*/
 .section-padding-bottom {
     padding-bottom: 90px;
@@ -278,10 +274,7 @@ textarea:focus {
 header {
     background: rgba(0, 0, 0) none repeat scroll 0 0;
     /*修改透明度*/
-    position: absolute;
-    top: 0;
     width: 100%;
-    z-index: 9;
 }
 
 /* header top */
@@ -300,6 +293,9 @@ header {
 .header-top {
     border-bottom: 1px solid rgba(102, 102, 102, 0.5);
     padding: 20px 0;
+}
+.header-bottom{
+    margin-bottom: 100px;
 }
 
 .left-header li:first-child,
@@ -2069,6 +2065,7 @@ a.dec.qtybutton {
 .footer-top {
     background: #2a2a2a none repeat scroll 0 0;
     padding-top: 30px;
+    margin-top: 100px;
     /*增加頁尾頂部*/
 }
 
@@ -2698,14 +2695,14 @@ a.clear-all {
     margin-top: 20px;
 }
 
-#amount > input.first_price[type="text"],
-#amount > input.last_price[type="text"] {
+.first-price,.last-price {
     border: 1px solid #cccccc;
     border-radius: 30px;
     color: #585858;
     height: 30px;
     line-height: 30px;
-    margin-right: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
     text-align: center;
     width: 85px;
 }
@@ -2717,6 +2714,7 @@ a.clear-all {
     height: 30px;
     line-height: 30px;
     margin-right: 25px;
+    margin-bottom: 20px;
     margin-top: 20px;
     text-align: start;
     padding-left: 10px;

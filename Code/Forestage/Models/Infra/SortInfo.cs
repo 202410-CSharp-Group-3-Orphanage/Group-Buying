@@ -1,30 +1,30 @@
 ﻿using System.Linq.Dynamic.Core;
 
-namespace Forestage.Models.ViewModels.Sort
+namespace Forestage.Models.Infra
 {
     public class SortInfo<T>
     {
         public IQueryable<T> ApplySort(IQueryable<T> data)
         {
-            if (string.IsNullOrEmpty(this.ColumnName))
+            if (string.IsNullOrEmpty(ColumnName))
             {
                 return data;
             }
 
-            if (this.Direction == EnumDirection.Asc)
+            if (Direction == EnumDirection.Asc)
             {
-                return data.OrderBy(this.ColumnName);
+                return data.OrderBy(ColumnName);
             }
             else
             {
-                return data.OrderBy($"{this.ColumnName} descending");
+                return data.OrderBy($"{ColumnName} descending");
             }
         }
 
         public SortInfo(string columnName, string direction)
         {
-            this.ColumnName = columnName;
-            this.Direction = Enum.TryParse(direction, out EnumDirection directionValue)
+            ColumnName = columnName;
+            Direction = Enum.TryParse(direction, out EnumDirection directionValue)
                 ? directionValue
                 : EnumDirection.Asc;
         }
@@ -35,7 +35,7 @@ namespace Forestage.Models.ViewModels.Sort
         public string GetQueryString()
         {
             string template = "ColumnName={0}&Direction={1}";
-            return string.Format(template, this.ColumnName, this.Direction);
+            return string.Format(template, ColumnName, Direction);
         }
 
         public string ColumnName { get; set; }

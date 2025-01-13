@@ -75,7 +75,7 @@
                                     <ul>
                                         <li><a asp-area="" asp-controller="Home" asp-action="Index">首頁</a></li>
                                         <li>
-                                            <a href="shop.html">分類</a>
+                                            <a href="#">分類</a>
                                             <div class="magamenu ">
                                                 <ul class="again">
                                                     <li class="single-menu colmd4">
@@ -162,11 +162,7 @@
                             <div class="right-header re-right-header">
                                 <ul>
                                     <li class="re-icon tnm">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                        <form method="get" id="searchform" action="#">
-                                            <input type="text" value="" name="s" id="ws" placeholder="收尋商品" />
-                                            <button type="submit"><i class="pe-7s-search"></i></button>
-                                        </form>
+                                        <a href="@Url.Action("Search", "Products")"><i class="fa fa-search" aria-hidden="true"></i><span class="color1"></span></a>
                                     </li>
                                     <li>
                                         <a href="@Url.Action("Index", "Cart")"><i class="fa fa-shopping-cart"></i><span class="color1">2</span></a>

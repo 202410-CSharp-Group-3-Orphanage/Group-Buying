@@ -1,4 +1,4 @@
-﻿namespace Forestage.Models.ViewModels.Paging
+﻿namespace Forestage.Models.Infra
 {
     public class PaginationInfo
     {
@@ -15,13 +15,13 @@
 
         public int Pages => (int)Math.Ceiling((double)TotalCount / PageSize);
 
-        public int PageItemCount => 5; 
+        public int PageItemCount => 5;
 
         public int PageBarStartNumber
         {
             get
             {
-                int startNumber = PageNumber - ((int)Math.Floor((double)this.PageItemCount / 2));
+                int startNumber = PageNumber - (int)Math.Floor((double)PageItemCount / 2);
                 return startNumber < 1 ? 1 : startNumber;
             }
         }
@@ -36,8 +36,8 @@
             ? Pages - PageBarStartNumber + 1
             : PageItemCount;
 
-        public int PageItemNextNumber => (PageBarStartNumber + PageItemCount >= Pages) ? Pages : PageBarStartNumber + PageItemCount;
-        public int PageItemPrevNumber => (PageBarStartNumber <= 1) ? 1 : PageBarStartNumber - 1;
+        public int PageItemNextNumber => PageBarStartNumber + PageItemCount >= Pages ? Pages : PageBarStartNumber + PageItemCount;
+        public int PageItemPrevNumber => PageBarStartNumber <= 1 ? 1 : PageBarStartNumber - 1;
 
     }
 }
