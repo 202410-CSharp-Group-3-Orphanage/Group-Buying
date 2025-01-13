@@ -9,7 +9,7 @@
     <div class="container">
         <form asp-action="Search" method="get" id="searchForm">
             <div class="row">
-                <div class="col-md-4 col-lg-3 col-sm-12">
+                <div class="col-md-5 col-lg-3 col-sm-12">
                     <div class="all-shop-sidebar">
                         <div class="top-shop-sidebar">
                             <h3 class="wg-title">選購</h3>
@@ -39,9 +39,9 @@
                                 <div class="info_widget">
                                     <div class="price_filter">
                                         <div id="amount">
-                                            <input asp-for="SearchVm.MinPrice" type="number" class="first-price" placeholder="最低價" />~
-                                            <input asp-for="SearchVm.MaxPrice" type="number" class="last-price" placeholder="最高價" />
-                                            <input asp-for="SearchVm.SearchKeyword" placeholder="收尋商品" class="search-shop" />
+                                            <input type="number" value="@Model.SearchVm.MinPrice" class="first-price" placeholder="最低價" />~
+                                            <input type="number" value="@Model.SearchVm.MaxPrice" class="last-price" placeholder="最高價" />
+                                            <input type="text" value="@Model.SearchVm.SearchKeyword" class="search-shop" placeholder="收尋商品" />
                                             <button class="button-shop" type="submit"><i class="fa fa-search search-icon"></i></button>
                                         </div>
 
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8 col-lg-9 col-sm-12">
+                <div class="col-md-7 col-lg-9 col-sm-12">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -64,38 +64,10 @@
                                                     <label>排序依據 :</label>
                                                     <select name="SortOption" onchange="document.getElementById('searchForm').submit();">
                                                         <option value="" selected="@(ViewBag.SortOption == "")">預設排序</option>
-                                                        <option value="CreatedAt-Desc" selected="@(ViewBag.SortOption == "CreatedAt-Desc")">
-                                                            <a asp-action="Search"
-                                                               asp-route-CategoryId="@Model.SearchVm.CategoryId"
-                                                               asp-route-MinPrice="@Model.SearchVm.MinPrice"
-                                                               asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
-                                                               asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
-                                                               asp-route-SortOption="CreatedAt-Desc">依時間排序 : 最新</a>
-                                                        </option>
-                                                        <option value="CreatedAt-Asc" selected="@(ViewBag.SortOption == "CreatedAt-Asc")">
-                                                            <a asp-action="Search"
-                                                               asp-route-CategoryId="@Model.SearchVm.CategoryId"
-                                                               asp-route-MinPrice="@Model.SearchVm.MinPrice"
-                                                               asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
-                                                               asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
-                                                               asp-route-SortOption="CreatedAt-Asc">依時間排序 : 最舊</a>
-                                                        </option>
-                                                        <option value="ProductPrice-Asc" selected="@(ViewBag.SortOption == "ProductPrice-Asc")">
-                                                            <a asp-action="Search"
-                                                               asp-route-CategoryId="@Model.SearchVm.CategoryId"
-                                                               asp-route-MinPrice="@Model.SearchVm.MinPrice"
-                                                               asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
-                                                               asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
-                                                               asp-route-SortOption="ProductPrice-Asc">依價格排序 : 低到高</a>
-                                                        </option>
-                                                        <option value="ProductPrice-Desc" selected="@(ViewBag.SortOption == "ProductPrice-Desc")">
-                                                            <a asp-action="Search"
-                                                               asp-route-CategoryId="@Model.SearchVm.CategoryId"
-                                                               asp-route-MinPrice="@Model.SearchVm.MinPrice"
-                                                               asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
-                                                               asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
-                                                               asp-route-SortOption="ProductPrice-Desc">依價格排序 : 高到低</a>
-                                                        </option>
+                                                        <option value="CreatedAt-Desc" selected="@(ViewBag.SortOption == "CreatedAt-Desc")">依時間排序 : 最新</option>
+                                                        <option value="CreatedAt-Asc" selected="@(ViewBag.SortOption == "CreatedAt-Asc")">依時間排序 : 最舊</option>
+                                                        <option value="ProductPrice-Asc" selected="@(ViewBag.SortOption == "ProductPrice-Asc")">依價格排序 : 低到高</option>
+                                                        <option value="ProductPrice-Desc" selected="@(ViewBag.SortOption == "ProductPrice-Desc")">依價格排序 : 高到低</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -122,7 +94,6 @@
                                                                 </div>
                                                             </div>
                                                             <div class="actions-btn">
-                                                                <a data-placement="top" data-toggle="tooltip" href="#" data-original-title="Add To Wishlist"><i class="fa fa-heart"></i></a>
                                                                 <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
                                                             </div>
                                                         </div>
