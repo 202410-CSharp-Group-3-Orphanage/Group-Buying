@@ -193,7 +193,7 @@ namespace Backstage.Models.Repositories
             ProductImage = gb.Product.ProductImages.FirstOrDefault().Path ,
             ProductName = gb.Product.Name,
             ProductPrice = gb.Price,
-            CurrentGroupSize = gb.Orders.Where(m=>m.GroupBuyingId == gb.Id).Sum(o => (int?)o.Quantity) ?? 0, 
+            CurrentGroupSize = gb.Orders.Where(m=>m.GroupBuyingId == gb.Id && m.Status == 1).Sum(o => (int?)o.Quantity) ?? 0, 
             MinimumGroupSize = gb.MinimumGroupSize,
             EndDate = gb.EndDate
         }).OrderBy(gb => gb.EndDate).ToList();

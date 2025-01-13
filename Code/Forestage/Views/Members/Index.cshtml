@@ -8,42 +8,28 @@
         <div class="row justify-content-center">
             <!-- ChangePassword Button -->
             <div class="col-md-2 mb-3">
-                <a class="btn btn-lg btn-primary w-100" href="@Url.Action("ChangePassword", "Members")">
+                <a class="btn btn-lg btn-secondary w-100" href="@Url.Action("ChangePassword", "Members")">
                     <i class="bi bi-key"></i> 修改密碼
                 </a>
             </div>
 
             <!-- ModifyPersonalInformation Button -->
             <div class="col-md-2 mb-3">
-                <a class="btn btn-lg btn-primary w-100" href="@Url.Action("ModifyPersonalInformation", "Members")">
-                    <i class="bi bi-person-fill"></i> 修改個人資料
+                <a class="btn btn-lg btn-secondary w-100" href="@Url.Action("ModifyPersonalInformation", "Members")">
+                    <i class="bi bi-person-fill "></i> 修改個人資料
                 </a>
             </div>
 
-            <!-- My Collection Button (path not set yet) -->
+            <!-- Group Progress Query Button (path not set yet) --> 
             <div class="col-md-2 mb-3">
-                <a class="btn btn-lg btn-secondary w-100" href="#">
-                    <i class="bi bi-heart"></i> 我的收藏
-                </a>
-            </div>
-
-            <!-- Group Status Button (path not set yet) -->
-            <div class="col-md-2 mb-3">
-                <a class="btn btn-lg btn-secondary w-100" href="#">
-                    <i class="bi bi-people"></i> 開團狀況
-                </a>
-            </div>
-
-            <!-- Group Progress Query Button (path not set yet) -->
-            <div class="col-md-2 mb-3">
-                <a class="btn btn-lg btn-secondary w-100" href="#">
+                <a class="btn btn-lg btn-primary w-100" href="@Url.Action("SearchGroupbuyingProgress", "Members")">
                     <i class="bi bi-hourglass-split"></i> 開團進度查詢
                 </a>
             </div>
 
             <!-- Order Query Button (path not set yet) -->
             <div class="col-md-2 mb-3">
-                <a class="btn btn-lg btn-secondary w-100" href="#">
+                <a class="btn btn-lg btn-primary w-100" href="@Url.Action("SearchGroupbuyingOrder", "Members")">
                     <i class="bi bi-file-earmark-text"></i> 訂單查詢
                 </a>
             </div>
