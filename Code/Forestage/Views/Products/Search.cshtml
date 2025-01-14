@@ -2,156 +2,173 @@
 @model ProductResultVm
 
 @{
-    ViewData["Title"] = "Search";
+	ViewData["Title"] = "Search";
 }
 
 <section class="pages products-page section-padding-top section-padding-bottom">
-    <div class="container">
-        <form asp-action="Search" method="get" id="searchForm">
-            <div class="row">
-                <div class="col-md-5 col-lg-3 col-sm-12">
-                    <div class="all-shop-sidebar">
-                        <div class="top-shop-sidebar">
-                            <h3 class="wg-title">選購</h3>
-                        </div>
-                        <div class="shop-one">
-                            <h3 class="wg-title2">商品分類</h3>
-                            <ul class="product-categories">
-                                @foreach (var category in Model.categories)
-                                {
-                                    <li class="cat-item">
-                                        <a asp-action="Search"
-                                           asp-route-CategoryId="@category.CategoryId"
-                                           asp-route-MinPrice="@Model.SearchVm.MinPrice"
-                                           asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
-                                           asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
-                                           asp-route-SortOption="@ViewBag.SortOption">
-                                            @category.CategoryName
-                                            <span class="count">(@category.ProductCount)</span>
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                        <div class="shop-one re-shop-one">
-                            <h3 class="wg-title2">商品價格區間</h3>
-                            <div class="widget shop-filter">
-                                <div class="info_widget">
-                                    <div class="price_filter">
-                                        <div id="amount">
-                                            <input type="number" value="@Model.SearchVm.MinPrice" class="first-price" placeholder="最低價" />~
-                                            <input type="number" value="@Model.SearchVm.MaxPrice" class="last-price" placeholder="最高價" />
-                                            <input type="text" value="@Model.SearchVm.SearchKeyword" class="search-shop" placeholder="收尋商品" />
-                                            <button class="button-shop" type="submit"><i class="fa fa-search search-icon"></i></button>
-                                        </div>
+	<div class="container">
+		<form asp-action="Search" method="get" id="searchForm">
+			<div class="row">
+				<div class="col-md-5 col-lg-3 col-sm-12">
+					<div class="all-shop-sidebar">
+						<div class="top-shop-sidebar">
+							<h3 class="wg-title">選購</h3>
+						</div>
+						<div class="shop-one">
+							<h3 class="wg-title2">商品分類</h3>
+							<ul class="product-categories">
+								@foreach (var category in Model.categories)
+								{
+									<li class="cat-item">
+										<a asp-action="Search"
+										   asp-route-CategoryId="@category.CategoryId"
+										   asp-route-MinPrice="@Model.SearchVm.MinPrice"
+										   asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
+										   asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
+										   asp-route-SortOption="@ViewBag.SortOption">
+											@category.CategoryName
+											<span class="count">(@category.ProductCount)</span>
+										</a>
+									</li>
+								}
+							</ul>
+						</div>
+						<div class="shop-one re-shop-one">
+							<h3 class="wg-title2">商品價格區間</h3>
+							<div class="widget shop-filter">
+								<div class="info_widget">
+									<div class="price_filter">
+										<div id="amount">
+											<input type="number" value="@Model.SearchVm.MinPrice" class="first-price" placeholder="最低價" />~
+											<input type="number" value="@Model.SearchVm.MaxPrice" class="last-price" placeholder="最高價" />
+											<input type="text" value="@Model.SearchVm.SearchKeyword" class="search-shop" placeholder="收尋商品" />
+											<button class="button-shop" type="submit"><i class="fa fa-search search-icon"></i></button>
+										</div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-7 col-lg-9 col-sm-12">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="features-tab">
-                                    <!-- Nav tabs -->
-                                    <div class="shop-all-tab">
-                                        <div class="re-shop">
-                                            <div class="sort-by">
-                                                <div class="shop6">
-                                                    <label>排序依據 :</label>
-                                                    <select name="SortOption" onchange="document.getElementById('searchForm').submit();">
-                                                        <option value="" selected="@(ViewBag.SortOption == "")">預設排序</option>
-                                                        <option value="CreatedAt-Desc" selected="@(ViewBag.SortOption == "CreatedAt-Desc")">依時間排序 : 最新</option>
-                                                        <option value="CreatedAt-Asc" selected="@(ViewBag.SortOption == "CreatedAt-Asc")">依時間排序 : 最舊</option>
-                                                        <option value="ProductPrice-Asc" selected="@(ViewBag.SortOption == "ProductPrice-Asc")">依價格排序 : 低到高</option>
-                                                        <option value="ProductPrice-Desc" selected="@(ViewBag.SortOption == "ProductPrice-Desc")">依價格排序 : 高到低</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Tab panes -->
-                                    <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane active" id="home">
-                                            <div class="row">
-                                                <!-- single-product start -->
-                                                @foreach (var product in Model.SearchProducts.Items)
-                                                {
-                                                    <div class="col-md-4 col-lg-4 col-sm-6">
-                                                        <div class="single-product s-top s-non">
-                                                            <div class="product-img">
-                                                                <a href="@product.ProductLink">
-                                                                    <img src="@product.ImagePaths.FirstOrDefault()" alt="Product Title" />
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-dsc">
-                                                                <h3><a href="#">@product.ProductName</a></h3>
-                                                                <div class="star-price">
-                                                                    <span class="price-left">$@product.ProductPrice</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="actions-btn">
-                                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                }
-                                                <!-- single-product end -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="shop-all-tab-cr shop-bottom">
-                                        <div class="two-part">
-                                            <div class="shop5 page">
-                                                <ul>
-                                                    <li>
-                                                        @if (Model.SearchProducts.PageNumber > 1)
-                                                        {
-                                                            <a asp-action="Search"
-                                                               asp-route-CategoryId="@Model.SearchVm.CategoryId"
-                                                               asp-route-MinPrice="@Model.SearchVm.MinPrice"
-                                                               asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
-                                                               asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
-                                                               asp-route-SortOption="@Model.SearchProducts.SortInfo.ColumnName-@Model.SearchProducts.SortInfo.Direction"
-                                                               asp-route-pageNumber="@(Model.SearchProducts.PageNumber - 1)">上一頁</a>
-                                                        }
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-7 col-lg-9 col-sm-12">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<div class="features-tab">
+									<!-- Nav tabs -->
+									<div class="shop-all-tab">
+										<div class="re-shop">
+											<div class="sort-by">
+												<div class="shop6">
+													<label>排序依據 :</label>
+													<select name="SortOption" onchange="document.getElementById('searchForm').submit();">
+														<option value="" selected="@(ViewBag.SortOption == "")">預設排序</option>
+														<option value="CreatedAt-Desc" selected="@(ViewBag.SortOption == "CreatedAt-Desc")">依時間排序 : 最新</option>
+														<option value="CreatedAt-Asc" selected="@(ViewBag.SortOption == "CreatedAt-Asc")">依時間排序 : 最舊</option>
+														<option value="ProductPrice-Asc" selected="@(ViewBag.SortOption == "ProductPrice-Asc")">依價格排序 : 低到高</option>
+														<option value="ProductPrice-Desc" selected="@(ViewBag.SortOption == "ProductPrice-Desc")">依價格排序 : 高到低</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- Tab panes -->
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane active" id="home">
+											<div class="row" id="app">
+												<!-- single-product start -->
+												@foreach (var product in Model.SearchProducts.Items)
+												{
+													<div class="col-md-4 col-lg-4 col-sm-6">
+														<div class="single-product s-top s-non">
+															<div class="product-img">
+																<a href="@product.ProductLink">
+																	<img src="@product.ImagePaths.FirstOrDefault()" alt="Product Title" />
+																</a>
+															</div>
+															<div class="product-dsc">
+																<h3><a href="#">@product.ProductName</a></h3>
+																<div class="star-price">
+																	<span class="price-left">$@product.ProductPrice</span>
+																</div>
+															</div>
+															<div class="actions-btn">
+																<a href="#" data-toggle="tooltip" data-placement="top" v-on:click.prevent="handleAddToCart(@product.Id)" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
+															</div>
+														</div>
+													</div>
+												}
+												<!-- single-product end -->
+											</div>
+										</div>
+									</div>
+									<div class="shop-all-tab-cr shop-bottom">
+										<div class="two-part">
+											<div class="shop5 page">
+												<ul>
+													<li>
+														@if (Model.SearchProducts.PageNumber > 1)
+														{
+															<a asp-action="Search"
+															   asp-route-CategoryId="@Model.SearchVm.CategoryId"
+															   asp-route-MinPrice="@Model.SearchVm.MinPrice"
+															   asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
+															   asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
+															   asp-route-SortOption="@Model.SearchProducts.SortInfo.ColumnName-@Model.SearchProducts.SortInfo.Direction"
+															   asp-route-pageNumber="@(Model.SearchProducts.PageNumber - 1)">上一頁</a>
+														}
 
-                                                        @for (int i = 1; i <= Model.SearchProducts.TotalPages; i++)
-                                                        {
-                                                            <a asp-action="Search"
-                                                               asp-route-CategoryId="@Model.SearchVm.CategoryId"
-                                                               asp-route-MinPrice="@Model.SearchVm.MinPrice"
-                                                               asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
-                                                               asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
-                                                               asp-route-SortOption="@Model.SearchProducts.SortInfo.ColumnName-@Model.SearchProducts.SortInfo.Direction"
-                                                               asp-route-pageNumber="@i"
-                                                               class="@(Model.SearchProducts.PageNumber == i ? "active" : "")">@i</a>
-                                                        }
+														@for (int i = 1; i <= Model.SearchProducts.TotalPages; i++)
+														{
+															<a asp-action="Search"
+															   asp-route-CategoryId="@Model.SearchVm.CategoryId"
+															   asp-route-MinPrice="@Model.SearchVm.MinPrice"
+															   asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
+															   asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
+															   asp-route-SortOption="@Model.SearchProducts.SortInfo.ColumnName-@Model.SearchProducts.SortInfo.Direction"
+															   asp-route-pageNumber="@i"
+															   class="@(Model.SearchProducts.PageNumber == i ? "active" : "")">@i</a>
+														}
 
-                                                        @if (Model.SearchProducts.PageNumber < Model.SearchProducts.TotalPages)
-                                                        {
-                                                            <a asp-action="Search"
-                                                               asp-route-CategoryId="@Model.SearchVm.CategoryId"
-                                                               asp-route-MinPrice="@Model.SearchVm.MinPrice"
-                                                               asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
-                                                               asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
-                                                               asp-route-SortOption="@Model.SearchProducts.SortInfo.ColumnName-@Model.SearchProducts.SortInfo.Direction"
-                                                               asp-route-pageNumber="@(Model.SearchProducts.PageNumber + 1)">下一頁</a>
-                                                        }
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+														@if (Model.SearchProducts.PageNumber < Model.SearchProducts.TotalPages)
+														{
+															<a asp-action="Search"
+															   asp-route-CategoryId="@Model.SearchVm.CategoryId"
+															   asp-route-MinPrice="@Model.SearchVm.MinPrice"
+															   asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
+															   asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
+															   asp-route-SortOption="@Model.SearchProducts.SortInfo.ColumnName-@Model.SearchProducts.SortInfo.Direction"
+															   asp-route-pageNumber="@(Model.SearchProducts.PageNumber + 1)">下一頁</a>
+														}
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 </section>
+<script>
+	let { createApp, ref, onMounted } = Vue;
+
+	// 先在 global scope 加載 cartAndWishes.js
+	// 然後使用全局變數引用外部函數
+	const config = {
+		setup() {
+			const handleAddToCart = (productId) => window.handleAddToCart(productId, 1);
+
+			return {
+				handleAddToCart
+			};
+		},
+	};
+
+	createApp(config).mount("#app");
+</script>

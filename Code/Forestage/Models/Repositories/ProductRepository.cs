@@ -293,7 +293,4 @@ JOIN
             });
         }
     }
-			return result;
-		}
-	}
 }
