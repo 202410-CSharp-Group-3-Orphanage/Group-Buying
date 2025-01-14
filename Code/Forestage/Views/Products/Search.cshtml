@@ -131,29 +131,29 @@
 															   class="@(Model.SearchProducts.PageNumber == i ? "active" : "")">@i</a>
 														}
 
-														@if (Model.SearchProducts.PageNumber < Model.SearchProducts.TotalPages)
-														{
-															<a asp-action="Search"
-															   asp-route-CategoryId="@Model.SearchVm.CategoryId"
-															   asp-route-MinPrice="@Model.SearchVm.MinPrice"
-															   asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
-															   asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
-															   asp-route-SortOption="@Model.SearchProducts.SortInfo.ColumnName-@Model.SearchProducts.SortInfo.Direction"
-															   asp-route-pageNumber="@(Model.SearchProducts.PageNumber + 1)">下一頁</a>
-														}
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
+                                                        @if (Model.SearchProducts.PageNumber < Model.SearchProducts.TotalPages)
+                                                        {
+                                                            <a asp-action="Search"
+                                                               asp-route-CategoryId="@Model.SearchVm.CategoryId"
+                                                               asp-route-MinPrice="@Model.SearchVm.MinPrice"
+                                                               asp-route-MaxPrice="@Model.SearchVm.MaxPrice"
+                                                               asp-route-SearchKeyword="@Model.SearchVm.SearchKeyword"
+                                                               asp-route-SortOption="@Model.SearchProducts.SortInfo.ColumnName-@Model.SearchProducts.SortInfo.Direction"
+                                                               asp-route-pageNumber="@(Model.SearchProducts.PageNumber + 1)">下一頁</a>
+                                                        }
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </section>
 <script>
 	let { createApp, ref, onMounted } = Vue;
