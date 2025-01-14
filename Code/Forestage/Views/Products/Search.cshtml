@@ -39,9 +39,9 @@
 								<div class="info_widget">
 									<div class="price_filter">
 										<div id="amount">
-											<input type="number" value="@Model.SearchVm.MinPrice" class="first-price" placeholder="最低價" />~
-											<input type="number" value="@Model.SearchVm.MaxPrice" class="last-price" placeholder="最高價" />
-											<input type="text" value="@Model.SearchVm.SearchKeyword" class="search-shop" placeholder="收尋商品" />
+											<input type="number" name="MinPrice" value="@Model.SearchVm.MinPrice" class="first-price" placeholder="最低價" />~
+											<input type="number" name="MaxPrice" value="@Model.SearchVm.MaxPrice" class="last-price" placeholder="最高價" />
+											<input type="text" name="SearchKeyword" value="@Model.SearchVm.SearchKeyword" class="search-shop" placeholder="收尋商品" />
 											<button class="button-shop" type="submit"><i class="fa fa-search search-icon"></i></button>
 										</div>
 
