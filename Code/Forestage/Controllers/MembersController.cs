@@ -119,33 +119,7 @@ namespace Forestage.Controllers
 
 			try
 			{
-
 				VaildateRegister(model);
-//                _emailService.SendEmail(
-//					//recipientEmail: model.Email,
-//					recipientEmail: "martin0230206@gmail.com",
-//					subject: "註冊成功，請驗證信箱",
-//					body: @$"
-//<div style=""font-family: 'Arial', sans-serif; background-color: #f2f2f2; padding: 20px;"">
-//    <div style=""max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px;"">
-//        <div style=""background-color: black; color: white; padding: 10px; text-align: center; border-radius: 8px 8px 0 0;"">
-//            <h2>您的驗證連結</h2>
-//        </div>
-//        <div style=""padding: 20px; text-align: left; font-size: 16px; color: blue;"">
-//            <p>親愛的用戶您好，</p>
-//            <p>感謝您註冊我們的服務。為了確保您的帳戶安全，
-//			<br>請使用以下連結來完成您的操作：</p>
-//            <div style=""background-color: #f0f0f0; padding: 20px; font-size: 16px; font-weight: bold; text-align: center; color: #333333; border-radius: 4px; margin: 20px 0;"">
-//                <a href=""https://localhost:44385/Members/VaildateEmail/id={dto.Id}&confirmCode={dto.ConfirmCode}"" style=""text-decoration: none; color: #4CAF50;"">點擊此處進行驗證</a>
-//            </div>
-//        </div>
-//        <div style=""text-align: center; color: #777777; font-size: 14px; margin-top: 20px;"">
-//            <p>本郵件由系統自動發送，請勿回覆。</p>
-//        </div>
-//    </div>
-//</div>
-//"
-//                    );
 				
 				return RedirectToAction("RegisterConfirm");
 			}
@@ -180,9 +154,8 @@ namespace Forestage.Controllers
             try
             {
                 VaildateEmailByIdAndConfirmCode(id, confirmCode);
-                var tempPassword =UpdateMembersConfirmCodeAndPassword(id, confirmCode);
-                TempData["EmailVaildatation"] = @$"密碼已重設為 {tempPassword} ，請盡速登入並修改新密碼";
-                return RedirectToAction("ChangePassword", "Members");
+                UpdateMembersConfirmCodeAndPassword(id, confirmCode);
+                return RedirectToAction("ResetPasswordFromEmailWithoutLogin", "Members", new { id });
             }
             catch (Exception ex)
             {
@@ -190,16 +163,40 @@ namespace Forestage.Controllers
                 return View();
             }
         }
-
-        private string UpdateMembersConfirmCodeAndPassword(int id, string confirmCode)
+        
+        public IActionResult ResetPasswordFromEmailWithoutLogin()
+		{
+			return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ResetPasswordFromEmailWithoutLogin(int id, ResetPasswordVm model)
+		{
+            try
+            {
+                ChangePasswordDTO dto = new ChangePasswordDTO
+                {
+                    Id = id,
+                    NewPassword = model.Password,
+                };
+                _service.ResetPasswordFromEmailWithoutLogin(dto);
+                TempData["EmailVaildatation"] = "請盡速修改密碼";
+                return RedirectToAction("Login", "Members");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View();
+            }
+        }
+        private void UpdateMembersConfirmCodeAndPassword(int id, string confirmCode)
         {
             RegisterDTO dto = new RegisterDTO
             {
                 Id = id,
                 ConfirmCode = confirmCode,
             };
-            var tempPassword = _service.UpdateMembersConfirmCodeAndPassword(dto);
-			return tempPassword;
+            _service.UpdateMembersConfirmCode(dto);
         }
 
         private void UpdateMembersConfirmCode(int id, string confirmCode)

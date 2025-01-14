@@ -3,6 +3,7 @@ using Forestage.Common;
 using Forestage.Models.Dtos.Members;
 using Forestage.Models.EFModels;
 using Forestage.Models.Services;
+using Forestage.Models.ViewModels;
 using Forestage.Models.ViewModels.Members;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.Data.SqlClient;
@@ -428,17 +429,12 @@ ORDER BY Status
             _context.SaveChanges();
         }
 
-        public string UpdateMembersConfirmCodeAndPassword(RegisterDTO dto)
+        public void ResetPasswordFromEmailWithoutLogin(ChangePasswordDTO dto)
         {
-            var member = _context.Members.FirstOrDefault(m => m.Id == dto.Id && m.ConfirmCode == dto.ConfirmCode);
-            
-            string tempPassword = GetRandomPassword(10);
-            member.EncryptedPassword = Sha256Hasher.ComputeHash(tempPassword, Sha256Hasher.GetSalt());
-            member.IsConfirmed = true;
-            member.ConfirmCode = null;
+            var member = _context.Members.FirstOrDefault(m => m.Id == dto.Id);
+            if (member == null) return;
+            member.EncryptedPassword = Sha256Hasher.ComputeHash(dto.NewPassword, Sha256Hasher.GetSalt());
             _context.SaveChanges();
-            
-            return tempPassword;
         }
     }
 }

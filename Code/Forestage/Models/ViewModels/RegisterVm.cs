@@ -31,9 +31,11 @@ namespace Forestage.Models.ViewModels
         public string Phone { get; set; }
 
         [Display(Name = "請輸入生日")]
+        [Required(ErrorMessage = "生日必填")]
         public DateTime Birthday { get; set; }
 
         [Display(Name = "請選擇性別")]
+        [Required(ErrorMessage = "性別必填")]
         public byte Gender { get; set; }
     }
 }
