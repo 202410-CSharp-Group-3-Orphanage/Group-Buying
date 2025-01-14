@@ -53,7 +53,7 @@ namespace Backstage.Controllers
                 {
                     return Redirect(returnUrl);
                 }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("ShopProductList", "Products");
             }
             catch (Exception ex)
             {

@@ -79,11 +79,11 @@
 												<!-- single-product start -->
 												@foreach (var product in Model.SearchProducts.Items)
 												{
-													<div class="col-md-4 col-lg-4 col-sm-6">
+													<div class="col-lg-6 col-xl-4 col-md-12">
 														<div class="single-product s-top s-non">
 															<div class="product-img">
 																<a href="@product.ProductLink">
-																	<img src="@product.ImagePaths.FirstOrDefault()" alt="Product Title" />
+																	<img src="@product.ImagePaths.FirstOrDefault()" alt="Product Title" style="height: 300px"/>
 																</a>
 															</div>
 															<div class="product-dsc">
@@ -91,9 +91,6 @@
 																<div class="star-price">
 																	<span class="price-left">$@product.ProductPrice</span>
 																</div>
-															</div>
-															<div class="actions-btn">
-																<a href="#" data-toggle="tooltip" data-placement="top" v-on:click.prevent="handleAddToCart(@product.Id)" title="Add To Cart"><i class="fa fa-shopping-cart"></i></a>
 															</div>
 														</div>
 													</div>
