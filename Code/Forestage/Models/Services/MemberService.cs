@@ -101,5 +101,16 @@ namespace Forestage.Models.Services
             return _repo.GetGroupbuyingOrderById(memberId, searchParams);
         }
 
+        public void VaildateEmailByIdAndConfirmCode(RegisterDTO dto)
+        {
+            if (!_repo.VaildateEmailByIdAndConfirmCode(dto)) {
+                throw new Exception("查無此Email或驗證碼錯誤");
+            };
+        }
+
+        public void UpdateMembersConfirmCode(RegisterDTO dto)
+        {
+            _repo.UpdateMembersConfirmCode(dto);
+        }
     }
 }

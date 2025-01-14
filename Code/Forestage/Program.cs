@@ -5,6 +5,8 @@ using Forestage.Models.Services;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Forestage.Common;
+using Forestage.Models.Configurations;
+using Forestage.Models.Services.Interfaces;
 
 namespace Forestage
 {
@@ -32,6 +34,8 @@ namespace Forestage
 
             builder.Services.AddScoped<MemberService>();
             builder.Services.AddScoped<MemberEFRepository>();
+            builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
             builder.Services.AddScoped<EmailService>();
 
 
