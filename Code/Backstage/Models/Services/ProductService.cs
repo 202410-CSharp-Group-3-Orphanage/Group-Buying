@@ -66,21 +66,42 @@ namespace Backstage.Models.Services
 			{
 				string relativePath = _filePathHelper.GetWritePath("Products");
 				MVC5File mVC5File = new MVC5File(image);
+				if (image != null) {
+                    return _uploadFileHelper.SaveAs(relativePath, mVC5File);
+                }else
+                {
+                    return null;
+                }
 
-				return _uploadFileHelper.SaveAs(relativePath, mVC5File);
-			}).ToList();
+            }).ToList();
 
-			var productDto = new UpdateProductDTO
+			if (imagePaths != null) {
+                var productDto = new UpdateProductDTO
+                {
+                    Id = id,
+                    Name = model.Name,
+                    Price = model.Price,
+                    Description = model.Description,
+                    CategoryId = model.CategoryId,
+                    ImagePaths = imagePaths
+                };
+
+                _productRepo.UpdateProduct(productDto);
+			}
+			else
 			{
-				Id = id,
-				Name = model.Name,
-				Price = model.Price,
-				Description = model.Description,
-				CategoryId = model.CategoryId,
-				ImagePaths = imagePaths
-			};
+                var productDto = new UpdateProductDTO
+                {
+                    Id = id,
+                    Name = model.Name,
+                    Price = model.Price,
+                    Description = model.Description,
+                    CategoryId = model.CategoryId,
+                };
 
-			_productRepo.UpdateProduct(productDto);
+                _productRepo.UpdateProduct(productDto);
+            }
+			
 		}
 
 		// 取得商品資訊以顯示在開團頁面

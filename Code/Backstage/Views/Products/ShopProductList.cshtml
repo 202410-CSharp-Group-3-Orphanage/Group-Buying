@@ -31,7 +31,7 @@
                     <tr>
                         <td>@product.Category</td>
                         <td>
-                            <img src="@product.ImageUrl" alt="@product.Name" style="max-width: 100px;" />
+                            <img src="@product.ImageUrl" alt="@product.Name" style="max-width: 100px; max-height: 100px;" />
                         </td>
                         <td>@product.Name</td>
                         <td>@product.Description</td>
@@ -40,7 +40,7 @@
                         <td>
                             @if (!product.IsGroupOpen)
                             {
-                                <a href="@Url.Action("EditProduct", "Products", new { id = product.Id })" class="btn btn-primary btn-sm">修改</a>
+                                <a href="@Url.Action("EditProduct", "Products", new { id = product.Id })" class="btn btn-primary">修改</a>
                                 <a href="@Url.Action("StartGroupBuying", "Products", new { id = product.Id })" class="btn btn-primary">開團</a>
                             }
                         </td>

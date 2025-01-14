@@ -9,6 +9,7 @@ using System.Text;
 using Forestage.Models.Dtos.Members;
 using Forestage.Models.Services;
 using Forestage.Models.ViewModels.Members;
+using Forestage.Models.Services.Interfaces;
 
 
 
@@ -17,9 +18,10 @@ namespace Forestage.Controllers
 	public class MembersController : Controller
 	{
 		private readonly MemberService _service;
-		private readonly EmailService _emailService;
+        private readonly EmailService _emailService;
 
-		public MembersController(MemberService service, EmailService emailService)
+
+        public MembersController(MemberService service, EmailService emailService)
 		{
 			_service = service;
 			_emailService = emailService;
@@ -117,33 +119,35 @@ namespace Forestage.Controllers
 
 			try
 			{
+
 				VaildateRegister(model);
-				_emailService.SendEmail(
-					//recipientEmail: model.Email,
-					recipientEmail: "martin0230206@gmail.com",
-					subject: "註冊成功，請驗證信箱",
-					body: @"
-<div style=""font-family: 'Arial', sans-serif; background-color: #f2f2f2; padding: 20px;"">
-    <div style=""max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px;"">
-        <div style=""background-color: black; color: white; padding: 10px; text-align: center; border-radius: 8px 8px 0 0;"">
-            <h2>您的驗證連結</h2>
-        </div>
-        <div style=""padding: 20px; text-align: left; font-size: 16px; color: blue;"">
-            <p>親愛的用戶您好，</p>
-            <p>感謝您註冊我們的服務。為了確保您的帳戶安全，
-			<br>請使用以下連結來完成您的操作：</p>
-            <div style=""background-color: #f0f0f0; padding: 20px; font-size: 16px; font-weight: bold; text-align: center; color: #333333; border-radius: 4px; margin: 20px 0;"">
-                <a href=""https://your-verification-link.com"" style=""text-decoration: none; color: #4CAF50;"">點擊此處進行驗證</a>
-            </div>
-        </div>
-        <div style=""text-align: center; color: #777777; font-size: 14px; margin-top: 20px;"">
-            <p>本郵件由系統自動發送，請勿回覆。</p>
-        </div>
-    </div>
-</div>
-"
-					);
-				return RedirectToAction("Login", "Members");
+//                _emailService.SendEmail(
+//					//recipientEmail: model.Email,
+//					recipientEmail: "martin0230206@gmail.com",
+//					subject: "註冊成功，請驗證信箱",
+//					body: @$"
+//<div style=""font-family: 'Arial', sans-serif; background-color: #f2f2f2; padding: 20px;"">
+//    <div style=""max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px;"">
+//        <div style=""background-color: black; color: white; padding: 10px; text-align: center; border-radius: 8px 8px 0 0;"">
+//            <h2>您的驗證連結</h2>
+//        </div>
+//        <div style=""padding: 20px; text-align: left; font-size: 16px; color: blue;"">
+//            <p>親愛的用戶您好，</p>
+//            <p>感謝您註冊我們的服務。為了確保您的帳戶安全，
+//			<br>請使用以下連結來完成您的操作：</p>
+//            <div style=""background-color: #f0f0f0; padding: 20px; font-size: 16px; font-weight: bold; text-align: center; color: #333333; border-radius: 4px; margin: 20px 0;"">
+//                <a href=""https://localhost:44385/Members/VaildateEmail/id={dto.Id}&confirmCode={dto.ConfirmCode}"" style=""text-decoration: none; color: #4CAF50;"">點擊此處進行驗證</a>
+//            </div>
+//        </div>
+//        <div style=""text-align: center; color: #777777; font-size: 14px; margin-top: 20px;"">
+//            <p>本郵件由系統自動發送，請勿回覆。</p>
+//        </div>
+//    </div>
+//</div>
+//"
+//                    );
+				
+				return RedirectToAction("RegisterConfirm");
 			}
 			catch (Exception ex)
 			{
@@ -151,10 +155,51 @@ namespace Forestage.Controllers
 				return View(model);
 			}
 		}
+        public IActionResult RegisterConfirm()
+        {
+            return View();
+        }
+        public IActionResult VaildateEmail(int id, string confirmCode)
+        {
+            try
+            {
+                VaildateEmailByIdAndConfirmCode(id, confirmCode);
+				UpdateMembersConfirmCode(id, confirmCode);
+				TempData["EmailVaildatation"] = "Email驗證成功";
+                return RedirectToAction("Login", "Members");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View();
+            }
+        }
 
-		private void VaildateRegister(RegisterVm model)
+        private void UpdateMembersConfirmCode(int id, string confirmCode)
+        {
+            RegisterDTO dto = new RegisterDTO
+            {
+                Id = id,
+                ConfirmCode = confirmCode,
+            };
+            _service.UpdateMembersConfirmCode(dto);
+        }
+
+        private void VaildateEmailByIdAndConfirmCode(int id, string confirmCode)
+        {
+            RegisterDTO dto = new RegisterDTO
+            {
+                Id = id,
+                ConfirmCode = confirmCode,
+            };
+            _service.VaildateEmailByIdAndConfirmCode(dto);
+        }
+
+        private void VaildateRegister(RegisterVm model)
 		{
-			RegisterDTO dto = new RegisterDTO
+			string confirmCode = Guid.NewGuid().ToString("N");
+
+            RegisterDTO dto = new RegisterDTO
 			{
 				Account = model.Account,
 				Password = model.Password,
@@ -163,7 +208,8 @@ namespace Forestage.Controllers
 				Phone = model.Phone,
 				Birthday = model.Birthday,
 				Gender = model.Gender,
-			};
+                ConfirmCode = confirmCode,
+            };
 			_service.Register(dto);
 		}
 

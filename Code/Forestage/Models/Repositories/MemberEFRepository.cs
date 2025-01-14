@@ -17,7 +17,7 @@ namespace Forestage.Models.Repositories
     {
         private readonly FilePathHelper _filePathHelper;
         private readonly EmailService _emailService;
-        private readonly AppDbContext _context;        
+        private readonly AppDbContext _context;
         private readonly SqlConnection _sqlConnection;
 
 
@@ -103,6 +103,32 @@ namespace Forestage.Models.Repositories
             };
             _context.Members.Add(member);
             _context.SaveChanges();
+
+            // 發送郵件
+            _emailService.SendEmail(
+    recipientEmail: member.Email,
+    subject: "註冊成功，請驗證信箱",
+    body: @$"
+<div style=""font-family: 'Arial', sans-serif; background-color: #f2f2f2; padding: 20px;"">
+    <div style=""max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px;"">
+        <div style=""background-color: black; color: white; padding: 10px; text-align: center; border-radius: 8px 8px 0 0;"">
+            <h2>您的驗證連結</h2>
+        </div>
+        <div style=""padding: 20px; text-align: left; font-size: 16px; color: blue;"">
+            <p>親愛的用戶您好，</p>
+            <p>感謝您註冊我們的服務。為了確保您的帳戶安全，
+			<br>請使用以下連結來完成您的操作：</p>
+            <div style=""background-color: #f0f0f0; padding: 20px; font-size: 16px; font-weight: bold; text-align: center; color: #333333; border-radius: 4px; margin: 20px 0;"">
+                <a href=""https://localhost:7203/Members/VaildateEmail?id={member.Id}&confirmCode={member.ConfirmCode}"" style=""text-decoration: none; color: #4CAF50;"">點擊此處進行驗證</a>
+            </div>
+        </div>
+        <div style=""text-align: center; color: #777777; font-size: 14px; margin-top: 20px;"">
+            <p>本郵件由系統自動發送，請勿回覆。</p>
+        </div>
+    </div>
+</div>
+"
+    );
 
         }
 
@@ -342,7 +368,7 @@ ORDER BY Status
                 ProductName = p.ProductName,
                 ProductPrice = p.ProductPrice,
                 OrdersQuantity = p.OrdersQuantity ?? 0,
-                TotalPrice = p.ProductPrice * (p.OrdersQuantity ?? 0),                
+                TotalPrice = p.ProductPrice * (p.OrdersQuantity ?? 0),
                 ProductId = p.ProductId ?? 0,
                 Status = p.Status
             }).ToList();
@@ -358,6 +384,21 @@ ORDER BY Status
                 throw new Exception($"Member with account '{account}' not found.");
 
             return member.Id;
+        }
+
+        public bool VaildateEmailByIdAndConfirmCode(RegisterDTO dto)
+        {
+            var member = _context.Members.FirstOrDefault(m => m.Id == dto.Id && m.ConfirmCode == dto.ConfirmCode);
+            return member is not null;
+        }
+
+        public void UpdateMembersConfirmCode(RegisterDTO dto)
+        {
+            var member = _context.Members.FirstOrDefault(m => m.Id == dto.Id);
+            if (member == null) return;
+            member.IsConfirmed = true;
+            member.ConfirmCode = null;
+            _context.SaveChanges();
         }
     }
 }
