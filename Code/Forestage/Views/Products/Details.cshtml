@@ -44,8 +44,7 @@
 								</div>
 								<div v-if="product.groupBuyingPrice > 0" class="pre-box">
 									<div class="short-description">
-										<p>
-											{{ product.description }}
+										<p v-html="product.description">
 										</p>
 									</div>
 									<p>
@@ -139,7 +138,7 @@
 								</ul>
 								<div class="tab-content tab-con2">
 									<div role="tabpanel" class="tab-pane active" id="home">
-										{{ product.info }}
+										<p v-html="product.info"></p>
 									</div>
 								</div>
 							</div>
@@ -170,6 +169,8 @@
 					const response = await fetch('@ViewBag.ProductUrl', { mode: 'cors' });
 					if (!response.ok) throw new Error('Failed to fetch product data.');
 					product.value = await response.json();
+					product.value.description = product.value.description.replace(/\n/g, '<br>');
+					product.value.info = product.value.info.replace(/\n/g, '<br>');
 				} catch (error) {
 					console.error('Error fetching product data:', error);
 				}
