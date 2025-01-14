@@ -175,6 +175,33 @@ namespace Forestage.Controllers
             }
         }
 
+        public IActionResult ResetPasswordByEmail(int id, string confirmCode)
+        {
+            try
+            {
+                VaildateEmailByIdAndConfirmCode(id, confirmCode);
+                var tempPassword =UpdateMembersConfirmCodeAndPassword(id, confirmCode);
+                TempData["EmailVaildatation"] = @$"密碼已重設為 {tempPassword} ，請盡速登入並修改新密碼";
+                return RedirectToAction("ChangePassword", "Members");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View();
+            }
+        }
+
+        private string UpdateMembersConfirmCodeAndPassword(int id, string confirmCode)
+        {
+            RegisterDTO dto = new RegisterDTO
+            {
+                Id = id,
+                ConfirmCode = confirmCode,
+            };
+            var tempPassword = _service.UpdateMembersConfirmCodeAndPassword(dto);
+			return tempPassword;
+        }
+
         private void UpdateMembersConfirmCode(int id, string confirmCode)
         {
             RegisterDTO dto = new RegisterDTO
@@ -221,12 +248,11 @@ namespace Forestage.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult ForgetPassword(ForgetPasswordVm model) // TODO email confirm
 		{
-			if (!ModelState.IsValid) { return View(model); }
 			try
 			{
-				VaildateEmailAndSendConfirmMail(model);
+				VaildateEmail(model);
 
-				return RedirectToAction("Login", "Members");
+				return RedirectToAction("ForgetPasswordConfirm"); 
 			}
 			catch (Exception ex)
 			{
@@ -235,14 +261,20 @@ namespace Forestage.Controllers
 			}
 		}
 
+		public IActionResult ForgetPasswordConfirm()
+        {
+            return View();
+        }
 
 
-		private void VaildateEmailAndSendConfirmMail(ForgetPasswordVm model)
+        private void VaildateEmail(ForgetPasswordVm model)
 		{
-			ForgetPasswordDTO dto = new ForgetPasswordDTO
+            string confirmCode = Guid.NewGuid().ToString("N");
+            ForgetPasswordDTO dto = new ForgetPasswordDTO
 			{
 				Email = model.Email,
-			};
+                ConfirmCode = confirmCode,
+            };
 			_service.ForgetPassword(dto);
 		}
 
