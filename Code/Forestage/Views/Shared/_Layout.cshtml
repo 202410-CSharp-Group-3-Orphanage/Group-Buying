@@ -1,23 +1,23 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"] - Forestage</title>
-	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/Forestage.styles.css" asp-append-version="true" />
-	<link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css' />
-	<link rel="stylesheet" href="~/css/animate.css" />
-	<link rel="stylesheet" href="~/css/pe-icon-7-stroke.min.css" />
-	<link rel="stylesheet" href="~/css/jquery-ui.min.css" />
-	<link rel="stylesheet" href="~/css/jquery.simpleLens.css" />
-	<link rel="stylesheet" href="~/css/meanmenu.min.css" />
-	@* 換成新版OwlCarousel2 *@
-	@* <link rel="stylesheet" href="~/css/owl.carousel.css" /> *@
-	<link rel="stylesheet" href="~/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="~/css/style.css" />
-	<link rel="stylesheet" href="~/css/responsive.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Forestage</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Forestage.styles.css" asp-append-version="true" />
+    <link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="~/css/animate.css" />
+    <link rel="stylesheet" href="~/css/pe-icon-7-stroke.min.css" />
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/css/jquery.simpleLens.css" />
+    <link rel="stylesheet" href="~/css/meanmenu.min.css" />
+    @* 換成新版OwlCarousel2 *@
+    @* <link rel="stylesheet" href="~/css/owl.carousel.css" /> *@
+    @* <link rel="stylesheet" href="~/css/font-awesome.min.css" /> *@
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/responsive.css" />
 
 	@* font-awesome *@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
@@ -145,80 +145,46 @@
 															<a class="nav-link" href="@Url.Action("Index", "Members")">會員中心</a>
 														</li>
 
-														<!-- Logout Button - Visible when logged in -->
-														<li class="nav-item">
-															<a class="nav-link" href="@Url.Action("Logout", "Members")">登出</a>
-														</li>
-													}
-													else
-													{
-														<!-- Login Button - Visible when not logged in -->
-														<li class="nav-item">
-															<a class="nav-link" href="@Url.Action("Login", "Member")">登入</a>
-														</li>
-													}
-												</ul>
-											</li>
-										</ul>
-									</nav>
-								</div>
-							</div>
-							<!-- mobile menu end -->
-							<div class="right-header re-right-header">
-								<ul>
-									<li class="re-icon tnm">
-										<a href="@Url.Action("Search", "Products")"><i class="fa fa-search" aria-hidden="true"></i><span class="color1"></span></a>
-									</li>
-									<li>
-										<a href="@Url.Action("Index", "Cart")"><i class="fa fa-shopping-cart"></i><span class="color1">2</span></a>
-										<ul class="drop-cart">
-											<li>
-												<a href="@Url.Action("Index", "Cart")"><img src="img/cart/1.png" alt="" /></a>
-												<div class="add-cart-text">
-													<p><a href="#">White Shirt</a></p>
-													<p>$50.00</p>
-												</div>
-												<div class="pro-close">
-													<i class="pe-7s-close"></i>
-												</div>
-											</li>
-											<li>
-												<a href="@Url.Action("Index", "Cart")"><img src="img/cart/2.png" alt="" /></a>
-												<div class="add-cart-text">
-													<p><a href="#">White Shirt</a></p>
-													<p>$50.00 x 2</p>
-												</div>
-												<div class="pro-close">
-													<i class="pe-7s-close"></i>
-												</div>
-											</li>
-											<li class="total-amount clearfix">
-												<span class="floatleft">總金額</span>
-												<span class="floatright"><strong>= $150.00</strong></span>
-											</li>
-											<li>
-												<div class="goto text-center">
-													<a href="@Url.Action("Index", "Cart")"><strong>前往購物車 &nbsp;<i class="pe-7s-angle-right"></i></strong></a>
-												</div>
-											</li>
-											<li class="checkout-btn text-center">
-												<a href="checkout.html">結帳!</a>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
-	<div class="container">
-		<main role="main" class="pb-3">
-			@RenderBody()
-		</main>
-	</div>
+                                                        <!-- Logout Button - Visible when logged in -->
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("Logout", "Members")">登出</a>
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <!-- Login Button - Visible when not logged in -->
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="@Url.Action("Login", "Member")">登入</a>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!-- mobile menu end -->
+                            <div class="right-header re-right-header">
+                                <ul>
+                                    <li class="re-icon tnm">
+                                        <a href="@Url.Action("Search", "Products")"><i class="fa fa-search" aria-hidden="true"></i><span class="color1"></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "Cart")"><i class="fa fa-shopping-cart"></i><span class="color1"></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
 
 	<footer class="re-footer-section">
 		<!-- footer-top area start -->
