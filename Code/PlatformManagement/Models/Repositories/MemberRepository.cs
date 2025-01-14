@@ -40,6 +40,7 @@ namespace PlatformManagement.Models.Repositories
             if (encryptedPassword == null)
                 return false;
 
+            var result = Sha256Hasher.Verify(password, encryptedPassword);
             return Sha256Hasher.Verify(password, encryptedPassword);
         }
     }

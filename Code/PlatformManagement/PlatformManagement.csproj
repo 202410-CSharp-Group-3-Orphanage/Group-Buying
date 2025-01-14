@@ -18,11 +18,15 @@
 
   <ItemGroup>
     <Folder Include="Models\EFModels\" />
+    <Folder Include="Models\EFModels\" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="MT.Security">
       <HintPath>..\Forestage\bin\Debug\MT.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="MT.Utilities">
+      <HintPath>bin\Debug\MT.Utilities.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -1,8 +1,122 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<PlatformManagement.Models.ViewModels.ShopStatusVm>
+
+@{
+	ViewData["Title"] = "商家管理";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>商家管理</h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Id)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Avatar)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Status)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Id)
+				</td>
+				<td>
+					<img src="@item.Avatar" alt="Avatar" style="width:50px; height:50px;" />
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Name)
+				</td>
+				<td>
+					@if (item.Status == 0)
+					{
+						<span class="status text-danger">停用</span>
+					}
+					else if (item.Status == 1)
+					{
+						<span class="status text-success">啟用</span>
+					}
+				</td>
+				<td>
+					@if (item.Status == 1)
+					{
+						<button class="btn btn-outline-danger change-status"
+								data-id="@item.Id"
+								data-status="0">
+							停用
+						</button>
+					}
+					else if (item.Status == 0)
+					{
+						<button class="btn btn-outline-success change-status"
+								data-id="@item.Id"
+								data-status="1">
+							啟用
+						</button>
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		// Add click event listener for buttons with class "change-status"
+		document.querySelectorAll('.change-status').forEach(button => {
+			button.addEventListener('click', function () {
+				const shopId = this.getAttribute('data-id');
+				const newStatus = this.getAttribute('data-status') === '1';
+
+				Swal.fire({
+					title: '確定要執行此操作嗎？',
+					text: newStatus ? '啟用該商家' : '停用該商家',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '確定',
+					cancelButtonText: '取消'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						// Send POST request
+						fetch('api/ShopsApi/ChangeStatus', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+								'X-CSRF-TOKEN': '@Html.AntiForgeryToken()' // Ensure CSRF token is included
+							},
+							body: JSON.stringify({ id: shopId, status: newStatus })
+						})
+						.then(response => response.json())
+						.then(data => {
+							if (data.success) {
+								Swal.fire(
+									'操作成功!',
+									newStatus ? '商家已啟用' : '商家已停用',
+									'success'
+								).then(() => location.reload()); // Reload page after success
+							} else {
+								Swal.fire('操作失敗', '無法更改商家狀態', 'error');
+							}
+						})
+						.catch(error => {
+							Swal.fire('錯誤', '請求失敗，請稍後再試', 'error');
+						});
+					}
+				});
+			});
+		});
+	});
+</script>
