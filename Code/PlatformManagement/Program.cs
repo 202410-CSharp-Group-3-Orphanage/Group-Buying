@@ -1,3 +1,7 @@
+using Microsoft.Data.SqlClient;
+using PlatformManagement.Models.Repositories;
+using PlatformManagement.Models.Service;
+
 namespace PlatformManagement
 {
     public class Program
@@ -8,6 +12,23 @@ namespace PlatformManagement
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<MemberService>();
+            builder.Services.AddScoped<SqlConnection>(provider =>
+            {
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                return new SqlConnection(connectionString);
+            });
+            
+            builder.Services.AddScoped<MemberRepository>();
+
+            builder.Services.AddAuthentication("Cookies")
+    .AddCookie("Cookies", options =>
+    {
+        options.LoginPath = "/Members/Login";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    });
 
             var app = builder.Build();
 
@@ -23,7 +44,7 @@ namespace PlatformManagement
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

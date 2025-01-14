@@ -20,7 +20,7 @@ namespace PlatformManagement.Models.Repositories
         {
             const string sql = @"
             SELECT TOP 1 1
-            FROM Members
+            FROM Employees
             WHERE Account = @Account";
 
             var exists = _sqlConnection.QueryFirstOrDefault<int?>(sql, new { Account = account });
@@ -32,7 +32,7 @@ namespace PlatformManagement.Models.Repositories
         {
             const string sql = @"
             SELECT EncryptedPassword
-            FROM Members
+            FROM Employees
             WHERE Account = @Account";
 
             var encryptedPassword = _sqlConnection.QueryFirstOrDefault<string>(sql, new { Account = account });
