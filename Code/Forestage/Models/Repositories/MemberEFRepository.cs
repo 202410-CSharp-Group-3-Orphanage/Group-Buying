@@ -9,6 +9,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using MT.Security.Hashing;
+using System.Text;
 using static Forestage.Controllers.MembersController;
 
 namespace Forestage.Models.Repositories
@@ -155,25 +156,51 @@ namespace Forestage.Models.Repositories
             return true;
         }
 
-        public void SendConfirmMail(string email) // TODO
+        public static string GetRandomPassword(int length)
         {
-            var member = _context.Members.FirstOrDefault(m => m.Email == email);
+            const string chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-            // 生成驗證碼
-            var confirmCode = Guid.NewGuid().ToString("N");
-            member.ConfirmCode = confirmCode;
+            StringBuilder sb = new StringBuilder();
+            Random rnd = new Random();
+
+            for (int i = 0; i < length; i++)
+            {
+                int index = rnd.Next(chars.Length);
+                sb.Append(chars[index]);
+            }
+
+            return sb.ToString();
+        }
+        public void SendConfirmMail(ForgetPasswordDTO dto) // TODO
+        {
+            var member = _context.Members.FirstOrDefault(m => m.Email == dto.Email);
+            if (member == null) return;
+            member.ConfirmCode = dto.ConfirmCode;
+            member.IsConfirmed = false;
             _context.SaveChanges();
-
-            // 生成驗證信 URL
-            string resetPasswordUrl = $"https://localhost:7203/ResetPassword?email={email}&code={confirmCode}";
-
-            // 發送郵件            
-            string subject = "重設密碼驗證信";
-            string body = $@"
-        <p>您好，請點擊以下連結重設您的密碼：</p>
-        <p><a href='{resetPasswordUrl}'>重設密碼</a></p>
-        <p>此連結將於 10 分鐘後失效。</p>";
-            _emailService.SendEmail(email, subject, body);
+            _emailService.SendEmail(
+                recipientEmail: member.Email,
+                subject: "重設密碼，請驗證信箱",
+                body: @$"
+<div style=""font-family: 'Arial', sans-serif; background-color: #f2f2f2; padding: 20px;"">
+    <div style=""max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px;"">
+        <div style=""background-color: black; color: white; padding: 10px; text-align: center; border-radius: 8px 8px 0 0;"">
+            <h2>您的驗證連結</h2>
+        </div>
+        <div style=""padding: 20px; text-align: left; font-size: 16px; color: blue;"">
+            <p>親愛的用戶您好，</p>
+            <p>感謝您註冊我們的服務。為了確保您的帳戶安全，
+			<br>請點選下方連結，盡速重設密碼</p>
+            <div style=""background-color: #f0f0f0; padding: 20px; font-size: 16px; font-weight: bold; text-align: center; color: #333333; border-radius: 4px; margin: 20px 0;"">
+                <a href=""https://localhost:7203/Members/ResetPasswordByEmail?id={member.Id}&confirmCode={member.ConfirmCode}"" style=""text-decoration: none; color: #4CAF50;"">點擊此處進行驗證</a>
+            </div>
+        </div>
+        <div style=""text-align: center; color: #777777; font-size: 14px; margin-top: 20px;"">
+            <p>本郵件由系統自動發送，請勿回覆。</p>
+        </div>
+    </div>
+</div>
+");
         }
 
 
@@ -399,6 +426,19 @@ ORDER BY Status
             member.IsConfirmed = true;
             member.ConfirmCode = null;
             _context.SaveChanges();
+        }
+
+        public string UpdateMembersConfirmCodeAndPassword(RegisterDTO dto)
+        {
+            var member = _context.Members.FirstOrDefault(m => m.Id == dto.Id && m.ConfirmCode == dto.ConfirmCode);
+            
+            string tempPassword = GetRandomPassword(10);
+            member.EncryptedPassword = Sha256Hasher.ComputeHash(tempPassword, Sha256Hasher.GetSalt());
+            member.IsConfirmed = true;
+            member.ConfirmCode = null;
+            _context.SaveChanges();
+            
+            return tempPassword;
         }
     }
 }

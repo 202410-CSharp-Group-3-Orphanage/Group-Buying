@@ -49,7 +49,7 @@ namespace Forestage.Models.Services
             }
             else
             {
-                _repo.SendConfirmMail(dto.Email);
+                _repo.SendConfirmMail(dto);
             }
         }
 
@@ -111,6 +111,12 @@ namespace Forestage.Models.Services
         public void UpdateMembersConfirmCode(RegisterDTO dto)
         {
             _repo.UpdateMembersConfirmCode(dto);
+        }
+
+        public string UpdateMembersConfirmCodeAndPassword(RegisterDTO dto)
+        {
+            var tempPassword = _repo.UpdateMembersConfirmCodeAndPassword(dto);
+            return tempPassword;
         }
     }
 }
