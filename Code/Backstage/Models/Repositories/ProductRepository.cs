@@ -187,7 +187,9 @@ namespace Backstage.Models.Repositories
         {
             var products = _context.GroupBuyings
         .Include(gb => gb.Product) 
-        .Where(gb => gb.EndDate > DateTime.Now && gb.Enabled).Where(gb => gb.Product.ShopId == id)
+        //.Where(gb => gb.EndDate > DateTime.Now && gb.Enabled)
+		.Where(gb => gb.Enabled)
+        .Where(gb => gb.Product.ShopId == id)
         .Select(gb => new 
         {            
             ProductImage = gb.Product.ProductImages.FirstOrDefault().Path ,
