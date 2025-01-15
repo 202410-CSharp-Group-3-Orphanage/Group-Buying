@@ -24,8 +24,12 @@ namespace PlatformManagement.Controllers
 		public IActionResult Index()
 		{
 			var shops = _context.Shops.AsNoTracking().ToList();
-			IEnumerable<ShopStatusVm> shopVm = ObjectMapper.MapCollection<Shop, ShopStatusVm>(shops);
-			return View(shopVm);
+			List<ShopStatusVm> shopVms = ObjectMapper.MapCollection<Shop, ShopStatusVm>(shops).ToList();
+			foreach (var shopVm in shopVms)
+			{
+				shopVm.Avatar = "https://localhost:44385/Files/Shops/" + shopVm.Avatar;
+			}
+			return View(shopVms);
 		}
 
 		public IActionResult Privacy()

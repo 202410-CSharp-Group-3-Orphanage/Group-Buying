@@ -141,7 +141,7 @@ namespace Backstage.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut(); // 登出並清除 cookie
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Members");
         }
     }
 }

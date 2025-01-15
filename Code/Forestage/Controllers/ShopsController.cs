@@ -10,73 +10,77 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Forestage.Controllers
 {
-    public class ShopsController : Controller
-    {
-        private readonly ShopService _shopService;
+	public class ShopsController : Controller
+	{
+		private readonly ShopService _shopService;
+		private readonly AppDbContext _context;
 
-        public ShopsController(ShopService shopService)
-        {
-            _shopService = shopService;
-        }
+		public ShopsController(ShopService shopService, AppDbContext context)
+		{
+			_shopService = shopService;
+			_context = context;
+		}
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+		public IActionResult Index()
+		{
+			return View();
+		}
 
-        public IActionResult Details(int id, int pageNumber = 1, string SortOption = "")
-        {
-            if (id <= 0)
-            {
-                return BadRequest("無效的商家 ID");
-            }
+		public IActionResult Details(int id, int pageNumber = 1, string SortOption = "")
+		{
+			var shop = _context.Shops.SingleOrDefault(x => x.Id == id && x.Status == 1);
 
-            string columnName = "CreatedAt"; 
-            string direction = "Desc";      
+			if (id <= 0 || shop == null)
+			{
+				return View("NotFound");
+			}
 
-            if (!string.IsNullOrEmpty(SortOption))
-            {
-                string[] parts = SortOption.Split('-');
-                if (parts.Length == 2)
-                {
-                    columnName = parts[0];
-                    direction = parts[1];
-                }
-            }
+			string columnName = "CreatedAt";
+			string direction = "Desc";
 
-            ViewBag.SortOption = SortOption;
+			if (!string.IsNullOrEmpty(SortOption))
+			{
+				string[] parts = SortOption.Split('-');
+				if (parts.Length == 2)
+				{
+					columnName = parts[0];
+					direction = parts[1];
+				}
+			}
 
-            var sortInfo = new SortInfo<ProductBlockDto>(columnName, direction);
+			ViewBag.SortOption = SortOption;
 
-            var shopInfoDto = _shopService.GetShopInfoWithProducts(id, pageNumber, sortInfo);
+			var sortInfo = new SortInfo<ProductBlockDto>(columnName, direction);
 
-            if(shopInfoDto == null)
-            {
-                return NotFound("找不到該商家");
-            }
+			var shopInfoDto = _shopService.GetShopInfoWithProducts(id, pageNumber, sortInfo);
 
-            var productVms = shopInfoDto.Products.Items.Select(p => new ProductBlockVm 
-            {
-                Id = p.Id,
-                ProductName = p.ProductName,
-                ProductPrice = p.ProductPrice,
-                ImagePaths = p.ImagePaths,
-                ProductLink = p.ProductLink,
-                CreatedAt = p.CreatedAt
-            }).ToList();
+			if (shopInfoDto == null)
+			{
+				return View("NotFound");
+			}
 
-            var model = new ShopInfoVm
-            {
-                Name = shopInfoDto.Name,
-                Avatar = shopInfoDto.Avatar,
-                Address = shopInfoDto.Address,
-                ProductCount = shopInfoDto.ProductCount,
-                Products = new PagedList<ProductBlockVm, SortInfo<ProductBlockDto>>(productVms, pageNumber, shopInfoDto.Products.PageSize, shopInfoDto.Products.TotalCount, sortInfo),
-                PageNumber = pageNumber,
-                TotalPages = shopInfoDto.Products.TotalPages,
-            };
+			var productVms = shopInfoDto.Products.Items.Select(p => new ProductBlockVm
+			{
+				Id = p.Id,
+				ProductName = p.ProductName,
+				ProductPrice = p.ProductPrice,
+				ImagePaths = p.ImagePaths,
+				ProductLink = p.ProductLink,
+				CreatedAt = p.CreatedAt
+			}).ToList();
 
-            return View(model);
-        }
-    }
+			var model = new ShopInfoVm
+			{
+				Name = shopInfoDto.Name,
+				Avatar = shopInfoDto.Avatar,
+				Address = shopInfoDto.Address,
+				ProductCount = shopInfoDto.ProductCount,
+				Products = new PagedList<ProductBlockVm, SortInfo<ProductBlockDto>>(productVms, pageNumber, shopInfoDto.Products.PageSize, shopInfoDto.Products.TotalCount, sortInfo),
+				PageNumber = pageNumber,
+				TotalPages = shopInfoDto.Products.TotalPages,
+			};
+
+			return View(model);
+		}
+	}
 }
