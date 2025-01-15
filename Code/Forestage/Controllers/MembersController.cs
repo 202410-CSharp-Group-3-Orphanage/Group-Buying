@@ -149,7 +149,7 @@ namespace Forestage.Controllers
             }
         }
 
-        public IActionResult ResetPasswordByEmail(int id, string confirmCode)
+        public IActionResult ResetPasswordFromEmail(int id, string confirmCode)
         {
             try
             {
@@ -180,7 +180,7 @@ namespace Forestage.Controllers
                     NewPassword = model.Password,
                 };
                 _service.ResetPasswordFromEmailWithoutLogin(dto);
-                TempData["EmailVaildatation"] = "請盡速修改密碼";
+                TempData["EmailVaildatation"] = "已成功修改密碼";
                 return RedirectToAction("Login", "Members");
             }
             catch (Exception ex)
@@ -275,25 +275,26 @@ namespace Forestage.Controllers
 			_service.ForgetPassword(dto);
 		}
 
-		public IActionResult ResetPassword(string email, string confirmCode, ResetPasswordVm model)  // TODO email confirm
-		{
-			try
-			{
-				VaildateEmailAndConfirmCode(email, confirmCode);
-				ResetPasswordFromEmail(model);
-				return RedirectToAction("Login", "Members");
-			}
-			catch (Exception ex)
-			{
-				ModelState.AddModelError("", ex.Message);
-				return View();
-			}
-		}
+		//public IActionResult ResetPassword(string email, string confirmCode, ResetPasswordVm model)  // TODO email confirm
+		//{
+		//	try
+		//	{
+		//		VaildateEmailAndConfirmCode(email, confirmCode);
+		//		ResetPasswordFromEmail(model);
+		//		return RedirectToAction("Login", "Members");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		ModelState.AddModelError("", ex.Message);
+		//		return View();
+		//	}
+		//}
 
-		private void ResetPasswordFromEmail(ResetPasswordVm model)
+		private void ResetPasswordFromEmail(int id , string confirmCode,ResetPasswordVm model)
 		{
 			ForgetPasswordDTO dto = new ForgetPasswordDTO
 			{
+				Id = id,
 				Password = model.Password,
 			};
 			_service.ResetPasswordFromEmail(dto);
@@ -325,7 +326,8 @@ namespace Forestage.Controllers
 			try
 			{
 				VaildateChangePassword(model);
-				return RedirectToAction("Index", "Members");
+                TempData["EmailVaildatation"] = "密碼已修改！";
+                return RedirectToAction("Index", "Members");
 			}
 			catch (Exception ex)
 			{
@@ -363,7 +365,8 @@ namespace Forestage.Controllers
 			try
 			{
 				VaildateModifyPersonalInformation(model);
-				return RedirectToAction("Index", "Members");
+                TempData["EmailVaildatation"] = "個人資料已修改！";
+                return RedirectToAction("Index", "Members");
 			}
 			catch (Exception ex)
 			{
