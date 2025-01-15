@@ -111,7 +111,7 @@ JOIN
      JOIN Categories c ON p.CategoryId = c.Id
      JOIN GroupBuyings gb ON gb.ProductId = p.Id
      AND gb.Enabled = 1
-     JOIN Orders o ON o.GroupBuyingId = gb.Id
+     left outer JOIN Orders o ON o.GroupBuyingId = gb.Id
      AND o.Status = {(int)OrderStatus.PickedUp}
      AND o.CreatedAt >= DATEADD(MONTH, -1, GETDATE())
      GROUP BY p.Id
