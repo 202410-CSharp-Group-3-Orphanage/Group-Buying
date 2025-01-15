@@ -169,7 +169,9 @@
 					const response = await fetch('@ViewBag.ProductUrl', { mode: 'cors' });
 					if (!response.ok) throw new Error('Failed to fetch product data.');
 					product.value = await response.json();
-					product.value.description = product.value.description.replace(/\n/g, '<br>');
+					if (product.value.description){
+						product.value.description = product.value.description.replace(/\n/g, '<br>');
+					}
 					product.value.info = product.value.info.replace(/\n/g, '<br>');
 				} catch (error) {
 					console.error('Error fetching product data:', error);

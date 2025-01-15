@@ -367,7 +367,7 @@ FROM GroupBuyings gb
 INNER JOIN Products p ON gb.ProductId = p.Id
 INNER JOIN Orders o ON o.GroupBuyingId = gb.Id
 AND o.MemberId = @MemberId
-AND gb.Enabled = 1 
+--AND gb.Enabled = 1 
 WHERE o.Status != 0
 AND o.Status != 1
 
