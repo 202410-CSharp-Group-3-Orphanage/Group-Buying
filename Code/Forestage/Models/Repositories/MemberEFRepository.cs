@@ -284,8 +284,9 @@ gb.ProductId AS ProductId
 FROM GroupBuyings gb
 INNER JOIN Products p ON gb.ProductId = p.Id
 INNER JOIN Orders o ON o.GroupBuyingId = gb.Id
-WHERE gb.EndDate > @CurrentDate 
-AND gb.Enabled = 1 
+--WHERE gb.EndDate > @CurrentDate 
+--AND gb.Enabled = 1 
+WHERE gb.Enabled = 1 
 AND o.Status = 1
 AND EXISTS (SELECT 1 FROM Orders o4 WHERE o4.GroupBuyingId = gb.Id AND o4.MemberId = @MemberId)
 AND (@ProductName IS NULL OR p.Name LIKE '%' + @ProductName + '%')

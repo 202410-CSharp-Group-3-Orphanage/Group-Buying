@@ -100,8 +100,8 @@
                                                 <form asp-action="CancelGroupbuyingOrder" method="post" style="display: inline;">
                                                     <input type="hidden" name="groupBuyingId" value="@item.GroupBuyingId" />
                                                     <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('確定要取消參團嗎？')"
-                                                    @(DateTime.Now > item.EndDate ? "disabled" : "")>
+                                                            onclick="return confirm('確定要取消參團嗎？')">
+                                                    @* @(DateTime.Now > item.EndDate ? "disabled" : "")> *@
                                                         取消參團
                                                     </button>
                                                 </form>
