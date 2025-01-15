@@ -113,10 +113,10 @@ namespace Forestage.Models.Services
             _repo.UpdateMembersConfirmCode(dto);
         }
 
-        public string UpdateMembersConfirmCodeAndPassword(RegisterDTO dto)
+        public void ResetPasswordFromEmailWithoutLogin(ChangePasswordDTO dto)
         {
-            var tempPassword = _repo.UpdateMembersConfirmCodeAndPassword(dto);
-            return tempPassword;
+
+            _repo.ResetPasswordFromEmailWithoutLogin(dto);
         }
     }
 }

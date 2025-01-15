@@ -3,6 +3,7 @@ using Forestage.Common;
 using Forestage.Models.Dtos.Members;
 using Forestage.Models.EFModels;
 using Forestage.Models.Services;
+using Forestage.Models.ViewModels;
 using Forestage.Models.ViewModels.Members;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.Data.SqlClient;
@@ -192,7 +193,7 @@ namespace Forestage.Models.Repositories
             <p>感謝您註冊我們的服務。為了確保您的帳戶安全，
 			<br>請點選下方連結，盡速重設密碼</p>
             <div style=""background-color: #f0f0f0; padding: 20px; font-size: 16px; font-weight: bold; text-align: center; color: #333333; border-radius: 4px; margin: 20px 0;"">
-                <a href=""https://localhost:7203/Members/ResetPasswordByEmail?id={member.Id}&confirmCode={member.ConfirmCode}"" style=""text-decoration: none; color: #4CAF50;"">點擊此處進行驗證</a>
+                <a href=""https://localhost:7203/Members/ResetPasswordFromEmail?id={member.Id}&confirmCode={member.ConfirmCode}"" style=""text-decoration: none; color: #4CAF50;"">點擊此處進行驗證</a>
             </div>
         </div>
         <div style=""text-align: center; color: #777777; font-size: 14px; margin-top: 20px;"">
@@ -244,7 +245,7 @@ namespace Forestage.Models.Repositories
 
         public void UpdatePasswordFromEmail(ForgetPasswordDTO dto)
         {
-            var member = _context.Members.FirstOrDefault(m => m.Email == dto.Email);
+            var member = _context.Members.FirstOrDefault(m => m.Id == dto.Id);
             member.EncryptedPassword = Sha256Hasher.ComputeHash(dto.Password, Sha256Hasher.GetSalt());
             _context.SaveChanges();
         }
@@ -428,17 +429,12 @@ ORDER BY Status
             _context.SaveChanges();
         }
 
-        public string UpdateMembersConfirmCodeAndPassword(RegisterDTO dto)
+        public void ResetPasswordFromEmailWithoutLogin(ChangePasswordDTO dto)
         {
-            var member = _context.Members.FirstOrDefault(m => m.Id == dto.Id && m.ConfirmCode == dto.ConfirmCode);
-            
-            string tempPassword = GetRandomPassword(10);
-            member.EncryptedPassword = Sha256Hasher.ComputeHash(tempPassword, Sha256Hasher.GetSalt());
-            member.IsConfirmed = true;
-            member.ConfirmCode = null;
+            var member = _context.Members.FirstOrDefault(m => m.Id == dto.Id);
+            if (member == null) return;
+            member.EncryptedPassword = Sha256Hasher.ComputeHash(dto.NewPassword, Sha256Hasher.GetSalt());
             _context.SaveChanges();
-            
-            return tempPassword;
         }
     }
 }

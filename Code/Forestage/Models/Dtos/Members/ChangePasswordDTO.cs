@@ -2,6 +2,7 @@
 {
     public class ChangePasswordDTO
     {
+        public int Id { get; set; }
         public string Account { get; set; }
         public string OldPassword { get; set; }
 

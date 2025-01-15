@@ -6,6 +6,15 @@
     <div class="text-center">
         <h2 class="my-4">會員中心</h2>
         <div class="row justify-content-center">
+            @{
+                var Message = TempData["EmailVaildatation"] as string;
+            }
+            @if (!string.IsNullOrEmpty(Message))
+            {
+                <div class="alert alert-success">
+                    @Message
+                </div>
+            }
             <!-- ChangePassword Button -->
             <div class="col-md-2 mb-3">
                 <a class="btn btn-lg btn-secondary w-100" href="@Url.Action("ChangePassword", "Members")">
